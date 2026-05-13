@@ -1,0 +1,11 @@
+{
+  "name": "@webhook/automator",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.12.18"
+  }
+}

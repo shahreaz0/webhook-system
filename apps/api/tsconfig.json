@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "package.json": ["./package.json"]
+    }
+  },
+  "include": ["src/**/*", "play.ts", "package.json"]
+}
