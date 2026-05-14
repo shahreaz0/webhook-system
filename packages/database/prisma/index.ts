@@ -1,4 +1,5 @@
 import path from "node:path";
+import { logger } from "@webhook/api/src/lib/logger";
 import dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(process.cwd(), "../../.env") });
@@ -24,10 +25,10 @@ if (process.env.NODE_ENV !== "production") {
 export async function checkDbConnection() {
   try {
     await prisma.$queryRaw`SELECT 1`;
-    console.log("✅ Database connected!");
+    logger.info("Database connected!");
     return true;
   } catch (error) {
-    console.error("❌ Database connection failed:", error);
+    logger.error(error);
     return false;
   }
 }
