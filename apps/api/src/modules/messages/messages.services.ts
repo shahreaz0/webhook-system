@@ -20,26 +20,6 @@ export async function deliverMessage(
   const startTime = Date.now();
 
   try {
-    // Check circuit breaker
-    // const allowed = await shouldAllowRequest(wh.id);
-
-    // if (!allowed) {
-    //   logger.warn(
-    //     `Circuit breaker OPEN for webhook ${wh.id}, skipping delivery`
-    //   );
-
-    //   await prisma.messageDelivery.create({
-    //     data: {
-    //       messageId: message.id,
-    //       webhookId: wh.id,
-    //       status: "SKIPPED",
-    //       lastError: "Circuit breaker open - too many failures",
-    //     },
-    //   });
-
-    //   throw new Error("Circuit breaker open");
-    // }
-
     // Check rate limit
     const rateLimit = await checkRateLimit(wh.id, wh.rateLimit);
 
@@ -48,11 +28,24 @@ export async function deliverMessage(
         `Rate limit exceeded for webhook ${wh.id}, retry after ${new Date(rateLimit.resetAt).toISOString()}`
       );
 
-      await prisma.messageDelivery.create({
-        data: {
+      await prisma.messageDelivery.upsert({
+        where: {
+          messageId_webhookId: {
+            messageId: message.id,
+            webhookId: wh.id,
+          },
+        },
+        update: {
+          status: "SKIPPED",
+          attempts: { increment: 1 },
+          lastError: `Rate limit exceeded, retry after ${new Date(rateLimit.resetAt).toISOString()}`,
+          nextRetryAt: new Date(rateLimit.resetAt),
+        },
+        create: {
           messageId: message.id,
           webhookId: wh.id,
           status: "SKIPPED",
+          attempts: 1,
           lastError: `Rate limit exceeded, retry after ${new Date(rateLimit.resetAt).toISOString()}`,
           nextRetryAt: new Date(rateLimit.resetAt),
         },
@@ -70,7 +63,7 @@ export async function deliverMessage(
         data: message.payload,
       },
       headers: {
-        "x-webhook-secret": wh.secrets,
+        "x-webhook-secret": wh.secret,
       },
     });
 
@@ -81,11 +74,25 @@ export async function deliverMessage(
     // Record success
     // await recordSuccess(wh.id);
 
-    await prisma.messageDelivery.create({
-      data: {
+    await prisma.messageDelivery.upsert({
+      where: {
+        messageId_webhookId: {
+          messageId: message.id,
+          webhookId: wh.id,
+        },
+      },
+      update: {
+        status: "DELIVERED",
+        attempts: { increment: 1 },
+        deliveredAt: new Date(),
+        lastError: null,
+        nextRetryAt: null,
+      },
+      create: {
         messageId: message.id,
         webhookId: wh.id,
         status: "DELIVERED",
+        attempts: 1,
         deliveredAt: new Date(),
       },
     });
@@ -113,12 +120,25 @@ export async function deliverMessage(
     const isRateLimitError = errorMessage.includes("Rate limit");
 
     if (!(isCircuitBreakerError || isRateLimitError)) {
-      await prisma.messageDelivery.create({
-        data: {
+      await prisma.messageDelivery.upsert({
+        where: {
+          messageId_webhookId: {
+            messageId: message.id,
+            webhookId: wh.id,
+          },
+        },
+        update: {
+          status: "FAILED",
+          attempts: { increment: 1 },
+          lastError: errorMessage.slice(0, 500),
+          nextRetryAt: null,
+        },
+        create: {
           messageId: message.id,
           webhookId: wh.id,
           status: "FAILED",
-          lastError: errorMessage.slice(0, 500), // Limit error message length
+          attempts: 1,
+          lastError: errorMessage.slice(0, 500),
         },
       });
     }

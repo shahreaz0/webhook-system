@@ -28,7 +28,7 @@ export function createApp() {
   app.use("/users/*", auth());
   app.use("/applications/*", auth());
   app.use("/sessions/*", auth());
-  app.use("/app-users/*", auth());
+  app.use("/subscribers/*", auth());
   app.use("/event-types/*", auth());
   app.use("/messages/*", auth());
   app.use("/webhooks/*", auth());

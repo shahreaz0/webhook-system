@@ -11,11 +11,11 @@ import type {
   ListRoute,
   PatchRoute,
   RemoveRoute,
-} from "./app-users.routes";
-import { AppUserSchema } from "./app-users.schemas";
+} from "./subscribers.routes";
+import { SubscriberSchema } from "./subscribers.schemas";
 
 // ----------------------------
-// List AppUsers
+// List Subscribers
 // ----------------------------
 export const list: AppRouteHandler<ListRoute> = async (c) => {
   const jwt = c.get("jwtPayload");
@@ -34,13 +34,13 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
   }
 
   // Build where clause
-  const where: Prisma.AppUserWhereInput = {
+  const where: Prisma.SubscriberWhereInput = {
     applicationId: params.applicationId,
   };
   if (query.search) {
     where.OR = [
       { email: { contains: query.search, mode: "insensitive" } },
-      { userId: { contains: query.search, mode: "insensitive" } },
+      { referenceId: { contains: query.search, mode: "insensitive" } },
     ];
   }
 
@@ -51,18 +51,18 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
   );
   const pagination = buildPagination(query.page, query.perPage);
 
-  const appUsers = await prisma.appUser.findMany({
+  const subscribers = await prisma.subscriber.findMany({
     where,
     orderBy,
     ...pagination,
   });
 
-  const parsed = z.array(AppUserSchema).parse(appUsers);
+  const parsed = z.array(SubscriberSchema).parse(subscribers);
   return c.json({ success: true, data: parsed });
 };
 
 // ----------------------------
-// Create AppUser
+// Create Subscriber
 // ----------------------------
 export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
   const jwt = c.get("jwtPayload");
@@ -78,14 +78,14 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
       cause: { success: false },
     });
   }
-  const created = await prisma.appUser.create({
+  const created = await prisma.subscriber.create({
     data: { ...body, applicationId: params.applicationId },
   });
   return c.json({ success: true, data: created }, 201);
 };
 
 // ----------------------------
-// Get One AppUser
+// Get One Subscriber
 // ----------------------------
 export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   const jwt = c.get("jwtPayload");
@@ -100,24 +100,24 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
       cause: { success: false },
     });
   }
-  const appUser = await prisma.appUser.findFirst({
-    where: { applicationId: params.applicationId, id: params.appUserId },
+  const subscriber = await prisma.subscriber.findFirst({
+    where: { applicationId: params.applicationId, id: params.subscriberId },
     include: {
       application: true,
     },
   });
 
-  if (!appUser) {
+  if (!subscriber) {
     throw new HTTPException(404, {
-      message: "AppUser not found",
+      message: "Subscriber not found",
       cause: { success: false },
     });
   }
-  return c.json({ success: true, data: appUser }, 200);
+  return c.json({ success: true, data: subscriber }, 200);
 };
 
 // ----------------------------
-// Update AppUser
+// Update Subscriber
 // ----------------------------
 export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
   const jwt = c.get("jwtPayload");
@@ -133,24 +133,24 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
       cause: { success: false },
     });
   }
-  const appUser = await prisma.appUser.findFirst({
-    where: { applicationId: params.applicationId, id: params.appUserId },
+  const subscriber = await prisma.subscriber.findFirst({
+    where: { applicationId: params.applicationId, id: params.subscriberId },
   });
-  if (!appUser) {
+  if (!subscriber) {
     throw new HTTPException(404, {
-      message: "AppUser not found",
+      message: "Subscriber not found",
       cause: { success: false },
     });
   }
-  const edited = await prisma.appUser.update({
-    where: { id: params.appUserId },
+  const edited = await prisma.subscriber.update({
+    where: { id: params.subscriberId },
     data: body,
   });
   return c.json({ success: true, data: edited }, 200);
 };
 
 // ----------------------------
-// Delete AppUser
+// Delete Subscriber
 // ----------------------------
 export const remove: RouteHandler<RemoveRoute, AppBindings> = async (c) => {
   const jwt = c.get("jwtPayload");
@@ -165,15 +165,15 @@ export const remove: RouteHandler<RemoveRoute, AppBindings> = async (c) => {
       cause: { success: false },
     });
   }
-  const appUser = await prisma.appUser.findFirst({
-    where: { applicationId: params.applicationId, id: params.appUserId },
+  const subscriber = await prisma.subscriber.findFirst({
+    where: { applicationId: params.applicationId, id: params.subscriberId },
   });
-  if (!appUser) {
+  if (!subscriber) {
     throw new HTTPException(404, {
-      message: "AppUser not found",
+      message: "Subscriber not found",
       cause: { success: false },
     });
   }
-  await prisma.appUser.delete({ where: { id: params.appUserId } });
-  return c.json({ success: true, data: { id: params.appUserId } }, 200);
+  await prisma.subscriber.delete({ where: { id: params.subscriberId } });
+  return c.json({ success: true, data: { id: params.subscriberId } }, 200);
 };

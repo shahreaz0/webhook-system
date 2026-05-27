@@ -37,12 +37,12 @@ export type WebhookSumAggregateOutputType = {
 export type WebhookMinAggregateOutputType = {
   id: string | null
   url: string | null
-  secrets: string | null
+  secret: string | null
   description: string | null
   disabled: boolean | null
   archived: boolean | null
   rateLimit: number | null
-  appUserId: string | null
+  subscriberId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -51,12 +51,12 @@ export type WebhookMinAggregateOutputType = {
 export type WebhookMaxAggregateOutputType = {
   id: string | null
   url: string | null
-  secrets: string | null
+  secret: string | null
   description: string | null
   disabled: boolean | null
   archived: boolean | null
   rateLimit: number | null
-  appUserId: string | null
+  subscriberId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -65,13 +65,13 @@ export type WebhookMaxAggregateOutputType = {
 export type WebhookCountAggregateOutputType = {
   id: number
   url: number
-  secrets: number
+  secret: number
   description: number
   disabled: number
   archived: number
   metadata: number
   rateLimit: number
-  appUserId: number
+  subscriberId: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -90,12 +90,12 @@ export type WebhookSumAggregateInputType = {
 export type WebhookMinAggregateInputType = {
   id?: true
   url?: true
-  secrets?: true
+  secret?: true
   description?: true
   disabled?: true
   archived?: true
   rateLimit?: true
-  appUserId?: true
+  subscriberId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -104,12 +104,12 @@ export type WebhookMinAggregateInputType = {
 export type WebhookMaxAggregateInputType = {
   id?: true
   url?: true
-  secrets?: true
+  secret?: true
   description?: true
   disabled?: true
   archived?: true
   rateLimit?: true
-  appUserId?: true
+  subscriberId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -118,13 +118,13 @@ export type WebhookMaxAggregateInputType = {
 export type WebhookCountAggregateInputType = {
   id?: true
   url?: true
-  secrets?: true
+  secret?: true
   description?: true
   disabled?: true
   archived?: true
   metadata?: true
   rateLimit?: true
-  appUserId?: true
+  subscriberId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -220,13 +220,13 @@ export type WebhookGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type WebhookGroupByOutputType = {
   id: string
   url: string
-  secrets: string
+  secret: string
   description: string | null
   disabled: boolean
   archived: boolean
   metadata: runtime.JsonValue | null
   rateLimit: number | null
-  appUserId: string
+  subscriberId: string
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -258,71 +258,71 @@ export type WebhookWhereInput = {
   NOT?: Prisma.WebhookWhereInput | Prisma.WebhookWhereInput[]
   id?: Prisma.StringFilter<"Webhook"> | string
   url?: Prisma.StringFilter<"Webhook"> | string
-  secrets?: Prisma.StringFilter<"Webhook"> | string
+  secret?: Prisma.StringFilter<"Webhook"> | string
   description?: Prisma.StringNullableFilter<"Webhook"> | string | null
   disabled?: Prisma.BoolFilter<"Webhook"> | boolean
   archived?: Prisma.BoolFilter<"Webhook"> | boolean
   metadata?: Prisma.JsonNullableFilter<"Webhook">
   rateLimit?: Prisma.IntNullableFilter<"Webhook"> | number | null
-  appUserId?: Prisma.StringFilter<"Webhook"> | string
+  subscriberId?: Prisma.StringFilter<"Webhook"> | string
   createdAt?: Prisma.DateTimeFilter<"Webhook"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Webhook"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Webhook"> | Date | string | null
-  appUser?: Prisma.XOR<Prisma.AppUserScalarRelationFilter, Prisma.AppUserWhereInput>
-  eventTypes?: Prisma.WebhookEventTypeListRelationFilter
+  subscriber?: Prisma.XOR<Prisma.SubscriberScalarRelationFilter, Prisma.SubscriberWhereInput>
+  webhookEventTypes?: Prisma.WebhookEventTypeListRelationFilter
   messageDeliveries?: Prisma.MessageDeliveryListRelationFilter
 }
 
 export type WebhookOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  secrets?: Prisma.SortOrder
+  secret?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   disabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   rateLimit?: Prisma.SortOrderInput | Prisma.SortOrder
-  appUserId?: Prisma.SortOrder
+  subscriberId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  appUser?: Prisma.AppUserOrderByWithRelationInput
-  eventTypes?: Prisma.WebhookEventTypeOrderByRelationAggregateInput
+  subscriber?: Prisma.SubscriberOrderByWithRelationInput
+  webhookEventTypes?: Prisma.WebhookEventTypeOrderByRelationAggregateInput
   messageDeliveries?: Prisma.MessageDeliveryOrderByRelationAggregateInput
 }
 
 export type WebhookWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  appUserId_url?: Prisma.WebhookAppUserIdUrlCompoundUniqueInput
+  subscriberId_url?: Prisma.WebhookSubscriberIdUrlCompoundUniqueInput
   AND?: Prisma.WebhookWhereInput | Prisma.WebhookWhereInput[]
   OR?: Prisma.WebhookWhereInput[]
   NOT?: Prisma.WebhookWhereInput | Prisma.WebhookWhereInput[]
   url?: Prisma.StringFilter<"Webhook"> | string
-  secrets?: Prisma.StringFilter<"Webhook"> | string
+  secret?: Prisma.StringFilter<"Webhook"> | string
   description?: Prisma.StringNullableFilter<"Webhook"> | string | null
   disabled?: Prisma.BoolFilter<"Webhook"> | boolean
   archived?: Prisma.BoolFilter<"Webhook"> | boolean
   metadata?: Prisma.JsonNullableFilter<"Webhook">
   rateLimit?: Prisma.IntNullableFilter<"Webhook"> | number | null
-  appUserId?: Prisma.StringFilter<"Webhook"> | string
+  subscriberId?: Prisma.StringFilter<"Webhook"> | string
   createdAt?: Prisma.DateTimeFilter<"Webhook"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Webhook"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Webhook"> | Date | string | null
-  appUser?: Prisma.XOR<Prisma.AppUserScalarRelationFilter, Prisma.AppUserWhereInput>
-  eventTypes?: Prisma.WebhookEventTypeListRelationFilter
+  subscriber?: Prisma.XOR<Prisma.SubscriberScalarRelationFilter, Prisma.SubscriberWhereInput>
+  webhookEventTypes?: Prisma.WebhookEventTypeListRelationFilter
   messageDeliveries?: Prisma.MessageDeliveryListRelationFilter
-}, "id" | "appUserId_url">
+}, "id" | "subscriberId_url">
 
 export type WebhookOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  secrets?: Prisma.SortOrder
+  secret?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   disabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   rateLimit?: Prisma.SortOrderInput | Prisma.SortOrder
-  appUserId?: Prisma.SortOrder
+  subscriberId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -339,13 +339,13 @@ export type WebhookScalarWhereWithAggregatesInput = {
   NOT?: Prisma.WebhookScalarWhereWithAggregatesInput | Prisma.WebhookScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Webhook"> | string
   url?: Prisma.StringWithAggregatesFilter<"Webhook"> | string
-  secrets?: Prisma.StringWithAggregatesFilter<"Webhook"> | string
+  secret?: Prisma.StringWithAggregatesFilter<"Webhook"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Webhook"> | string | null
   disabled?: Prisma.BoolWithAggregatesFilter<"Webhook"> | boolean
   archived?: Prisma.BoolWithAggregatesFilter<"Webhook"> | boolean
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"Webhook">
   rateLimit?: Prisma.IntNullableWithAggregatesFilter<"Webhook"> | number | null
-  appUserId?: Prisma.StringWithAggregatesFilter<"Webhook"> | string
+  subscriberId?: Prisma.StringWithAggregatesFilter<"Webhook"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Webhook"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Webhook"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Webhook"> | Date | string | null
@@ -354,7 +354,7 @@ export type WebhookScalarWhereWithAggregatesInput = {
 export type WebhookCreateInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
@@ -363,32 +363,32 @@ export type WebhookCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  appUser: Prisma.AppUserCreateNestedOneWithoutWebhooksInput
-  eventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutWebhookInput
+  subscriber: Prisma.SubscriberCreateNestedOneWithoutWebhooksInput
+  webhookEventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutWebhookInput
   messageDeliveries?: Prisma.MessageDeliveryCreateNestedManyWithoutWebhookInput
 }
 
 export type WebhookUncheckedCreateInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   rateLimit?: number | null
-  appUserId: string
+  subscriberId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  eventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutWebhookInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutWebhookInput
   messageDeliveries?: Prisma.MessageDeliveryUncheckedCreateNestedManyWithoutWebhookInput
 }
 
 export type WebhookUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -397,38 +397,38 @@ export type WebhookUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  appUser?: Prisma.AppUserUpdateOneRequiredWithoutWebhooksNestedInput
-  eventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutWebhookNestedInput
+  subscriber?: Prisma.SubscriberUpdateOneRequiredWithoutWebhooksNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutWebhookNestedInput
   messageDeliveries?: Prisma.MessageDeliveryUpdateManyWithoutWebhookNestedInput
 }
 
 export type WebhookUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   rateLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  eventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutWebhookNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutWebhookNestedInput
   messageDeliveries?: Prisma.MessageDeliveryUncheckedUpdateManyWithoutWebhookNestedInput
 }
 
 export type WebhookCreateManyInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   rateLimit?: number | null
-  appUserId: string
+  subscriberId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -437,7 +437,7 @@ export type WebhookCreateManyInput = {
 export type WebhookUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -451,13 +451,13 @@ export type WebhookUpdateManyMutationInput = {
 export type WebhookUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   rateLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -473,21 +473,21 @@ export type WebhookOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type WebhookAppUserIdUrlCompoundUniqueInput = {
-  appUserId: string
+export type WebhookSubscriberIdUrlCompoundUniqueInput = {
+  subscriberId: string
   url: string
 }
 
 export type WebhookCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  secrets?: Prisma.SortOrder
+  secret?: Prisma.SortOrder
   description?: Prisma.SortOrder
   disabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   rateLimit?: Prisma.SortOrder
-  appUserId?: Prisma.SortOrder
+  subscriberId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -500,12 +500,12 @@ export type WebhookAvgOrderByAggregateInput = {
 export type WebhookMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  secrets?: Prisma.SortOrder
+  secret?: Prisma.SortOrder
   description?: Prisma.SortOrder
   disabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
   rateLimit?: Prisma.SortOrder
-  appUserId?: Prisma.SortOrder
+  subscriberId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -514,12 +514,12 @@ export type WebhookMaxOrderByAggregateInput = {
 export type WebhookMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  secrets?: Prisma.SortOrder
+  secret?: Prisma.SortOrder
   description?: Prisma.SortOrder
   disabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
   rateLimit?: Prisma.SortOrder
-  appUserId?: Prisma.SortOrder
+  subscriberId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -534,45 +534,45 @@ export type WebhookScalarRelationFilter = {
   isNot?: Prisma.WebhookWhereInput
 }
 
-export type WebhookCreateNestedManyWithoutAppUserInput = {
-  create?: Prisma.XOR<Prisma.WebhookCreateWithoutAppUserInput, Prisma.WebhookUncheckedCreateWithoutAppUserInput> | Prisma.WebhookCreateWithoutAppUserInput[] | Prisma.WebhookUncheckedCreateWithoutAppUserInput[]
-  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutAppUserInput | Prisma.WebhookCreateOrConnectWithoutAppUserInput[]
-  createMany?: Prisma.WebhookCreateManyAppUserInputEnvelope
+export type WebhookCreateNestedManyWithoutSubscriberInput = {
+  create?: Prisma.XOR<Prisma.WebhookCreateWithoutSubscriberInput, Prisma.WebhookUncheckedCreateWithoutSubscriberInput> | Prisma.WebhookCreateWithoutSubscriberInput[] | Prisma.WebhookUncheckedCreateWithoutSubscriberInput[]
+  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutSubscriberInput | Prisma.WebhookCreateOrConnectWithoutSubscriberInput[]
+  createMany?: Prisma.WebhookCreateManySubscriberInputEnvelope
   connect?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
 }
 
-export type WebhookUncheckedCreateNestedManyWithoutAppUserInput = {
-  create?: Prisma.XOR<Prisma.WebhookCreateWithoutAppUserInput, Prisma.WebhookUncheckedCreateWithoutAppUserInput> | Prisma.WebhookCreateWithoutAppUserInput[] | Prisma.WebhookUncheckedCreateWithoutAppUserInput[]
-  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutAppUserInput | Prisma.WebhookCreateOrConnectWithoutAppUserInput[]
-  createMany?: Prisma.WebhookCreateManyAppUserInputEnvelope
+export type WebhookUncheckedCreateNestedManyWithoutSubscriberInput = {
+  create?: Prisma.XOR<Prisma.WebhookCreateWithoutSubscriberInput, Prisma.WebhookUncheckedCreateWithoutSubscriberInput> | Prisma.WebhookCreateWithoutSubscriberInput[] | Prisma.WebhookUncheckedCreateWithoutSubscriberInput[]
+  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutSubscriberInput | Prisma.WebhookCreateOrConnectWithoutSubscriberInput[]
+  createMany?: Prisma.WebhookCreateManySubscriberInputEnvelope
   connect?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
 }
 
-export type WebhookUpdateManyWithoutAppUserNestedInput = {
-  create?: Prisma.XOR<Prisma.WebhookCreateWithoutAppUserInput, Prisma.WebhookUncheckedCreateWithoutAppUserInput> | Prisma.WebhookCreateWithoutAppUserInput[] | Prisma.WebhookUncheckedCreateWithoutAppUserInput[]
-  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutAppUserInput | Prisma.WebhookCreateOrConnectWithoutAppUserInput[]
-  upsert?: Prisma.WebhookUpsertWithWhereUniqueWithoutAppUserInput | Prisma.WebhookUpsertWithWhereUniqueWithoutAppUserInput[]
-  createMany?: Prisma.WebhookCreateManyAppUserInputEnvelope
+export type WebhookUpdateManyWithoutSubscriberNestedInput = {
+  create?: Prisma.XOR<Prisma.WebhookCreateWithoutSubscriberInput, Prisma.WebhookUncheckedCreateWithoutSubscriberInput> | Prisma.WebhookCreateWithoutSubscriberInput[] | Prisma.WebhookUncheckedCreateWithoutSubscriberInput[]
+  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutSubscriberInput | Prisma.WebhookCreateOrConnectWithoutSubscriberInput[]
+  upsert?: Prisma.WebhookUpsertWithWhereUniqueWithoutSubscriberInput | Prisma.WebhookUpsertWithWhereUniqueWithoutSubscriberInput[]
+  createMany?: Prisma.WebhookCreateManySubscriberInputEnvelope
   set?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
   disconnect?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
   delete?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
   connect?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
-  update?: Prisma.WebhookUpdateWithWhereUniqueWithoutAppUserInput | Prisma.WebhookUpdateWithWhereUniqueWithoutAppUserInput[]
-  updateMany?: Prisma.WebhookUpdateManyWithWhereWithoutAppUserInput | Prisma.WebhookUpdateManyWithWhereWithoutAppUserInput[]
+  update?: Prisma.WebhookUpdateWithWhereUniqueWithoutSubscriberInput | Prisma.WebhookUpdateWithWhereUniqueWithoutSubscriberInput[]
+  updateMany?: Prisma.WebhookUpdateManyWithWhereWithoutSubscriberInput | Prisma.WebhookUpdateManyWithWhereWithoutSubscriberInput[]
   deleteMany?: Prisma.WebhookScalarWhereInput | Prisma.WebhookScalarWhereInput[]
 }
 
-export type WebhookUncheckedUpdateManyWithoutAppUserNestedInput = {
-  create?: Prisma.XOR<Prisma.WebhookCreateWithoutAppUserInput, Prisma.WebhookUncheckedCreateWithoutAppUserInput> | Prisma.WebhookCreateWithoutAppUserInput[] | Prisma.WebhookUncheckedCreateWithoutAppUserInput[]
-  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutAppUserInput | Prisma.WebhookCreateOrConnectWithoutAppUserInput[]
-  upsert?: Prisma.WebhookUpsertWithWhereUniqueWithoutAppUserInput | Prisma.WebhookUpsertWithWhereUniqueWithoutAppUserInput[]
-  createMany?: Prisma.WebhookCreateManyAppUserInputEnvelope
+export type WebhookUncheckedUpdateManyWithoutSubscriberNestedInput = {
+  create?: Prisma.XOR<Prisma.WebhookCreateWithoutSubscriberInput, Prisma.WebhookUncheckedCreateWithoutSubscriberInput> | Prisma.WebhookCreateWithoutSubscriberInput[] | Prisma.WebhookUncheckedCreateWithoutSubscriberInput[]
+  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutSubscriberInput | Prisma.WebhookCreateOrConnectWithoutSubscriberInput[]
+  upsert?: Prisma.WebhookUpsertWithWhereUniqueWithoutSubscriberInput | Prisma.WebhookUpsertWithWhereUniqueWithoutSubscriberInput[]
+  createMany?: Prisma.WebhookCreateManySubscriberInputEnvelope
   set?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
   disconnect?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
   delete?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
   connect?: Prisma.WebhookWhereUniqueInput | Prisma.WebhookWhereUniqueInput[]
-  update?: Prisma.WebhookUpdateWithWhereUniqueWithoutAppUserInput | Prisma.WebhookUpdateWithWhereUniqueWithoutAppUserInput[]
-  updateMany?: Prisma.WebhookUpdateManyWithWhereWithoutAppUserInput | Prisma.WebhookUpdateManyWithWhereWithoutAppUserInput[]
+  update?: Prisma.WebhookUpdateWithWhereUniqueWithoutSubscriberInput | Prisma.WebhookUpdateWithWhereUniqueWithoutSubscriberInput[]
+  updateMany?: Prisma.WebhookUpdateManyWithWhereWithoutSubscriberInput | Prisma.WebhookUpdateManyWithWhereWithoutSubscriberInput[]
   deleteMany?: Prisma.WebhookScalarWhereInput | Prisma.WebhookScalarWhereInput[]
 }
 
@@ -588,18 +588,18 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type WebhookCreateNestedOneWithoutEventTypesInput = {
-  create?: Prisma.XOR<Prisma.WebhookCreateWithoutEventTypesInput, Prisma.WebhookUncheckedCreateWithoutEventTypesInput>
-  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutEventTypesInput
+export type WebhookCreateNestedOneWithoutWebhookEventTypesInput = {
+  create?: Prisma.XOR<Prisma.WebhookCreateWithoutWebhookEventTypesInput, Prisma.WebhookUncheckedCreateWithoutWebhookEventTypesInput>
+  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutWebhookEventTypesInput
   connect?: Prisma.WebhookWhereUniqueInput
 }
 
-export type WebhookUpdateOneRequiredWithoutEventTypesNestedInput = {
-  create?: Prisma.XOR<Prisma.WebhookCreateWithoutEventTypesInput, Prisma.WebhookUncheckedCreateWithoutEventTypesInput>
-  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutEventTypesInput
-  upsert?: Prisma.WebhookUpsertWithoutEventTypesInput
+export type WebhookUpdateOneRequiredWithoutWebhookEventTypesNestedInput = {
+  create?: Prisma.XOR<Prisma.WebhookCreateWithoutWebhookEventTypesInput, Prisma.WebhookUncheckedCreateWithoutWebhookEventTypesInput>
+  connectOrCreate?: Prisma.WebhookCreateOrConnectWithoutWebhookEventTypesInput
+  upsert?: Prisma.WebhookUpsertWithoutWebhookEventTypesInput
   connect?: Prisma.WebhookWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.WebhookUpdateToOneWithWhereWithoutEventTypesInput, Prisma.WebhookUpdateWithoutEventTypesInput>, Prisma.WebhookUncheckedUpdateWithoutEventTypesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WebhookUpdateToOneWithWhereWithoutWebhookEventTypesInput, Prisma.WebhookUpdateWithoutWebhookEventTypesInput>, Prisma.WebhookUncheckedUpdateWithoutWebhookEventTypesInput>
 }
 
 export type WebhookCreateNestedOneWithoutMessageDeliveriesInput = {
@@ -616,10 +616,10 @@ export type WebhookUpdateOneRequiredWithoutMessageDeliveriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WebhookUpdateToOneWithWhereWithoutMessageDeliveriesInput, Prisma.WebhookUpdateWithoutMessageDeliveriesInput>, Prisma.WebhookUncheckedUpdateWithoutMessageDeliveriesInput>
 }
 
-export type WebhookCreateWithoutAppUserInput = {
+export type WebhookCreateWithoutSubscriberInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
@@ -628,14 +628,14 @@ export type WebhookCreateWithoutAppUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  eventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutWebhookInput
+  webhookEventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutWebhookInput
   messageDeliveries?: Prisma.MessageDeliveryCreateNestedManyWithoutWebhookInput
 }
 
-export type WebhookUncheckedCreateWithoutAppUserInput = {
+export type WebhookUncheckedCreateWithoutSubscriberInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
@@ -644,34 +644,34 @@ export type WebhookUncheckedCreateWithoutAppUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  eventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutWebhookInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutWebhookInput
   messageDeliveries?: Prisma.MessageDeliveryUncheckedCreateNestedManyWithoutWebhookInput
 }
 
-export type WebhookCreateOrConnectWithoutAppUserInput = {
+export type WebhookCreateOrConnectWithoutSubscriberInput = {
   where: Prisma.WebhookWhereUniqueInput
-  create: Prisma.XOR<Prisma.WebhookCreateWithoutAppUserInput, Prisma.WebhookUncheckedCreateWithoutAppUserInput>
+  create: Prisma.XOR<Prisma.WebhookCreateWithoutSubscriberInput, Prisma.WebhookUncheckedCreateWithoutSubscriberInput>
 }
 
-export type WebhookCreateManyAppUserInputEnvelope = {
-  data: Prisma.WebhookCreateManyAppUserInput | Prisma.WebhookCreateManyAppUserInput[]
+export type WebhookCreateManySubscriberInputEnvelope = {
+  data: Prisma.WebhookCreateManySubscriberInput | Prisma.WebhookCreateManySubscriberInput[]
   skipDuplicates?: boolean
 }
 
-export type WebhookUpsertWithWhereUniqueWithoutAppUserInput = {
+export type WebhookUpsertWithWhereUniqueWithoutSubscriberInput = {
   where: Prisma.WebhookWhereUniqueInput
-  update: Prisma.XOR<Prisma.WebhookUpdateWithoutAppUserInput, Prisma.WebhookUncheckedUpdateWithoutAppUserInput>
-  create: Prisma.XOR<Prisma.WebhookCreateWithoutAppUserInput, Prisma.WebhookUncheckedCreateWithoutAppUserInput>
+  update: Prisma.XOR<Prisma.WebhookUpdateWithoutSubscriberInput, Prisma.WebhookUncheckedUpdateWithoutSubscriberInput>
+  create: Prisma.XOR<Prisma.WebhookCreateWithoutSubscriberInput, Prisma.WebhookUncheckedCreateWithoutSubscriberInput>
 }
 
-export type WebhookUpdateWithWhereUniqueWithoutAppUserInput = {
+export type WebhookUpdateWithWhereUniqueWithoutSubscriberInput = {
   where: Prisma.WebhookWhereUniqueInput
-  data: Prisma.XOR<Prisma.WebhookUpdateWithoutAppUserInput, Prisma.WebhookUncheckedUpdateWithoutAppUserInput>
+  data: Prisma.XOR<Prisma.WebhookUpdateWithoutSubscriberInput, Prisma.WebhookUncheckedUpdateWithoutSubscriberInput>
 }
 
-export type WebhookUpdateManyWithWhereWithoutAppUserInput = {
+export type WebhookUpdateManyWithWhereWithoutSubscriberInput = {
   where: Prisma.WebhookScalarWhereInput
-  data: Prisma.XOR<Prisma.WebhookUpdateManyMutationInput, Prisma.WebhookUncheckedUpdateManyWithoutAppUserInput>
+  data: Prisma.XOR<Prisma.WebhookUpdateManyMutationInput, Prisma.WebhookUncheckedUpdateManyWithoutSubscriberInput>
 }
 
 export type WebhookScalarWhereInput = {
@@ -680,22 +680,22 @@ export type WebhookScalarWhereInput = {
   NOT?: Prisma.WebhookScalarWhereInput | Prisma.WebhookScalarWhereInput[]
   id?: Prisma.StringFilter<"Webhook"> | string
   url?: Prisma.StringFilter<"Webhook"> | string
-  secrets?: Prisma.StringFilter<"Webhook"> | string
+  secret?: Prisma.StringFilter<"Webhook"> | string
   description?: Prisma.StringNullableFilter<"Webhook"> | string | null
   disabled?: Prisma.BoolFilter<"Webhook"> | boolean
   archived?: Prisma.BoolFilter<"Webhook"> | boolean
   metadata?: Prisma.JsonNullableFilter<"Webhook">
   rateLimit?: Prisma.IntNullableFilter<"Webhook"> | number | null
-  appUserId?: Prisma.StringFilter<"Webhook"> | string
+  subscriberId?: Prisma.StringFilter<"Webhook"> | string
   createdAt?: Prisma.DateTimeFilter<"Webhook"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Webhook"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Webhook"> | Date | string | null
 }
 
-export type WebhookCreateWithoutEventTypesInput = {
+export type WebhookCreateWithoutWebhookEventTypesInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
@@ -704,46 +704,46 @@ export type WebhookCreateWithoutEventTypesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  appUser: Prisma.AppUserCreateNestedOneWithoutWebhooksInput
+  subscriber: Prisma.SubscriberCreateNestedOneWithoutWebhooksInput
   messageDeliveries?: Prisma.MessageDeliveryCreateNestedManyWithoutWebhookInput
 }
 
-export type WebhookUncheckedCreateWithoutEventTypesInput = {
+export type WebhookUncheckedCreateWithoutWebhookEventTypesInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   rateLimit?: number | null
-  appUserId: string
+  subscriberId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   messageDeliveries?: Prisma.MessageDeliveryUncheckedCreateNestedManyWithoutWebhookInput
 }
 
-export type WebhookCreateOrConnectWithoutEventTypesInput = {
+export type WebhookCreateOrConnectWithoutWebhookEventTypesInput = {
   where: Prisma.WebhookWhereUniqueInput
-  create: Prisma.XOR<Prisma.WebhookCreateWithoutEventTypesInput, Prisma.WebhookUncheckedCreateWithoutEventTypesInput>
+  create: Prisma.XOR<Prisma.WebhookCreateWithoutWebhookEventTypesInput, Prisma.WebhookUncheckedCreateWithoutWebhookEventTypesInput>
 }
 
-export type WebhookUpsertWithoutEventTypesInput = {
-  update: Prisma.XOR<Prisma.WebhookUpdateWithoutEventTypesInput, Prisma.WebhookUncheckedUpdateWithoutEventTypesInput>
-  create: Prisma.XOR<Prisma.WebhookCreateWithoutEventTypesInput, Prisma.WebhookUncheckedCreateWithoutEventTypesInput>
+export type WebhookUpsertWithoutWebhookEventTypesInput = {
+  update: Prisma.XOR<Prisma.WebhookUpdateWithoutWebhookEventTypesInput, Prisma.WebhookUncheckedUpdateWithoutWebhookEventTypesInput>
+  create: Prisma.XOR<Prisma.WebhookCreateWithoutWebhookEventTypesInput, Prisma.WebhookUncheckedCreateWithoutWebhookEventTypesInput>
   where?: Prisma.WebhookWhereInput
 }
 
-export type WebhookUpdateToOneWithWhereWithoutEventTypesInput = {
+export type WebhookUpdateToOneWithWhereWithoutWebhookEventTypesInput = {
   where?: Prisma.WebhookWhereInput
-  data: Prisma.XOR<Prisma.WebhookUpdateWithoutEventTypesInput, Prisma.WebhookUncheckedUpdateWithoutEventTypesInput>
+  data: Prisma.XOR<Prisma.WebhookUpdateWithoutWebhookEventTypesInput, Prisma.WebhookUncheckedUpdateWithoutWebhookEventTypesInput>
 }
 
-export type WebhookUpdateWithoutEventTypesInput = {
+export type WebhookUpdateWithoutWebhookEventTypesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -752,20 +752,20 @@ export type WebhookUpdateWithoutEventTypesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  appUser?: Prisma.AppUserUpdateOneRequiredWithoutWebhooksNestedInput
+  subscriber?: Prisma.SubscriberUpdateOneRequiredWithoutWebhooksNestedInput
   messageDeliveries?: Prisma.MessageDeliveryUpdateManyWithoutWebhookNestedInput
 }
 
-export type WebhookUncheckedUpdateWithoutEventTypesInput = {
+export type WebhookUncheckedUpdateWithoutWebhookEventTypesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   rateLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -775,7 +775,7 @@ export type WebhookUncheckedUpdateWithoutEventTypesInput = {
 export type WebhookCreateWithoutMessageDeliveriesInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
@@ -784,24 +784,24 @@ export type WebhookCreateWithoutMessageDeliveriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  appUser: Prisma.AppUserCreateNestedOneWithoutWebhooksInput
-  eventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutWebhookInput
+  subscriber: Prisma.SubscriberCreateNestedOneWithoutWebhooksInput
+  webhookEventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutWebhookInput
 }
 
 export type WebhookUncheckedCreateWithoutMessageDeliveriesInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   rateLimit?: number | null
-  appUserId: string
+  subscriberId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  eventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutWebhookInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutWebhookInput
 }
 
 export type WebhookCreateOrConnectWithoutMessageDeliveriesInput = {
@@ -823,7 +823,7 @@ export type WebhookUpdateToOneWithWhereWithoutMessageDeliveriesInput = {
 export type WebhookUpdateWithoutMessageDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -832,30 +832,30 @@ export type WebhookUpdateWithoutMessageDeliveriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  appUser?: Prisma.AppUserUpdateOneRequiredWithoutWebhooksNestedInput
-  eventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutWebhookNestedInput
+  subscriber?: Prisma.SubscriberUpdateOneRequiredWithoutWebhooksNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutWebhookNestedInput
 }
 
 export type WebhookUncheckedUpdateWithoutMessageDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   rateLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  eventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutWebhookNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutWebhookNestedInput
 }
 
-export type WebhookCreateManyAppUserInput = {
+export type WebhookCreateManySubscriberInput = {
   id?: string
   url: string
-  secrets: string
+  secret: string
   description?: string | null
   disabled?: boolean
   archived?: boolean
@@ -866,10 +866,10 @@ export type WebhookCreateManyAppUserInput = {
   deletedAt?: Date | string | null
 }
 
-export type WebhookUpdateWithoutAppUserInput = {
+export type WebhookUpdateWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -878,14 +878,14 @@ export type WebhookUpdateWithoutAppUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  eventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutWebhookNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutWebhookNestedInput
   messageDeliveries?: Prisma.MessageDeliveryUpdateManyWithoutWebhookNestedInput
 }
 
-export type WebhookUncheckedUpdateWithoutAppUserInput = {
+export type WebhookUncheckedUpdateWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -894,14 +894,14 @@ export type WebhookUncheckedUpdateWithoutAppUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  eventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutWebhookNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutWebhookNestedInput
   messageDeliveries?: Prisma.MessageDeliveryUncheckedUpdateManyWithoutWebhookNestedInput
 }
 
-export type WebhookUncheckedUpdateManyWithoutAppUserInput = {
+export type WebhookUncheckedUpdateManyWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  secrets?: Prisma.StringFieldUpdateOperationsInput | string
+  secret?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -918,12 +918,12 @@ export type WebhookUncheckedUpdateManyWithoutAppUserInput = {
  */
 
 export type WebhookCountOutputType = {
-  eventTypes: number
+  webhookEventTypes: number
   messageDeliveries: number
 }
 
 export type WebhookCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  eventTypes?: boolean | WebhookCountOutputTypeCountEventTypesArgs
+  webhookEventTypes?: boolean | WebhookCountOutputTypeCountWebhookEventTypesArgs
   messageDeliveries?: boolean | WebhookCountOutputTypeCountMessageDeliveriesArgs
 }
 
@@ -940,7 +940,7 @@ export type WebhookCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * WebhookCountOutputType without action
  */
-export type WebhookCountOutputTypeCountEventTypesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type WebhookCountOutputTypeCountWebhookEventTypesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.WebhookEventTypeWhereInput
 }
 
@@ -955,18 +955,18 @@ export type WebhookCountOutputTypeCountMessageDeliveriesArgs<ExtArgs extends run
 export type WebhookSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   url?: boolean
-  secrets?: boolean
+  secret?: boolean
   description?: boolean
   disabled?: boolean
   archived?: boolean
   metadata?: boolean
   rateLimit?: boolean
-  appUserId?: boolean
+  subscriberId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
-  appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
-  eventTypes?: boolean | Prisma.Webhook$eventTypesArgs<ExtArgs>
+  subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
+  webhookEventTypes?: boolean | Prisma.Webhook$webhookEventTypesArgs<ExtArgs>
   messageDeliveries?: boolean | Prisma.Webhook$messageDeliveriesArgs<ExtArgs>
   _count?: boolean | Prisma.WebhookCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["webhook"]>
@@ -974,81 +974,81 @@ export type WebhookSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type WebhookSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   url?: boolean
-  secrets?: boolean
+  secret?: boolean
   description?: boolean
   disabled?: boolean
   archived?: boolean
   metadata?: boolean
   rateLimit?: boolean
-  appUserId?: boolean
+  subscriberId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
-  appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
+  subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["webhook"]>
 
 export type WebhookSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   url?: boolean
-  secrets?: boolean
+  secret?: boolean
   description?: boolean
   disabled?: boolean
   archived?: boolean
   metadata?: boolean
   rateLimit?: boolean
-  appUserId?: boolean
+  subscriberId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
-  appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
+  subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["webhook"]>
 
 export type WebhookSelectScalar = {
   id?: boolean
   url?: boolean
-  secrets?: boolean
+  secret?: boolean
   description?: boolean
   disabled?: boolean
   archived?: boolean
   metadata?: boolean
   rateLimit?: boolean
-  appUserId?: boolean
+  subscriberId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type WebhookOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "secrets" | "description" | "disabled" | "archived" | "metadata" | "rateLimit" | "appUserId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["webhook"]>
+export type WebhookOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "secret" | "description" | "disabled" | "archived" | "metadata" | "rateLimit" | "subscriberId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["webhook"]>
 export type WebhookInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
-  eventTypes?: boolean | Prisma.Webhook$eventTypesArgs<ExtArgs>
+  subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
+  webhookEventTypes?: boolean | Prisma.Webhook$webhookEventTypesArgs<ExtArgs>
   messageDeliveries?: boolean | Prisma.Webhook$messageDeliveriesArgs<ExtArgs>
   _count?: boolean | Prisma.WebhookCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WebhookIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
+  subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
 }
 export type WebhookIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
+  subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
 }
 
 export type $WebhookPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Webhook"
   objects: {
-    appUser: Prisma.$AppUserPayload<ExtArgs>
-    eventTypes: Prisma.$WebhookEventTypePayload<ExtArgs>[]
+    subscriber: Prisma.$SubscriberPayload<ExtArgs>
+    webhookEventTypes: Prisma.$WebhookEventTypePayload<ExtArgs>[]
     messageDeliveries: Prisma.$MessageDeliveryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     url: string
-    secrets: string
+    secret: string
     description: string | null
     disabled: boolean
     archived: boolean
     metadata: runtime.JsonValue | null
     rateLimit: number | null
-    appUserId: string
+    subscriberId: string
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1446,8 +1446,8 @@ readonly fields: WebhookFieldRefs;
  */
 export interface Prisma__WebhookClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  appUser<T extends Prisma.AppUserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AppUserDefaultArgs<ExtArgs>>): Prisma.Prisma__AppUserClient<runtime.Types.Result.GetResult<Prisma.$AppUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  eventTypes<T extends Prisma.Webhook$eventTypesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Webhook$eventTypesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebhookEventTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  subscriber<T extends Prisma.SubscriberDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubscriberDefaultArgs<ExtArgs>>): Prisma.Prisma__SubscriberClient<runtime.Types.Result.GetResult<Prisma.$SubscriberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  webhookEventTypes<T extends Prisma.Webhook$webhookEventTypesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Webhook$webhookEventTypesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebhookEventTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messageDeliveries<T extends Prisma.Webhook$messageDeliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Webhook$messageDeliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1480,13 +1480,13 @@ export interface Prisma__WebhookClient<T, Null = never, ExtArgs extends runtime.
 export interface WebhookFieldRefs {
   readonly id: Prisma.FieldRef<"Webhook", 'String'>
   readonly url: Prisma.FieldRef<"Webhook", 'String'>
-  readonly secrets: Prisma.FieldRef<"Webhook", 'String'>
+  readonly secret: Prisma.FieldRef<"Webhook", 'String'>
   readonly description: Prisma.FieldRef<"Webhook", 'String'>
   readonly disabled: Prisma.FieldRef<"Webhook", 'Boolean'>
   readonly archived: Prisma.FieldRef<"Webhook", 'Boolean'>
   readonly metadata: Prisma.FieldRef<"Webhook", 'Json'>
   readonly rateLimit: Prisma.FieldRef<"Webhook", 'Int'>
-  readonly appUserId: Prisma.FieldRef<"Webhook", 'String'>
+  readonly subscriberId: Prisma.FieldRef<"Webhook", 'String'>
   readonly createdAt: Prisma.FieldRef<"Webhook", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Webhook", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Webhook", 'DateTime'>
@@ -1891,9 +1891,9 @@ export type WebhookDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Webhook.eventTypes
+ * Webhook.webhookEventTypes
  */
-export type Webhook$eventTypesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Webhook$webhookEventTypesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the WebhookEventType
    */

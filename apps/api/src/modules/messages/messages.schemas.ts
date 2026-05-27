@@ -10,7 +10,7 @@ export const MessageStatusSchema = z.enum(MessageStatus);
 
 export const MessageSchema = z.object({
   id: z.cuid2().openapi({ example: "cm3..." }),
-  appUserId: z.cuid2().nullable().openapi({ example: "cm3..." }),
+  subscriberId: z.cuid2().nullable().openapi({ example: "cm3..." }),
   eventTypeId: z.cuid2().openapi({ example: "cm3..." }),
   payload: z
     .record(z.string(), z.unknown())
@@ -22,7 +22,7 @@ export const MessageSchema = z.object({
 
 export const MessageCreateSchema = MessageSchema.omit({
   id: true,
-  appUserId: true,
+  subscriberId: true,
   status: true,
   createdAt: true,
   deliverAt: true,
@@ -34,13 +34,13 @@ export const MessageUpdateSchema = z.object({
   deliverAt: z.string().nullable().optional(),
 });
 
-export const AppUserParamsSchema = z.object({
-  appUserId: z
+export const SubscriberParamsSchema = z.object({
+  subscriberId: z
     .cuid2()
-    .openapi({ param: { name: "appUserId", in: "path", required: true } }),
+    .openapi({ param: { name: "subscriberId", in: "path", required: true } }),
 });
 
-export const MessageParamsSchema = AppUserParamsSchema.extend({
+export const MessageParamsSchema = SubscriberParamsSchema.extend({
   messageId: z
     .cuid2()
     .openapi({ param: { name: "messageId", in: "path", required: true } }),

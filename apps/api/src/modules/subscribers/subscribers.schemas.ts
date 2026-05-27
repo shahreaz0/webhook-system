@@ -6,10 +6,10 @@ import {
 } from "@/lib/common-schemas";
 import { ApplicationSchema } from "../applications/applications.schemas";
 
-export const AppUserSchema = z.object({
+export const SubscriberSchema = z.object({
   id: z.cuid2().openapi({ example: "ckz1234560000abcdef12345" }),
   applicationId: z.cuid2().openapi({ example: "ckz1234560000abcdef67890" }),
-  userId: z.string().openapi({ example: "ckz1234560000abcdef99999" }),
+  referenceId: z.string().openapi({ example: "ckz1234560000abcdef99999" }),
   email: z.email().openapi({ example: "user@example.com" }),
   metadata: z.any().nullable().optional().openapi({ example: null }),
   createdAt: z.date().openapi({ example: new Date().toISOString() }),
@@ -17,11 +17,11 @@ export const AppUserSchema = z.object({
   deletedAt: z.date().nullish().openapi({ example: new Date().toISOString() }),
 });
 
-export const AppUserSchemaDetails = AppUserSchema.extend({
+export const SubscriberSchemaDetails = SubscriberSchema.extend({
   application: ApplicationSchema,
 });
 
-export const AppUserCreateSchema = AppUserSchema.omit({
+export const SubscriberCreateSchema = SubscriberSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
@@ -29,17 +29,17 @@ export const AppUserCreateSchema = AppUserSchema.omit({
   applicationId: true,
 });
 
-export const AppUserUpdateSchema = AppUserCreateSchema.partial();
+export const SubscriberUpdateSchema = SubscriberCreateSchema.partial();
 
 export const ApplicationIdParamsSchema = z.object({
   applicationId: z.cuid2(),
 });
 
-export const AppUserParamsSchema = ApplicationIdParamsSchema.extend({
-  appUserId: z.cuid2(),
+export const SubscriberParamsSchema = ApplicationIdParamsSchema.extend({
+  subscriberId: z.cuid2(),
 });
 
-export const AppUserListQuerySchema = PaginationQuerySchema.extend({
+export const SubscriberListQuerySchema = PaginationQuerySchema.extend({
   // Sorting
   sortBy: createSortBySchema(["email", "createdAt", "updatedAt"], "createdAt"),
   order: SortOrderSchema,
@@ -50,6 +50,6 @@ export const AppUserListQuerySchema = PaginationQuerySchema.extend({
     .openapi({
       param: { name: "search", in: "query" },
       example: "user@example.com",
-      description: "Search by email or userId (case-insensitive)",
+      description: "Search by email or referenceId (case-insensitive)",
     }),
 });

@@ -57,10 +57,10 @@ export type Session = Prisma.SessionModel
  */
 export type Application = Prisma.ApplicationModel
 /**
- * Model AppUser
+ * Model Subscriber
  * 
  */
-export type AppUser = Prisma.AppUserModel
+export type Subscriber = Prisma.SubscriberModel
 /**
  * Model Webhook
  * 

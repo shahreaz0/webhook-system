@@ -16,7 +16,7 @@ import { MessageSchema } from "./messages.schemas";
 import { buildMessageFilters } from "./messages.utils";
 
 // ----------------------------
-// List Messages for AppUser
+// List Messages for Subscriber
 // ----------------------------
 export const list: AppRouteHandler<ListRoute> = async (c) => {
   const jwt = c.get("jwtPayload");
@@ -24,19 +24,19 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
   const query = c.req.valid("query");
 
   // Ensure the app user exists and its application belongs to the authenticated user
-  const appUser = await prisma.appUser.findUnique({
-    where: { id: params.appUserId },
+  const subscriber = await prisma.subscriber.findUnique({
+    where: { id: params.subscriberId },
     include: { application: true },
   });
-  if (appUser?.application.userId !== jwt.id) {
+  if (subscriber?.application.userId !== jwt.id) {
     throw new HTTPException(404, {
-      message: "AppUser not found",
+      message: "Subscriber not found",
       cause: { success: false },
     });
   }
 
   // Build filters and query options
-  const where = buildMessageFilters(params.appUserId, query);
+  const where = buildMessageFilters(params.subscriberId, query);
   const orderBy = buildOrderBy(
     query.sortBy || "createdAt",
     query.order || "desc"
@@ -51,7 +51,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
 
   const data = messages.map((m) => ({
     ...m,
-    appUserId: m.appUserId,
+    subscriberId: m.subscriberId,
     deliverAt: m.deliverAt ? m.deliverAt.toISOString() : null,
     createdAt: m.createdAt.toISOString(),
     payload: m.payload as Record<string, unknown>,
@@ -61,21 +61,21 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
 };
 
 // ----------------------------
-// Create Message for AppUser
+// Create Message for Subscriber
 // ----------------------------
 export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
   const jwt = c.get("jwtPayload");
   const params = c.req.valid("param");
   const body = c.req.valid("json");
 
-  const appUser = await prisma.appUser.findUnique({
-    where: { id: params.appUserId },
+  const subscriber = await prisma.subscriber.findUnique({
+    where: { id: params.subscriberId },
     include: { application: true },
   });
 
-  if (appUser?.application.userId !== jwt.id) {
+  if (subscriber?.application.userId !== jwt.id) {
     throw new HTTPException(404, {
-      message: "AppUser not found",
+      message: "Subscriber not found",
       cause: { success: false },
     });
   }
@@ -96,7 +96,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
     data: {
       eventTypeId: body.eventTypeId,
       payload: body.payload as Prisma.InputJsonValue,
-      appUserId: params.appUserId,
+      subscriberId: params.subscriberId,
     },
   });
 
@@ -107,7 +107,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
 
   const result = {
     ...created,
-    appUserId: created.appUserId ?? undefined,
+    subscriberId: created.subscriberId ?? undefined,
     deliverAt: created.deliverAt ? created.deliverAt.toISOString() : null,
     createdAt: created.createdAt.toISOString(),
     payload: created.payload as Record<string, unknown>,
@@ -119,24 +119,24 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
 };
 
 // ----------------------------
-// Get One Message for AppUser
+// Get One Message for Subscriber
 // ----------------------------
 export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   const jwt = c.get("jwtPayload");
   const params = c.req.valid("param");
   // Ensure the app user exists and belongs to the authenticated user
-  const appUser = await prisma.appUser.findUnique({
-    where: { id: params.appUserId },
+  const subscriber = await prisma.subscriber.findUnique({
+    where: { id: params.subscriberId },
     include: { application: true },
   });
-  if (appUser?.application.userId !== jwt.id) {
+  if (subscriber?.application.userId !== jwt.id) {
     throw new HTTPException(404, {
-      message: "AppUser not found",
+      message: "Subscriber not found",
       cause: { success: false },
     });
   }
   const message = await prisma.message.findFirst({
-    where: { appUserId: params.appUserId, id: params.messageId },
+    where: { subscriberId: params.subscriberId, id: params.messageId },
   });
   if (!message) {
     throw new HTTPException(404, {
@@ -146,7 +146,7 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   }
   const result = {
     ...message,
-    appUserId: message.appUserId ?? undefined,
+    subscriberId: message.subscriberId ?? undefined,
     deliverAt: message.deliverAt ? message.deliverAt.toISOString() : null,
     createdAt: message.createdAt.toISOString(),
     payload: message.payload as Record<string, unknown>,
@@ -156,27 +156,27 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
 };
 
 // ----------------------------
-// Update Message for AppUser
+// Update Message for Subscriber
 // ----------------------------
 export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
   const jwt = c.get("jwtPayload");
   const params = c.req.valid("param");
   const body = c.req.valid("json");
 
-  const appUser = await prisma.appUser.findUnique({
-    where: { id: params.appUserId },
+  const subscriber = await prisma.subscriber.findUnique({
+    where: { id: params.subscriberId },
     include: { application: true },
   });
 
-  if (appUser?.application.userId !== jwt.id) {
+  if (subscriber?.application.userId !== jwt.id) {
     throw new HTTPException(404, {
-      message: "AppUser not found",
+      message: "Subscriber not found",
       cause: { success: false },
     });
   }
 
   const message = await prisma.message.findFirst({
-    where: { appUserId: params.appUserId, id: params.messageId },
+    where: { subscriberId: params.subscriberId, id: params.messageId },
   });
 
   if (!message) {
@@ -197,7 +197,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
 
   const result = {
     ...edited,
-    appUserId: edited.appUserId ?? undefined,
+    subscriberId: edited.subscriberId ?? undefined,
     deliverAt: edited.deliverAt ? edited.deliverAt.toISOString() : null,
     createdAt: edited.createdAt.toISOString(),
     payload: edited.payload as Record<string, unknown>,

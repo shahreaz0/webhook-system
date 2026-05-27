@@ -387,7 +387,7 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Application: 'Application',
-  AppUser: 'AppUser',
+  Subscriber: 'Subscriber',
   Webhook: 'Webhook',
   EventType: 'EventType',
   WebhookEventType: 'WebhookEventType',
@@ -408,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "application" | "appUser" | "webhook" | "eventType" | "webhookEventType" | "message" | "messageDelivery"
+    modelProps: "user" | "session" | "application" | "subscriber" | "webhook" | "eventType" | "webhookEventType" | "message" | "messageDelivery"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -634,77 +634,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    AppUser: {
-      payload: Prisma.$AppUserPayload<ExtArgs>
-      fields: Prisma.AppUserFieldRefs
+    Subscriber: {
+      payload: Prisma.$SubscriberPayload<ExtArgs>
+      fields: Prisma.SubscriberFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.AppUserFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload> | null
+          args: Prisma.SubscriberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.AppUserFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>
+          args: Prisma.SubscriberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
         }
         findFirst: {
-          args: Prisma.AppUserFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload> | null
+          args: Prisma.SubscriberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.AppUserFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>
+          args: Prisma.SubscriberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
         }
         findMany: {
-          args: Prisma.AppUserFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>[]
+          args: Prisma.SubscriberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>[]
         }
         create: {
-          args: Prisma.AppUserCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>
+          args: Prisma.SubscriberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
         }
         createMany: {
-          args: Prisma.AppUserCreateManyArgs<ExtArgs>
+          args: Prisma.SubscriberCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.AppUserCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>[]
+          args: Prisma.SubscriberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>[]
         }
         delete: {
-          args: Prisma.AppUserDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>
+          args: Prisma.SubscriberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
         }
         update: {
-          args: Prisma.AppUserUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>
+          args: Prisma.SubscriberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
         }
         deleteMany: {
-          args: Prisma.AppUserDeleteManyArgs<ExtArgs>
+          args: Prisma.SubscriberDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.AppUserUpdateManyArgs<ExtArgs>
+          args: Prisma.SubscriberUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.AppUserUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>[]
+          args: Prisma.SubscriberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>[]
         }
         upsert: {
-          args: Prisma.AppUserUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppUserPayload>
+          args: Prisma.SubscriberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
         }
         aggregate: {
-          args: Prisma.AppUserAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateAppUser>
+          args: Prisma.SubscriberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSubscriber>
         }
         groupBy: {
-          args: Prisma.AppUserGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AppUserGroupByOutputType>[]
+          args: Prisma.SubscriberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubscriberGroupByOutputType>[]
         }
         count: {
-          args: Prisma.AppUserCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AppUserCountAggregateOutputType> | number
+          args: Prisma.SubscriberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubscriberCountAggregateOutputType> | number
         }
       }
     }
@@ -1158,10 +1158,10 @@ export const ApplicationScalarFieldEnum = {
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
 
 
-export const AppUserScalarFieldEnum = {
+export const SubscriberScalarFieldEnum = {
   id: 'id',
   applicationId: 'applicationId',
-  userId: 'userId',
+  referenceId: 'referenceId',
   email: 'email',
   metadata: 'metadata',
   createdAt: 'createdAt',
@@ -1169,19 +1169,19 @@ export const AppUserScalarFieldEnum = {
   deletedAt: 'deletedAt'
 } as const
 
-export type AppUserScalarFieldEnum = (typeof AppUserScalarFieldEnum)[keyof typeof AppUserScalarFieldEnum]
+export type SubscriberScalarFieldEnum = (typeof SubscriberScalarFieldEnum)[keyof typeof SubscriberScalarFieldEnum]
 
 
 export const WebhookScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  secrets: 'secrets',
+  secret: 'secret',
   description: 'description',
   disabled: 'disabled',
   archived: 'archived',
   metadata: 'metadata',
   rateLimit: 'rateLimit',
-  appUserId: 'appUserId',
+  subscriberId: 'subscriberId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -1217,7 +1217,7 @@ export type WebhookEventTypeScalarFieldEnum = (typeof WebhookEventTypeScalarFiel
 
 export const MessageScalarFieldEnum = {
   id: 'id',
-  appUserId: 'appUserId',
+  subscriberId: 'subscriberId',
   eventTypeId: 'eventTypeId',
   payload: 'payload',
   status: 'status',
@@ -1517,7 +1517,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
   application?: Prisma.ApplicationOmit
-  appUser?: Prisma.AppUserOmit
+  subscriber?: Prisma.SubscriberOmit
   webhook?: Prisma.WebhookOmit
   eventType?: Prisma.EventTypeOmit
   webhookEventType?: Prisma.WebhookEventTypeOmit

@@ -2,12 +2,12 @@ import { createRoute, z } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
 import { NotFoundSchema } from "@/lib/common-schemas";
 import {
-  AppUserParamsSchema,
   MessageCreateSchema,
   MessageListQuerySchema,
   MessageParamsSchema,
   MessageSchema,
   MessageUpdateSchema,
+  SubscriberParamsSchema,
 } from "./messages.schemas";
 
 const tags = ["Messages"];
@@ -15,11 +15,11 @@ const tags = ["Messages"];
 export const list = createRoute({
   tags,
   method: "get",
-  path: "/app-users/{appUserId}/messages",
+  path: "/subscribers/{subscriberId}/messages",
   summary: "List app user messages",
   description: "Retrieve a list of messages for the specified app user.",
   request: {
-    params: AppUserParamsSchema,
+    params: SubscriberParamsSchema,
     query: MessageListQuerySchema,
   },
   responses: {
@@ -40,11 +40,11 @@ export const list = createRoute({
 export const create = createRoute({
   tags,
   method: "post",
-  path: "/app-users/{appUserId}/messages",
+  path: "/subscribers/{subscriberId}/messages",
   summary: "Create app user message",
   description: "Create a new message for the specified app user.",
   request: {
-    params: AppUserParamsSchema,
+    params: SubscriberParamsSchema,
     body: {
       description: "The message to create",
       content: {
@@ -77,7 +77,7 @@ export const create = createRoute({
 export const getOne = createRoute({
   tags,
   method: "get",
-  path: "/app-users/{appUserId}/messages/{messageId}",
+  path: "/subscribers/{subscriberId}/messages/{messageId}",
   summary: "Get app user message",
   description:
     "Retrieve the details of a single message identified by messageId for the specified app user.",
@@ -110,7 +110,7 @@ export const getOne = createRoute({
 export const patch = createRoute({
   tags,
   method: "patch",
-  path: "/app-users/{appUserId}/messages/{messageId}",
+  path: "/subscribers/{subscriberId}/messages/{messageId}",
   summary: "Update app user message",
   description:
     "Partially update an existing message identified by messageId for the specified app user.",

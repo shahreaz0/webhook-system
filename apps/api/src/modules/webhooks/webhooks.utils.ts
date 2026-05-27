@@ -7,11 +7,11 @@ const CACHE_TTL = 300; // 5 minutes
 
 export type CachedWebhook = Pick<
   Webhook,
-  "id" | "url" | "secrets" | "disabled" | "rateLimit"
+  "id" | "url" | "secret" | "disabled" | "rateLimit"
 >;
 
 export function buildWebhookFilters(
-  appUserId: string,
+  subscriberId: string,
   query: {
     disabled?: boolean;
     eventTypeId?: string;
@@ -19,7 +19,7 @@ export function buildWebhookFilters(
   }
 ) {
   const where: Prisma.WebhookWhereInput = {
-    appUserId,
+    subscriberId,
   };
 
   // Filter by disabled status
@@ -34,7 +34,7 @@ export function buildWebhookFilters(
 
   // Filter by eventTypeId (webhooks subscribed to this event type)
   if (query.eventTypeId) {
-    where.eventTypes = { some: { eventTypeId: query.eventTypeId } };
+    where.webhookEventTypes = { some: { eventTypeId: query.eventTypeId } };
   }
 
   return where;
@@ -42,14 +42,14 @@ export function buildWebhookFilters(
 
 /**
  * Get webhooks from cache or database
- * Cache key format: webhook_cache:{appUserId}:{eventTypeId}
+ * Cache key format: webhook_cache:{subscriberId}:{eventTypeId}
  */
 export async function getCachedWebhooks(
-  appUserId: string,
+  subscriberId: string,
   eventTypeId: string
 ): Promise<CachedWebhook[] | null> {
   try {
-    const cacheKey = `${CACHE_PREFIX}${appUserId}:${eventTypeId}`;
+    const cacheKey = `${CACHE_PREFIX}${subscriberId}:${eventTypeId}`;
     const cached = await redisClient.get(cacheKey);
 
     if (cached) {
@@ -69,12 +69,12 @@ export async function getCachedWebhooks(
  * Set webhooks in cache
  */
 export async function setCachedWebhooks(
-  appUserId: string,
+  subscriberId: string,
   eventTypeId: string,
   webhooks: CachedWebhook[]
 ): Promise<void> {
   try {
-    const cacheKey = `${CACHE_PREFIX}${appUserId}:${eventTypeId}`;
+    const cacheKey = `${CACHE_PREFIX}${subscriberId}:${eventTypeId}`;
     await redisClient.setex(cacheKey, CACHE_TTL, JSON.stringify(webhooks));
     logger.debug(`Cached webhooks: ${cacheKey}`);
   } catch (error) {
@@ -85,9 +85,11 @@ export async function setCachedWebhooks(
 /**
  * Invalidate webhook cache for a specific app user
  */
-export async function invalidateWebhookCache(appUserId: string): Promise<void> {
+export async function invalidateWebhookCache(
+  subscriberId: string
+): Promise<void> {
   try {
-    const pattern = `${CACHE_PREFIX}${appUserId}:*`;
+    const pattern = `${CACHE_PREFIX}${subscriberId}:*`;
     const keys = await redisClient.keys(pattern);
 
     if (keys.length > 0) {

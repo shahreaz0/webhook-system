@@ -38,8 +38,8 @@ model User {
   password String
   name     String?
 
-  apps     Application[]
-  sessions Session[]
+  applications Application[]
+  sessions     Session[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -73,8 +73,8 @@ model Application {
   userId      String
   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  appUsers   AppUser[]
-  eventTypes EventType[]
+  subscribers Subscriber[]
+  eventTypes  EventType[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -84,11 +84,11 @@ model Application {
   @@index([name])
 }
 
-model AppUser {
+model Subscriber {
   id            String      @id @default(cuid(2))
   applicationId String
   application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
-  userId        String
+  referenceId   String
   email         String
   metadata      Json?
 
@@ -99,35 +99,35 @@ model AppUser {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  @@unique([applicationId, userId]) // Prevent duplicates
+  @@unique([applicationId, referenceId]) // Prevent duplicates
   @@index([applicationId])
   @@index([email])
 }
 
 model Webhook {
-  id          String  @id @default(cuid(2))
-  url         String
-  secrets     String
-  description String?
-  disabled    Boolean @default(false)
-  archived    Boolean @default(false)
-  metadata    Json?
-  rateLimit   Int?
-  appUser     AppUser @relation(fields: [appUserId], references: [id], onDelete: Cascade)
-  appUserId   String
+  id           String     @id @default(cuid(2))
+  url          String
+  secret       String
+  description  String?
+  disabled     Boolean    @default(false)
+  archived     Boolean    @default(false)
+  metadata     Json?
+  rateLimit    Int?
+  subscriber   Subscriber @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+  subscriberId String
 
-  eventTypes        WebhookEventType[]
+  webhookEventTypes WebhookEventType[]
   messageDeliveries MessageDelivery[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  @@unique([appUserId, url])
-  @@index([appUserId])
+  @@unique([subscriberId, url])
+  @@index([subscriberId])
   @@index([url])
   @@index([disabled])
-  @@index([appUserId, disabled])
+  @@index([subscriberId, disabled])
 }
 
 model EventType {
@@ -137,8 +137,8 @@ model EventType {
   applicationId String
   application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 
-  messages           Message[]
-  webhookConnections WebhookEventType[]
+  messages          Message[]
+  webhookEventTypes WebhookEventType[]
 
   archived   Boolean @default(false)
   deprecated Boolean @default(false)
@@ -168,8 +168,8 @@ model WebhookEventType {
 
 model Message {
   id                String            @id @default(cuid(2))
-  appUser           AppUser           @relation(fields: [appUserId], references: [id], onDelete: Cascade)
-  appUserId         String
+  subscriber        Subscriber        @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+  subscriberId      String
   eventType         EventType         @relation(fields: [eventTypeId], references: [id], onDelete: Cascade)
   eventTypeId       String
   payload           Json
@@ -180,7 +180,7 @@ model Message {
   messageDeliveries MessageDelivery[]
 
   @@index([eventTypeId])
-  @@index([appUserId])
+  @@index([subscriberId])
   @@index([deliverAt])
   @@index([status, deliverAt])
   @@index([status, createdAt])

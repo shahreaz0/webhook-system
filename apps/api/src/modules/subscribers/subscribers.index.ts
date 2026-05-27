@@ -1,9 +1,9 @@
 import { createRouter } from "@/lib/create-app";
 
-import * as handlers from "./app-users.handlers";
-import * as routes from "./app-users.routes";
+import * as handlers from "./subscribers.handlers";
+import * as routes from "./subscribers.routes";
 
-export const appUsers = createRouter()
+export const subscribers = createRouter()
   .openapi(routes.list, handlers.list)
   .openapi(routes.create, handlers.create)
   .openapi(routes.getOne, handlers.getOne)

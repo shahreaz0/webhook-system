@@ -224,7 +224,7 @@ export type EventTypeWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"EventType"> | Date | string | null
   application?: Prisma.XOR<Prisma.ApplicationScalarRelationFilter, Prisma.ApplicationWhereInput>
   messages?: Prisma.MessageListRelationFilter
-  webhookConnections?: Prisma.WebhookEventTypeListRelationFilter
+  webhookEventTypes?: Prisma.WebhookEventTypeListRelationFilter
 }
 
 export type EventTypeOrderByWithRelationInput = {
@@ -240,7 +240,7 @@ export type EventTypeOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   application?: Prisma.ApplicationOrderByWithRelationInput
   messages?: Prisma.MessageOrderByRelationAggregateInput
-  webhookConnections?: Prisma.WebhookEventTypeOrderByRelationAggregateInput
+  webhookEventTypes?: Prisma.WebhookEventTypeOrderByRelationAggregateInput
 }
 
 export type EventTypeWhereUniqueInput = Prisma.AtLeast<{
@@ -260,7 +260,7 @@ export type EventTypeWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"EventType"> | Date | string | null
   application?: Prisma.XOR<Prisma.ApplicationScalarRelationFilter, Prisma.ApplicationWhereInput>
   messages?: Prisma.MessageListRelationFilter
-  webhookConnections?: Prisma.WebhookEventTypeListRelationFilter
+  webhookEventTypes?: Prisma.WebhookEventTypeListRelationFilter
 }, "id" | "applicationId_name">
 
 export type EventTypeOrderByWithAggregationInput = {
@@ -307,7 +307,7 @@ export type EventTypeCreateInput = {
   deletedAt?: Date | string | null
   application: Prisma.ApplicationCreateNestedOneWithoutEventTypesInput
   messages?: Prisma.MessageCreateNestedManyWithoutEventTypeInput
-  webhookConnections?: Prisma.WebhookEventTypeCreateNestedManyWithoutEventTypeInput
+  webhookEventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeUncheckedCreateInput = {
@@ -322,7 +322,7 @@ export type EventTypeUncheckedCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutEventTypeInput
-  webhookConnections?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutEventTypeInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeUpdateInput = {
@@ -337,7 +337,7 @@ export type EventTypeUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   application?: Prisma.ApplicationUpdateOneRequiredWithoutEventTypesNestedInput
   messages?: Prisma.MessageUpdateManyWithoutEventTypeNestedInput
-  webhookConnections?: Prisma.WebhookEventTypeUpdateManyWithoutEventTypeNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeUncheckedUpdateInput = {
@@ -352,7 +352,7 @@ export type EventTypeUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   messages?: Prisma.MessageUncheckedUpdateManyWithoutEventTypeNestedInput
-  webhookConnections?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutEventTypeNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeCreateManyInput = {
@@ -494,18 +494,18 @@ export type EventTypeUncheckedUpdateManyWithoutApplicationNestedInput = {
   deleteMany?: Prisma.EventTypeScalarWhereInput | Prisma.EventTypeScalarWhereInput[]
 }
 
-export type EventTypeCreateNestedOneWithoutWebhookConnectionsInput = {
-  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutWebhookConnectionsInput, Prisma.EventTypeUncheckedCreateWithoutWebhookConnectionsInput>
-  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutWebhookConnectionsInput
+export type EventTypeCreateNestedOneWithoutWebhookEventTypesInput = {
+  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutWebhookEventTypesInput, Prisma.EventTypeUncheckedCreateWithoutWebhookEventTypesInput>
+  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutWebhookEventTypesInput
   connect?: Prisma.EventTypeWhereUniqueInput
 }
 
-export type EventTypeUpdateOneRequiredWithoutWebhookConnectionsNestedInput = {
-  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutWebhookConnectionsInput, Prisma.EventTypeUncheckedCreateWithoutWebhookConnectionsInput>
-  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutWebhookConnectionsInput
-  upsert?: Prisma.EventTypeUpsertWithoutWebhookConnectionsInput
+export type EventTypeUpdateOneRequiredWithoutWebhookEventTypesNestedInput = {
+  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutWebhookEventTypesInput, Prisma.EventTypeUncheckedCreateWithoutWebhookEventTypesInput>
+  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutWebhookEventTypesInput
+  upsert?: Prisma.EventTypeUpsertWithoutWebhookEventTypesInput
   connect?: Prisma.EventTypeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EventTypeUpdateToOneWithWhereWithoutWebhookConnectionsInput, Prisma.EventTypeUpdateWithoutWebhookConnectionsInput>, Prisma.EventTypeUncheckedUpdateWithoutWebhookConnectionsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventTypeUpdateToOneWithWhereWithoutWebhookEventTypesInput, Prisma.EventTypeUpdateWithoutWebhookEventTypesInput>, Prisma.EventTypeUncheckedUpdateWithoutWebhookEventTypesInput>
 }
 
 export type EventTypeCreateNestedOneWithoutMessagesInput = {
@@ -533,7 +533,7 @@ export type EventTypeCreateWithoutApplicationInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   messages?: Prisma.MessageCreateNestedManyWithoutEventTypeInput
-  webhookConnections?: Prisma.WebhookEventTypeCreateNestedManyWithoutEventTypeInput
+  webhookEventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeUncheckedCreateWithoutApplicationInput = {
@@ -547,7 +547,7 @@ export type EventTypeUncheckedCreateWithoutApplicationInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutEventTypeInput
-  webhookConnections?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutEventTypeInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeCreateOrConnectWithoutApplicationInput = {
@@ -592,7 +592,7 @@ export type EventTypeScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"EventType"> | Date | string | null
 }
 
-export type EventTypeCreateWithoutWebhookConnectionsInput = {
+export type EventTypeCreateWithoutWebhookEventTypesInput = {
   id?: string
   name: string
   description?: string | null
@@ -606,7 +606,7 @@ export type EventTypeCreateWithoutWebhookConnectionsInput = {
   messages?: Prisma.MessageCreateNestedManyWithoutEventTypeInput
 }
 
-export type EventTypeUncheckedCreateWithoutWebhookConnectionsInput = {
+export type EventTypeUncheckedCreateWithoutWebhookEventTypesInput = {
   id?: string
   name: string
   description?: string | null
@@ -620,23 +620,23 @@ export type EventTypeUncheckedCreateWithoutWebhookConnectionsInput = {
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
-export type EventTypeCreateOrConnectWithoutWebhookConnectionsInput = {
+export type EventTypeCreateOrConnectWithoutWebhookEventTypesInput = {
   where: Prisma.EventTypeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EventTypeCreateWithoutWebhookConnectionsInput, Prisma.EventTypeUncheckedCreateWithoutWebhookConnectionsInput>
+  create: Prisma.XOR<Prisma.EventTypeCreateWithoutWebhookEventTypesInput, Prisma.EventTypeUncheckedCreateWithoutWebhookEventTypesInput>
 }
 
-export type EventTypeUpsertWithoutWebhookConnectionsInput = {
-  update: Prisma.XOR<Prisma.EventTypeUpdateWithoutWebhookConnectionsInput, Prisma.EventTypeUncheckedUpdateWithoutWebhookConnectionsInput>
-  create: Prisma.XOR<Prisma.EventTypeCreateWithoutWebhookConnectionsInput, Prisma.EventTypeUncheckedCreateWithoutWebhookConnectionsInput>
+export type EventTypeUpsertWithoutWebhookEventTypesInput = {
+  update: Prisma.XOR<Prisma.EventTypeUpdateWithoutWebhookEventTypesInput, Prisma.EventTypeUncheckedUpdateWithoutWebhookEventTypesInput>
+  create: Prisma.XOR<Prisma.EventTypeCreateWithoutWebhookEventTypesInput, Prisma.EventTypeUncheckedCreateWithoutWebhookEventTypesInput>
   where?: Prisma.EventTypeWhereInput
 }
 
-export type EventTypeUpdateToOneWithWhereWithoutWebhookConnectionsInput = {
+export type EventTypeUpdateToOneWithWhereWithoutWebhookEventTypesInput = {
   where?: Prisma.EventTypeWhereInput
-  data: Prisma.XOR<Prisma.EventTypeUpdateWithoutWebhookConnectionsInput, Prisma.EventTypeUncheckedUpdateWithoutWebhookConnectionsInput>
+  data: Prisma.XOR<Prisma.EventTypeUpdateWithoutWebhookEventTypesInput, Prisma.EventTypeUncheckedUpdateWithoutWebhookEventTypesInput>
 }
 
-export type EventTypeUpdateWithoutWebhookConnectionsInput = {
+export type EventTypeUpdateWithoutWebhookEventTypesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -650,7 +650,7 @@ export type EventTypeUpdateWithoutWebhookConnectionsInput = {
   messages?: Prisma.MessageUpdateManyWithoutEventTypeNestedInput
 }
 
-export type EventTypeUncheckedUpdateWithoutWebhookConnectionsInput = {
+export type EventTypeUncheckedUpdateWithoutWebhookEventTypesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -675,7 +675,7 @@ export type EventTypeCreateWithoutMessagesInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   application: Prisma.ApplicationCreateNestedOneWithoutEventTypesInput
-  webhookConnections?: Prisma.WebhookEventTypeCreateNestedManyWithoutEventTypeInput
+  webhookEventTypes?: Prisma.WebhookEventTypeCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeUncheckedCreateWithoutMessagesInput = {
@@ -689,7 +689,7 @@ export type EventTypeUncheckedCreateWithoutMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  webhookConnections?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutEventTypeInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeCreateOrConnectWithoutMessagesInput = {
@@ -719,7 +719,7 @@ export type EventTypeUpdateWithoutMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   application?: Prisma.ApplicationUpdateOneRequiredWithoutEventTypesNestedInput
-  webhookConnections?: Prisma.WebhookEventTypeUpdateManyWithoutEventTypeNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeUncheckedUpdateWithoutMessagesInput = {
@@ -733,7 +733,7 @@ export type EventTypeUncheckedUpdateWithoutMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  webhookConnections?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutEventTypeNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeCreateManyApplicationInput = {
@@ -759,7 +759,7 @@ export type EventTypeUpdateWithoutApplicationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   messages?: Prisma.MessageUpdateManyWithoutEventTypeNestedInput
-  webhookConnections?: Prisma.WebhookEventTypeUpdateManyWithoutEventTypeNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeUncheckedUpdateWithoutApplicationInput = {
@@ -773,7 +773,7 @@ export type EventTypeUncheckedUpdateWithoutApplicationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   messages?: Prisma.MessageUncheckedUpdateManyWithoutEventTypeNestedInput
-  webhookConnections?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutEventTypeNestedInput
+  webhookEventTypes?: Prisma.WebhookEventTypeUncheckedUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeUncheckedUpdateManyWithoutApplicationInput = {
@@ -795,12 +795,12 @@ export type EventTypeUncheckedUpdateManyWithoutApplicationInput = {
 
 export type EventTypeCountOutputType = {
   messages: number
-  webhookConnections: number
+  webhookEventTypes: number
 }
 
 export type EventTypeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   messages?: boolean | EventTypeCountOutputTypeCountMessagesArgs
-  webhookConnections?: boolean | EventTypeCountOutputTypeCountWebhookConnectionsArgs
+  webhookEventTypes?: boolean | EventTypeCountOutputTypeCountWebhookEventTypesArgs
 }
 
 /**
@@ -823,7 +823,7 @@ export type EventTypeCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Ty
 /**
  * EventTypeCountOutputType without action
  */
-export type EventTypeCountOutputTypeCountWebhookConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type EventTypeCountOutputTypeCountWebhookEventTypesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.WebhookEventTypeWhereInput
 }
 
@@ -841,7 +841,7 @@ export type EventTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   deletedAt?: boolean
   application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.EventType$messagesArgs<ExtArgs>
-  webhookConnections?: boolean | Prisma.EventType$webhookConnectionsArgs<ExtArgs>
+  webhookEventTypes?: boolean | Prisma.EventType$webhookEventTypesArgs<ExtArgs>
   _count?: boolean | Prisma.EventTypeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventType"]>
 
@@ -890,7 +890,7 @@ export type EventTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type EventTypeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.EventType$messagesArgs<ExtArgs>
-  webhookConnections?: boolean | Prisma.EventType$webhookConnectionsArgs<ExtArgs>
+  webhookEventTypes?: boolean | Prisma.EventType$webhookEventTypesArgs<ExtArgs>
   _count?: boolean | Prisma.EventTypeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EventTypeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -905,7 +905,7 @@ export type $EventTypePayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     application: Prisma.$ApplicationPayload<ExtArgs>
     messages: Prisma.$MessagePayload<ExtArgs>[]
-    webhookConnections: Prisma.$WebhookEventTypePayload<ExtArgs>[]
+    webhookEventTypes: Prisma.$WebhookEventTypePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1314,7 +1314,7 @@ export interface Prisma__EventTypeClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   application<T extends Prisma.ApplicationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ApplicationDefaultArgs<ExtArgs>>): Prisma.Prisma__ApplicationClient<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   messages<T extends Prisma.EventType$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventType$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  webhookConnections<T extends Prisma.EventType$webhookConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventType$webhookConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebhookEventTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  webhookEventTypes<T extends Prisma.EventType$webhookEventTypesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventType$webhookEventTypesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebhookEventTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1779,9 +1779,9 @@ export type EventType$messagesArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * EventType.webhookConnections
+ * EventType.webhookEventTypes
  */
-export type EventType$webhookConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type EventType$webhookEventTypesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the WebhookEventType
    */

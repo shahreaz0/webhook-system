@@ -11,7 +11,7 @@
 export type * from './models/User.ts'
 export type * from './models/Session.ts'
 export type * from './models/Application.ts'
-export type * from './models/AppUser.ts'
+export type * from './models/Subscriber.ts'
 export type * from './models/Webhook.ts'
 export type * from './models/EventType.ts'
 export type * from './models/WebhookEventType.ts'

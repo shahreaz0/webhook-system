@@ -199,7 +199,7 @@ export type ApplicationWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  appUsers?: Prisma.AppUserListRelationFilter
+  subscribers?: Prisma.SubscriberListRelationFilter
   eventTypes?: Prisma.EventTypeListRelationFilter
 }
 
@@ -212,7 +212,7 @@ export type ApplicationOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  appUsers?: Prisma.AppUserOrderByRelationAggregateInput
+  subscribers?: Prisma.SubscriberOrderByRelationAggregateInput
   eventTypes?: Prisma.EventTypeOrderByRelationAggregateInput
 }
 
@@ -228,7 +228,7 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  appUsers?: Prisma.AppUserListRelationFilter
+  subscribers?: Prisma.SubscriberListRelationFilter
   eventTypes?: Prisma.EventTypeListRelationFilter
 }, "id">
 
@@ -265,8 +265,8 @@ export type ApplicationCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutAppsInput
-  appUsers?: Prisma.AppUserCreateNestedManyWithoutApplicationInput
+  user: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  subscribers?: Prisma.SubscriberCreateNestedManyWithoutApplicationInput
   eventTypes?: Prisma.EventTypeCreateNestedManyWithoutApplicationInput
 }
 
@@ -278,7 +278,7 @@ export type ApplicationUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  appUsers?: Prisma.AppUserUncheckedCreateNestedManyWithoutApplicationInput
+  subscribers?: Prisma.SubscriberUncheckedCreateNestedManyWithoutApplicationInput
   eventTypes?: Prisma.EventTypeUncheckedCreateNestedManyWithoutApplicationInput
 }
 
@@ -289,8 +289,8 @@ export type ApplicationUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutAppsNestedInput
-  appUsers?: Prisma.AppUserUpdateManyWithoutApplicationNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  subscribers?: Prisma.SubscriberUpdateManyWithoutApplicationNestedInput
   eventTypes?: Prisma.EventTypeUpdateManyWithoutApplicationNestedInput
 }
 
@@ -302,7 +302,7 @@ export type ApplicationUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  appUsers?: Prisma.AppUserUncheckedUpdateManyWithoutApplicationNestedInput
+  subscribers?: Prisma.SubscriberUncheckedUpdateManyWithoutApplicationNestedInput
   eventTypes?: Prisma.EventTypeUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
@@ -422,18 +422,18 @@ export type ApplicationUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ApplicationScalarWhereInput | Prisma.ApplicationScalarWhereInput[]
 }
 
-export type ApplicationCreateNestedOneWithoutAppUsersInput = {
-  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutAppUsersInput, Prisma.ApplicationUncheckedCreateWithoutAppUsersInput>
-  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutAppUsersInput
+export type ApplicationCreateNestedOneWithoutSubscribersInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutSubscribersInput, Prisma.ApplicationUncheckedCreateWithoutSubscribersInput>
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutSubscribersInput
   connect?: Prisma.ApplicationWhereUniqueInput
 }
 
-export type ApplicationUpdateOneRequiredWithoutAppUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutAppUsersInput, Prisma.ApplicationUncheckedCreateWithoutAppUsersInput>
-  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutAppUsersInput
-  upsert?: Prisma.ApplicationUpsertWithoutAppUsersInput
+export type ApplicationUpdateOneRequiredWithoutSubscribersNestedInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutSubscribersInput, Prisma.ApplicationUncheckedCreateWithoutSubscribersInput>
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutSubscribersInput
+  upsert?: Prisma.ApplicationUpsertWithoutSubscribersInput
   connect?: Prisma.ApplicationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ApplicationUpdateToOneWithWhereWithoutAppUsersInput, Prisma.ApplicationUpdateWithoutAppUsersInput>, Prisma.ApplicationUncheckedUpdateWithoutAppUsersInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ApplicationUpdateToOneWithWhereWithoutSubscribersInput, Prisma.ApplicationUpdateWithoutSubscribersInput>, Prisma.ApplicationUncheckedUpdateWithoutSubscribersInput>
 }
 
 export type ApplicationCreateNestedOneWithoutEventTypesInput = {
@@ -457,7 +457,7 @@ export type ApplicationCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  appUsers?: Prisma.AppUserCreateNestedManyWithoutApplicationInput
+  subscribers?: Prisma.SubscriberCreateNestedManyWithoutApplicationInput
   eventTypes?: Prisma.EventTypeCreateNestedManyWithoutApplicationInput
 }
 
@@ -468,7 +468,7 @@ export type ApplicationUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  appUsers?: Prisma.AppUserUncheckedCreateNestedManyWithoutApplicationInput
+  subscribers?: Prisma.SubscriberUncheckedCreateNestedManyWithoutApplicationInput
   eventTypes?: Prisma.EventTypeUncheckedCreateNestedManyWithoutApplicationInput
 }
 
@@ -511,18 +511,18 @@ export type ApplicationScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
 }
 
-export type ApplicationCreateWithoutAppUsersInput = {
+export type ApplicationCreateWithoutSubscribersInput = {
   id?: string
   name: string
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutAppsInput
+  user: Prisma.UserCreateNestedOneWithoutApplicationsInput
   eventTypes?: Prisma.EventTypeCreateNestedManyWithoutApplicationInput
 }
 
-export type ApplicationUncheckedCreateWithoutAppUsersInput = {
+export type ApplicationUncheckedCreateWithoutSubscribersInput = {
   id?: string
   name: string
   description?: string | null
@@ -533,34 +533,34 @@ export type ApplicationUncheckedCreateWithoutAppUsersInput = {
   eventTypes?: Prisma.EventTypeUncheckedCreateNestedManyWithoutApplicationInput
 }
 
-export type ApplicationCreateOrConnectWithoutAppUsersInput = {
+export type ApplicationCreateOrConnectWithoutSubscribersInput = {
   where: Prisma.ApplicationWhereUniqueInput
-  create: Prisma.XOR<Prisma.ApplicationCreateWithoutAppUsersInput, Prisma.ApplicationUncheckedCreateWithoutAppUsersInput>
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutSubscribersInput, Prisma.ApplicationUncheckedCreateWithoutSubscribersInput>
 }
 
-export type ApplicationUpsertWithoutAppUsersInput = {
-  update: Prisma.XOR<Prisma.ApplicationUpdateWithoutAppUsersInput, Prisma.ApplicationUncheckedUpdateWithoutAppUsersInput>
-  create: Prisma.XOR<Prisma.ApplicationCreateWithoutAppUsersInput, Prisma.ApplicationUncheckedCreateWithoutAppUsersInput>
+export type ApplicationUpsertWithoutSubscribersInput = {
+  update: Prisma.XOR<Prisma.ApplicationUpdateWithoutSubscribersInput, Prisma.ApplicationUncheckedUpdateWithoutSubscribersInput>
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutSubscribersInput, Prisma.ApplicationUncheckedCreateWithoutSubscribersInput>
   where?: Prisma.ApplicationWhereInput
 }
 
-export type ApplicationUpdateToOneWithWhereWithoutAppUsersInput = {
+export type ApplicationUpdateToOneWithWhereWithoutSubscribersInput = {
   where?: Prisma.ApplicationWhereInput
-  data: Prisma.XOR<Prisma.ApplicationUpdateWithoutAppUsersInput, Prisma.ApplicationUncheckedUpdateWithoutAppUsersInput>
+  data: Prisma.XOR<Prisma.ApplicationUpdateWithoutSubscribersInput, Prisma.ApplicationUncheckedUpdateWithoutSubscribersInput>
 }
 
-export type ApplicationUpdateWithoutAppUsersInput = {
+export type ApplicationUpdateWithoutSubscribersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutAppsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
   eventTypes?: Prisma.EventTypeUpdateManyWithoutApplicationNestedInput
 }
 
-export type ApplicationUncheckedUpdateWithoutAppUsersInput = {
+export type ApplicationUncheckedUpdateWithoutSubscribersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -578,8 +578,8 @@ export type ApplicationCreateWithoutEventTypesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutAppsInput
-  appUsers?: Prisma.AppUserCreateNestedManyWithoutApplicationInput
+  user: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  subscribers?: Prisma.SubscriberCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutEventTypesInput = {
@@ -590,7 +590,7 @@ export type ApplicationUncheckedCreateWithoutEventTypesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  appUsers?: Prisma.AppUserUncheckedCreateNestedManyWithoutApplicationInput
+  subscribers?: Prisma.SubscriberUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutEventTypesInput = {
@@ -616,8 +616,8 @@ export type ApplicationUpdateWithoutEventTypesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutAppsNestedInput
-  appUsers?: Prisma.AppUserUpdateManyWithoutApplicationNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  subscribers?: Prisma.SubscriberUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutEventTypesInput = {
@@ -628,7 +628,7 @@ export type ApplicationUncheckedUpdateWithoutEventTypesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  appUsers?: Prisma.AppUserUncheckedUpdateManyWithoutApplicationNestedInput
+  subscribers?: Prisma.SubscriberUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationCreateManyUserInput = {
@@ -647,7 +647,7 @@ export type ApplicationUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  appUsers?: Prisma.AppUserUpdateManyWithoutApplicationNestedInput
+  subscribers?: Prisma.SubscriberUpdateManyWithoutApplicationNestedInput
   eventTypes?: Prisma.EventTypeUpdateManyWithoutApplicationNestedInput
 }
 
@@ -658,7 +658,7 @@ export type ApplicationUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  appUsers?: Prisma.AppUserUncheckedUpdateManyWithoutApplicationNestedInput
+  subscribers?: Prisma.SubscriberUncheckedUpdateManyWithoutApplicationNestedInput
   eventTypes?: Prisma.EventTypeUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
@@ -677,12 +677,12 @@ export type ApplicationUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type ApplicationCountOutputType = {
-  appUsers: number
+  subscribers: number
   eventTypes: number
 }
 
 export type ApplicationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  appUsers?: boolean | ApplicationCountOutputTypeCountAppUsersArgs
+  subscribers?: boolean | ApplicationCountOutputTypeCountSubscribersArgs
   eventTypes?: boolean | ApplicationCountOutputTypeCountEventTypesArgs
 }
 
@@ -699,8 +699,8 @@ export type ApplicationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
 /**
  * ApplicationCountOutputType without action
  */
-export type ApplicationCountOutputTypeCountAppUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AppUserWhereInput
+export type ApplicationCountOutputTypeCountSubscribersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubscriberWhereInput
 }
 
 /**
@@ -720,7 +720,7 @@ export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  appUsers?: boolean | Prisma.Application$appUsersArgs<ExtArgs>
+  subscribers?: boolean | Prisma.Application$subscribersArgs<ExtArgs>
   eventTypes?: boolean | Prisma.Application$eventTypesArgs<ExtArgs>
   _count?: boolean | Prisma.ApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
@@ -760,7 +760,7 @@ export type ApplicationSelectScalar = {
 export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "userId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["application"]>
 export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  appUsers?: boolean | Prisma.Application$appUsersArgs<ExtArgs>
+  subscribers?: boolean | Prisma.Application$subscribersArgs<ExtArgs>
   eventTypes?: boolean | Prisma.Application$eventTypesArgs<ExtArgs>
   _count?: boolean | Prisma.ApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -775,7 +775,7 @@ export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
   name: "Application"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    appUsers: Prisma.$AppUserPayload<ExtArgs>[]
+    subscribers: Prisma.$SubscriberPayload<ExtArgs>[]
     eventTypes: Prisma.$EventTypePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1181,7 +1181,7 @@ readonly fields: ApplicationFieldRefs;
 export interface Prisma__ApplicationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  appUsers<T extends Prisma.Application$appUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$appUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  subscribers<T extends Prisma.Application$subscribersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$subscribersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventTypes<T extends Prisma.Application$eventTypesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$eventTypesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1620,27 +1620,27 @@ export type ApplicationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * Application.appUsers
+ * Application.subscribers
  */
-export type Application$appUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Application$subscribersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AppUser
+   * Select specific fields to fetch from the Subscriber
    */
-  select?: Prisma.AppUserSelect<ExtArgs> | null
+  select?: Prisma.SubscriberSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AppUser
+   * Omit specific fields from the Subscriber
    */
-  omit?: Prisma.AppUserOmit<ExtArgs> | null
+  omit?: Prisma.SubscriberOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AppUserInclude<ExtArgs> | null
-  where?: Prisma.AppUserWhereInput
-  orderBy?: Prisma.AppUserOrderByWithRelationInput | Prisma.AppUserOrderByWithRelationInput[]
-  cursor?: Prisma.AppUserWhereUniqueInput
+  include?: Prisma.SubscriberInclude<ExtArgs> | null
+  where?: Prisma.SubscriberWhereInput
+  orderBy?: Prisma.SubscriberOrderByWithRelationInput | Prisma.SubscriberOrderByWithRelationInput[]
+  cursor?: Prisma.SubscriberWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AppUserScalarFieldEnum | Prisma.AppUserScalarFieldEnum[]
+  distinct?: Prisma.SubscriberScalarFieldEnum | Prisma.SubscriberScalarFieldEnum[]
 }
 
 /**

@@ -54,7 +54,7 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Application: 'Application',
-  AppUser: 'AppUser',
+  Subscriber: 'Subscriber',
   Webhook: 'Webhook',
   EventType: 'EventType',
   WebhookEventType: 'WebhookEventType',
@@ -119,10 +119,10 @@ export const ApplicationScalarFieldEnum = {
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
 
 
-export const AppUserScalarFieldEnum = {
+export const SubscriberScalarFieldEnum = {
   id: 'id',
   applicationId: 'applicationId',
-  userId: 'userId',
+  referenceId: 'referenceId',
   email: 'email',
   metadata: 'metadata',
   createdAt: 'createdAt',
@@ -130,19 +130,19 @@ export const AppUserScalarFieldEnum = {
   deletedAt: 'deletedAt'
 } as const
 
-export type AppUserScalarFieldEnum = (typeof AppUserScalarFieldEnum)[keyof typeof AppUserScalarFieldEnum]
+export type SubscriberScalarFieldEnum = (typeof SubscriberScalarFieldEnum)[keyof typeof SubscriberScalarFieldEnum]
 
 
 export const WebhookScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  secrets: 'secrets',
+  secret: 'secret',
   description: 'description',
   disabled: 'disabled',
   archived: 'archived',
   metadata: 'metadata',
   rateLimit: 'rateLimit',
-  appUserId: 'appUserId',
+  subscriberId: 'subscriberId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -178,7 +178,7 @@ export type WebhookEventTypeScalarFieldEnum = (typeof WebhookEventTypeScalarFiel
 
 export const MessageScalarFieldEnum = {
   id: 'id',
-  appUserId: 'appUserId',
+  subscriberId: 'subscriberId',
   eventTypeId: 'eventTypeId',
   payload: 'payload',
   status: 'status',

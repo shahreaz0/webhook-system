@@ -3,7 +3,7 @@ import type { z } from "zod";
 import type { MessageListQuerySchema } from "./messages.schemas";
 
 export function buildMessageFilters(
-  appUserId: string,
+  subscriberId: string,
   query: Partial<
     Pick<
       z.infer<typeof MessageListQuerySchema>,
@@ -12,7 +12,7 @@ export function buildMessageFilters(
   >
 ) {
   const where: Prisma.MessageWhereInput = {
-    appUserId,
+    subscriberId,
   };
 
   // Filter by status

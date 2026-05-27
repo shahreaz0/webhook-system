@@ -6,12 +6,12 @@ import {
 } from "./webhooks.utils";
 
 export async function getWebhooksForMessage(
-  appUserId: string,
+  subscriberId: string,
   eventTypeId: string
-) {
+): Promise<CachedWebhook[]> {
   // Try to get webhooks from cache first
   let webhooks: CachedWebhook[] | null = await getCachedWebhooks(
-    appUserId,
+    subscriberId,
     eventTypeId
   );
 
@@ -19,14 +19,14 @@ export async function getWebhooksForMessage(
   if (!webhooks) {
     const dbWebhooks = await prisma.webhook.findMany({
       where: {
-        appUserId,
-        eventTypes: { some: { eventTypeId } },
+        subscriberId,
+        webhookEventTypes: { some: { eventTypeId } },
         disabled: false,
       },
       select: {
         id: true,
         url: true,
-        secrets: true,
+        secret: true,
         disabled: true,
         rateLimit: true,
       },
@@ -35,7 +35,7 @@ export async function getWebhooksForMessage(
     webhooks = dbWebhooks;
 
     // Cache the results
-    await setCachedWebhooks(appUserId, eventTypeId, webhooks);
+    await setCachedWebhooks(subscriberId, eventTypeId, webhooks);
   }
 
   return webhooks;

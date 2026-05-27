@@ -210,8 +210,8 @@ export type WebhookEventTypeScalarWhereWithAggregatesInput = {
 
 export type WebhookEventTypeCreateInput = {
   deletedAt?: Date | string | null
-  webhook: Prisma.WebhookCreateNestedOneWithoutEventTypesInput
-  eventType: Prisma.EventTypeCreateNestedOneWithoutWebhookConnectionsInput
+  webhook: Prisma.WebhookCreateNestedOneWithoutWebhookEventTypesInput
+  eventType: Prisma.EventTypeCreateNestedOneWithoutWebhookEventTypesInput
 }
 
 export type WebhookEventTypeUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type WebhookEventTypeUncheckedCreateInput = {
 
 export type WebhookEventTypeUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  webhook?: Prisma.WebhookUpdateOneRequiredWithoutEventTypesNestedInput
-  eventType?: Prisma.EventTypeUpdateOneRequiredWithoutWebhookConnectionsNestedInput
+  webhook?: Prisma.WebhookUpdateOneRequiredWithoutWebhookEventTypesNestedInput
+  eventType?: Prisma.EventTypeUpdateOneRequiredWithoutWebhookEventTypesNestedInput
 }
 
 export type WebhookEventTypeUncheckedUpdateInput = {
@@ -367,7 +367,7 @@ export type WebhookEventTypeUncheckedUpdateManyWithoutEventTypeNestedInput = {
 
 export type WebhookEventTypeCreateWithoutWebhookInput = {
   deletedAt?: Date | string | null
-  eventType: Prisma.EventTypeCreateNestedOneWithoutWebhookConnectionsInput
+  eventType: Prisma.EventTypeCreateNestedOneWithoutWebhookEventTypesInput
 }
 
 export type WebhookEventTypeUncheckedCreateWithoutWebhookInput = {
@@ -412,7 +412,7 @@ export type WebhookEventTypeScalarWhereInput = {
 
 export type WebhookEventTypeCreateWithoutEventTypeInput = {
   deletedAt?: Date | string | null
-  webhook: Prisma.WebhookCreateNestedOneWithoutEventTypesInput
+  webhook: Prisma.WebhookCreateNestedOneWithoutWebhookEventTypesInput
 }
 
 export type WebhookEventTypeUncheckedCreateWithoutEventTypeInput = {
@@ -453,7 +453,7 @@ export type WebhookEventTypeCreateManyWebhookInput = {
 
 export type WebhookEventTypeUpdateWithoutWebhookInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  eventType?: Prisma.EventTypeUpdateOneRequiredWithoutWebhookConnectionsNestedInput
+  eventType?: Prisma.EventTypeUpdateOneRequiredWithoutWebhookEventTypesNestedInput
 }
 
 export type WebhookEventTypeUncheckedUpdateWithoutWebhookInput = {
@@ -473,7 +473,7 @@ export type WebhookEventTypeCreateManyEventTypeInput = {
 
 export type WebhookEventTypeUpdateWithoutEventTypeInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  webhook?: Prisma.WebhookUpdateOneRequiredWithoutEventTypesNestedInput
+  webhook?: Prisma.WebhookUpdateOneRequiredWithoutWebhookEventTypesNestedInput
 }
 
 export type WebhookEventTypeUncheckedUpdateWithoutEventTypeInput = {

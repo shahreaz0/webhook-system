@@ -11,7 +11,7 @@ export const WebhookSchema = z.object({
     example: ["ckwxyz123456abcdef12345", "ckwxyz123456abcdef12345"],
   }),
   url: z.url().openapi({ example: "https://example.com/webhook" }),
-  secrets: z.string().openapi({ example: "supersecret" }),
+  secret: z.string().openapi({ example: "supersecret" }),
   description: z
     .string()
     .nullish()
@@ -20,27 +20,27 @@ export const WebhookSchema = z.object({
   archived: z.boolean().default(false).openapi({ example: false }),
   metadata: z.any().nullish().openapi({ example: {} }),
   rateLimit: z.number().nullish().openapi({ example: 10 }),
-  appUserId: z.cuid2().openapi({ example: "ckwxyz123456abcdef12345" }),
+  subscriberId: z.cuid2().openapi({ example: "ckwxyz123456abcdef12345" }),
   createdAt: z.date().openapi({ example: new Date().toISOString() }),
   updatedAt: z.date().openapi({ example: new Date().toISOString() }),
 });
 
 export const WebhookCreateSchema = WebhookSchema.omit({
   id: true,
-  appUserId: true,
+  subscriberId: true,
   createdAt: true,
   updatedAt: true,
 });
 
 export const WebhookUpdateSchema = WebhookCreateSchema.partial();
 
-export const AppUserParamsSchema = z.object({
-  appUserId: z
+export const SubscriberParamsSchema = z.object({
+  subscriberId: z
     .string()
-    .openapi({ param: { name: "appUserId", in: "path", required: true } }),
+    .openapi({ param: { name: "subscriberId", in: "path", required: true } }),
 });
 
-export const WebhookParamsSchema = AppUserParamsSchema.extend({
+export const WebhookParamsSchema = SubscriberParamsSchema.extend({
   webhookId: z
     .string()
     .openapi({ param: { name: "webhookId", in: "path", required: true } }),

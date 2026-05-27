@@ -3,28 +3,28 @@ import { createErrorSchema } from "stoker/openapi/schemas";
 import { NotFoundSchema } from "@/lib/common-schemas";
 import {
   ApplicationIdParamsSchema,
-  AppUserCreateSchema,
-  AppUserListQuerySchema,
-  AppUserParamsSchema,
-  AppUserSchema,
-  AppUserSchemaDetails,
-  AppUserUpdateSchema,
-} from "./app-users.schemas";
+  SubscriberCreateSchema,
+  SubscriberListQuerySchema,
+  SubscriberParamsSchema,
+  SubscriberSchema,
+  SubscriberSchemaDetails,
+  SubscriberUpdateSchema,
+} from "./subscribers.schemas";
 
-const tags = ["AppUsers"];
+const tags = ["Subscribers"];
 
 import { z } from "zod";
 
 export const list = createRoute({
   tags,
   method: "get",
-  path: "/applications/{applicationId}/app-users",
+  path: "/applications/{applicationId}/subscribers",
   summary: "List application users",
   description:
     "Retrieve a list of application users for the specified application.",
   request: {
     params: ApplicationIdParamsSchema,
-    query: AppUserListQuerySchema,
+    query: SubscriberListQuerySchema,
   },
   responses: {
     200: {
@@ -33,7 +33,7 @@ export const list = createRoute({
         "application/json": {
           schema: z.object({
             success: z.boolean().openapi({ example: true }),
-            data: z.array(AppUserSchema),
+            data: z.array(SubscriberSchema),
           }),
         },
       },
@@ -44,16 +44,16 @@ export const list = createRoute({
 export const create = createRoute({
   tags,
   method: "post",
-  path: "/applications/{applicationId}/app-users",
+  path: "/applications/{applicationId}/subscribers",
   summary: "Create application user",
-  description: "Create a new AppUser for the specified application.",
+  description: "Create a new Subscriber for the specified application.",
   request: {
     params: ApplicationIdParamsSchema,
     body: {
       description: "The app user to create",
       content: {
         "application/json": {
-          schema: AppUserCreateSchema,
+          schema: SubscriberCreateSchema,
         },
       },
     },
@@ -63,7 +63,7 @@ export const create = createRoute({
       description: "Created — app user created successfully.",
       content: {
         "application/json": {
-          schema: z.object({ success: z.boolean(), data: AppUserSchema }),
+          schema: z.object({ success: z.boolean(), data: SubscriberSchema }),
         },
       },
     },
@@ -71,7 +71,7 @@ export const create = createRoute({
       description: "Unprocessable Entity — request body validation failed.",
       content: {
         "application/json": {
-          schema: createErrorSchema(AppUserCreateSchema),
+          schema: createErrorSchema(SubscriberCreateSchema),
         },
       },
     },
@@ -81,11 +81,11 @@ export const create = createRoute({
 export const getOne = createRoute({
   tags,
   method: "get",
-  path: "/applications/{applicationId}/app-users/{appUserId}",
+  path: "/applications/{applicationId}/subscribers/{subscriberId}",
   summary: "Get application user",
   description:
-    "Retrieve the details of a single AppUser identified by appUserId for the specified application.",
-  request: { params: AppUserParamsSchema },
+    "Retrieve the details of a single Subscriber identified by subscriberId for the specified application.",
+  request: { params: SubscriberParamsSchema },
   responses: {
     200: {
       description: "OK — app user returned successfully.",
@@ -93,20 +93,23 @@ export const getOne = createRoute({
         "application/json": {
           schema: z.object({
             success: z.boolean().openapi({ example: true }),
-            data: AppUserSchemaDetails,
+            data: SubscriberSchemaDetails,
           }),
         },
       },
     },
     422: {
-      description: "Unprocessable Entity — invalid path parameter (appUserId).",
+      description:
+        "Unprocessable Entity — invalid path parameter (subscriberId).",
       content: {
-        "application/json": { schema: createErrorSchema(AppUserParamsSchema) },
+        "application/json": {
+          schema: createErrorSchema(SubscriberParamsSchema),
+        },
       },
     },
     404: {
       description:
-        "Not Found — no app user exists with the provided appUserId.",
+        "Not Found — no app user exists with the provided subscriberId.",
       content: { "application/json": { schema: NotFoundSchema } },
     },
   },
@@ -115,15 +118,15 @@ export const getOne = createRoute({
 export const patch = createRoute({
   tags,
   method: "patch",
-  path: "/applications/{applicationId}/app-users/{appUserId}",
+  path: "/applications/{applicationId}/subscribers/{subscriberId}",
   summary: "Update application user",
   description:
-    "Partially update an existing AppUser identified by appUserId for the specified application.",
+    "Partially update an existing Subscriber identified by subscriberId for the specified application.",
   request: {
-    params: AppUserParamsSchema,
+    params: SubscriberParamsSchema,
     body: {
       description: "Partial fields to update",
-      content: { "application/json": { schema: AppUserUpdateSchema } },
+      content: { "application/json": { schema: SubscriberUpdateSchema } },
     },
   },
   responses: {
@@ -133,7 +136,7 @@ export const patch = createRoute({
         "application/json": {
           schema: z.object({
             success: z.boolean().openapi({ example: true }),
-            data: AppUserSchema,
+            data: SubscriberSchema,
           }),
         },
       },
@@ -143,15 +146,15 @@ export const patch = createRoute({
       content: {
         "application/json": {
           schema: z.union([
-            createErrorSchema(AppUserUpdateSchema),
-            createErrorSchema(AppUserParamsSchema),
+            createErrorSchema(SubscriberUpdateSchema),
+            createErrorSchema(SubscriberParamsSchema),
           ]),
         },
       },
     },
     404: {
       description:
-        "Not Found — no app user exists with the provided appUserId to update.",
+        "Not Found — no app user exists with the provided subscriberId to update.",
       content: { "application/json": { schema: NotFoundSchema } },
     },
   },
@@ -160,11 +163,11 @@ export const patch = createRoute({
 export const remove = createRoute({
   tags,
   method: "delete",
-  path: "/applications/{applicationId}/app-users/{appUserId}",
+  path: "/applications/{applicationId}/subscribers/{subscriberId}",
   summary: "Delete application user",
   description:
-    "Delete the AppUser identified by appUserId for the specified application.",
-  request: { params: AppUserParamsSchema },
+    "Delete the Subscriber identified by subscriberId for the specified application.",
+  request: { params: SubscriberParamsSchema },
   responses: {
     200: {
       description: "OK — app user deleted successfully.",
@@ -179,14 +182,16 @@ export const remove = createRoute({
     },
     422: {
       description:
-        "Unprocessable Entity — invalid path parameters (appUserId).",
+        "Unprocessable Entity — invalid path parameters (subscriberId).",
       content: {
-        "application/json": { schema: createErrorSchema(AppUserParamsSchema) },
+        "application/json": {
+          schema: createErrorSchema(SubscriberParamsSchema),
+        },
       },
     },
     404: {
       description:
-        "Not Found — no app user exists with the provided appUserId to delete.",
+        "Not Found — no app user exists with the provided subscriberId to delete.",
       content: { "application/json": { schema: NotFoundSchema } },
     },
   },
