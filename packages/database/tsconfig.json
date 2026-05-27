@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "package.json": ["./package.json"]
+    }
+  },
+  "include": ["prisma/**/*", "prisma.config.ts", "package.json"]
+}

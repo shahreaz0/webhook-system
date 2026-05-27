@@ -12,6 +12,8 @@
     "noEmit": true,
     "types": ["bun"],
     "paths": {
+      "@webhook/database": ["./packages/database/prisma/index.ts"],
+      "@webhook/env": ["./packages/env/src/index.ts"],
       "@webhook/*": ["./packages/*/src"]
     }
   },

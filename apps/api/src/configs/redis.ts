@@ -1,5 +1,5 @@
+import { env } from "@webhook/env";
 import IORedis from "ioredis";
-import { env } from "@/lib/env";
 import { logger } from "@/lib/logger";
 
 export const redisClient = new IORedis(env.REDIS_URL, {

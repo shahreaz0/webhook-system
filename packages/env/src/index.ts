@@ -4,16 +4,8 @@ import { ZodError, z } from "zod";
 
 dotenv.config({
   path: path.resolve(
-    process.cwd(),
-    process.env.NODE_ENV === "test" ? ".env.test" : ".env"
-  ),
-});
-
-// Also try root if not in cwd (for monorepo)
-dotenv.config({
-  path: path.resolve(
-    process.cwd(),
-    "../../",
+    import.meta.dirname,
+    "../../../",
     process.env.NODE_ENV === "test" ? ".env.test" : ".env"
   ),
 });
@@ -41,9 +33,8 @@ function getEnv() {
   try {
     return envSchema.parse(process.env);
   } catch (error) {
-    console.error("Invalid env");
+    console.error("Invalid env in @webhook/env");
     console.error(error instanceof ZodError && z.prettifyError(error));
-
     process.exit(1);
   }
 }

@@ -1,6 +1,6 @@
+import { env } from "@webhook/env";
 import { pinoLogger } from "hono-pino";
 import pino from "pino";
-import { env } from "./env";
 
 export const logger = pino({
   level: env.LOG_LEVEL || "info",

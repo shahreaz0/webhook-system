@@ -1,6 +1,6 @@
 import { checkDbConnection } from "@webhook/database";
+import { env } from "@webhook/env";
 import { app } from "@/app";
-import { env } from "@/lib/env";
 
 import "@/modules/messages/messages.workers";
 

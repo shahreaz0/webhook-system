@@ -1,17 +1,12 @@
-import path from "node:path";
-import { logger } from "@webhook/api/src/lib/logger";
-import dotenv from "dotenv";
-
-dotenv.config({ path: path.resolve(process.cwd(), "../../.env") });
-
 import { PrismaPg } from "@prisma/adapter-pg";
+import { env } from "@webhook/env";
 import { PrismaClient } from "../generated/prisma/client.ts";
 
 // biome-ignore lint/performance/noBarrelFile: <none>
 export * from "../generated/prisma/client.ts";
 export * from "../generated/prisma/enums.ts";
 
-const connectionString = `${process.env.DATABASE_URL}`;
+const connectionString = env.DATABASE_URL;
 
 const adapter = new PrismaPg({ connectionString });
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
@@ -25,10 +20,10 @@ if (process.env.NODE_ENV !== "production") {
 export async function checkDbConnection() {
   try {
     await prisma.$queryRaw`SELECT 1`;
-    logger.info("Database connected!");
+    console.info("Database connected!");
     return true;
   } catch (error) {
-    logger.error(error);
+    console.error(error);
     return false;
   }
 }
