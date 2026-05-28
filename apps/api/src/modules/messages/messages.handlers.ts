@@ -190,7 +190,6 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
     where: { id: params.messageId },
     data: {
       ...body,
-      // biome-ignore lint/suspicious/noExplicitAny: Prisma InputJsonValue casting
       payload: body.payload ? (body.payload as any) : undefined,
     },
   });

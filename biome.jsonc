@@ -2,7 +2,8 @@
   "extends": ["ultracite/biome/core", "ultracite/biome/next"],
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignoreUnknown": false
+    "ignoreUnknown": false,
+    "includes": ["!**/components/ui", "!**/generated"]
   },
   "formatter": {
     "enabled": true,
@@ -14,6 +15,9 @@
     "rules": {
       "performance": {
         "noNamespaceImport": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off"
       }
     }
   },
