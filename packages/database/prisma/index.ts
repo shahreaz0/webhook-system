@@ -1,5 +1,6 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { env } from "@webhook/env";
+import { logger } from "@webhook/logger";
 import { PrismaClient } from "../generated/prisma/client.ts";
 
 // biome-ignore lint/performance/noBarrelFile: <none>
@@ -20,16 +21,16 @@ if (process.env.NODE_ENV !== "production") {
 export async function checkDbConnection() {
   try {
     await prisma.$queryRaw`SELECT 1`;
-    console.info("Database connected!");
+    logger.info("db", "Database connected!");
     return true;
   } catch (error) {
-    console.error(error);
+    logger.error("db", error instanceof Error ? error.message : String(error));
     return false;
   }
 }
 
 process.on("SIGINT", async () => {
-  console.log("🛑 Shutting down...");
+  logger.info("db", "🛑 Shutting down...");
   await prisma.$disconnect();
   process.exit(0);
 });

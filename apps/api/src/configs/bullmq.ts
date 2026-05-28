@@ -1,6 +1,6 @@
+import { logger } from "@webhook/logger";
 import { Queue } from "bullmq";
 import { redisClient } from "@/configs/redis";
-import { logger } from "@/lib/logger";
 
 export const MESSAGE_QUEUE = "messages";
 
@@ -26,5 +26,5 @@ export const messagesQueue = new Queue(MESSAGE_QUEUE, {
 // Queue event handlers
 
 messagesQueue.on("waiting", (job) => {
-  logger.debug(`bullmq.ts: Job ${job.id} is waiting`);
+  logger.debug("bullmq", `Job ${job.id} is waiting`);
 });

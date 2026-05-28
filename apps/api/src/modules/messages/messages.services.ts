@@ -1,6 +1,6 @@
 import type { MessageStatus } from "@webhook/database";
 import { prisma } from "@webhook/database";
-import { logger } from "@/lib/logger";
+import { logger } from "@webhook/logger";
 import { checkRateLimit } from "@/lib/rate-limiter";
 import { http } from "@/lib/xior";
 import type { CachedWebhook } from "../webhooks/webhooks.utils";
@@ -25,6 +25,7 @@ export async function deliverMessage(
 
     if (!rateLimit.allowed) {
       logger.warn(
+        "messages",
         `Rate limit exceeded for webhook ${wh.id}, retry after ${new Date(rateLimit.resetAt).toISOString()}`
       );
 
@@ -98,7 +99,8 @@ export async function deliverMessage(
     });
 
     logger.info(
-      `messages.services.ts: Webhook delivered successfully to ${wh.url} in ${duration}ms`
+      "messages",
+      `Webhook delivered successfully to ${wh.url} in ${duration}ms`
     );
 
     return response.data;
@@ -112,6 +114,7 @@ export async function deliverMessage(
       error instanceof Error ? error.message : "Unknown error";
 
     logger.error(
+      "messages",
       `Failed to deliver webhook to ${wh.url} after ${duration}ms: ${errorMessage}`
     );
 

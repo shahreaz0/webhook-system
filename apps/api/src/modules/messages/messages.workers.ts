@@ -1,15 +1,15 @@
 import type { Message } from "@webhook/database";
 import { prisma } from "@webhook/database";
+import { logger } from "@webhook/logger";
 import { Worker } from "bullmq";
 import pLimit from "p-limit";
 import { MESSAGE_QUEUE } from "@/configs/bullmq";
 import { redisClient } from "@/configs/redis";
-import { logger } from "@/lib/logger";
 import { getWebhooksForMessage } from "../webhooks/webhooks.services";
 import { deliverMessage, updateMessageStatus } from "./messages.services";
 import type { MessageJobData } from "./messages.types";
 
-logger.info("Message worker started");
+logger.info("workers", "Message worker started");
 
 const httpLimit = pLimit(50);
 
@@ -31,6 +31,7 @@ const worker = new Worker<MessageJobData>(
 
     if (webhooks.length === 0) {
       logger.info(
+        "workers",
         `No webhooks found for message ${job.data.message.id}, marking as delivered`
       );
       await updateMessageStatus(job.data.message.id, "DELIVERED");
@@ -56,6 +57,7 @@ const worker = new Worker<MessageJobData>(
 
     if (pendingWebhooks.length === 0) {
       logger.info(
+        "workers",
         `All webhooks already delivered for message ${job.data.message.id}`
       );
       await updateMessageStatus(job.data.message.id, "DELIVERED");
@@ -102,6 +104,7 @@ const worker = new Worker<MessageJobData>(
     }
 
     logger.info(
+      "workers",
       `Message ${job.data.message.id} processed: ${successes.length} succeeded, ${errors.length} failed, final delivered count: ${deliveredCount}/${webhooks.length}`
     );
 
@@ -126,13 +129,13 @@ const worker = new Worker<MessageJobData>(
 );
 
 worker.on("completed", (job) => {
-  logger.info(`Job ${job.id} completed successfully`);
+  logger.info("workers", `Job ${job.id} completed successfully`);
 });
 
 worker.on("failed", (job, err) => {
-  logger.error(`Job ${job?.id} failed: ${err.message}`);
+  logger.error("workers", `Job ${job?.id} failed: ${err.message}`);
 });
 
 worker.on("error", (err) => {
-  logger.error(`Worker error: ${err.message}`);
+  logger.error("workers", `Worker error: ${err.message}`);
 });

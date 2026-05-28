@@ -1,5 +1,5 @@
+import { logger } from "@webhook/logger";
 import { redisClient } from "@/configs/redis";
-import { logger } from "@/lib/logger";
 
 const RATE_LIMIT_PREFIX = "rate_limit:";
 const DEFAULT_WINDOW = 60; // 60 seconds sliding window
@@ -50,6 +50,7 @@ export async function checkRateLimit(
           : now + windowSeconds * 1000;
 
       logger.debug(
+        "rate-limiter",
         `Rate limit exceeded for webhook ${webhookId}: ${count}/${limit}`
       );
 
@@ -69,6 +70,7 @@ export async function checkRateLimit(
     const remaining = limit - count - 1;
 
     logger.debug(
+      "rate-limiter",
       `Rate limit check for webhook ${webhookId}: ${count + 1}/${limit} (${remaining} remaining)`
     );
 
@@ -78,7 +80,7 @@ export async function checkRateLimit(
       resetAt: now + windowSeconds * 1000,
     };
   } catch (error) {
-    logger.error(`Error checking rate limit: ${error}`);
+    logger.error("rate-limiter", `Error checking rate limit: ${error}`);
     // Fail open - allow request if rate limiting fails
     return {
       allowed: true,
@@ -95,9 +97,9 @@ export async function resetRateLimit(webhookId: string): Promise<void> {
   try {
     const key = `${RATE_LIMIT_PREFIX}${webhookId}`;
     await redisClient.del(key);
-    logger.info(`Rate limit reset for webhook ${webhookId}`);
+    logger.info("rate-limiter", `Rate limit reset for webhook ${webhookId}`);
   } catch (error) {
-    logger.error(`Error resetting rate limit: ${error}`);
+    logger.error("rate-limiter", `Error resetting rate limit: ${error}`);
   }
 }
 
@@ -134,7 +136,7 @@ export async function getRateLimitStatus(
       resetAt: now + windowSeconds * 1000,
     };
   } catch (error) {
-    logger.error(`Error getting rate limit status: ${error}`);
+    logger.error("rate-limiter", `Error getting rate limit status: ${error}`);
     return {
       allowed: true,
       remaining: 0,

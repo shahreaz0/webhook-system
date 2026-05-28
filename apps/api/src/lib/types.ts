@@ -1,9 +1,8 @@
 import type { OpenAPIHono, RouteConfig, RouteHandler } from "@hono/zod-openapi";
-import type { PinoLogger } from "hono-pino";
-
+import type { EvlogVariables } from "@webhook/logger";
 export interface AppBindings {
   Variables: {
-    logger: PinoLogger;
+    logger: EvlogVariables["Variables"]["log"];
     userId: string;
     jwtPayload: {
       id: string;

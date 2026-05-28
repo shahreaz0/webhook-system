@@ -1,6 +1,6 @@
+import { logger } from "@webhook/logger";
 import xior from "xior";
 import errorRetryPlugin from "xior/plugins/error-retry";
-import { logger } from "@/lib/logger";
 
 export const http = xior.create({
   timeout: 30_000, // 30 second timeout
@@ -15,7 +15,8 @@ http.plugins.use(
     },
     onRetry(config, error, count) {
       logger.info(
-        `xior.ts: ${config.method} ${config.url} retry ${count} times - Error: ${error.message}`
+        "xior",
+        `${config.method} ${config.url} retry ${count} times - Error: ${error.message}`
       );
     },
   })

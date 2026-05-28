@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@prisma/client": "^7.8.0",
-    "@webhook/env": "workspace:*"
+    "@webhook/env": "workspace:*",
+    "@webhook/logger": "workspace:*"
   },
   "devDependencies": {
     "prisma": "^7.8.0",

@@ -1,5 +1,5 @@
+import { logger } from "@webhook/logger";
 import { redisClient } from "@/configs/redis";
-import { logger } from "@/lib/logger";
 
 const CIRCUIT_BREAKER_PREFIX = "circuit_breaker:";
 const FAILURE_THRESHOLD = 10; // Number of consecutive failures before opening circuit
@@ -50,7 +50,7 @@ export async function getCircuitState(
 
     return circuit.state;
   } catch (error) {
-    logger.error(`Error getting circuit state: ${error}`);
+    logger.error("circuit-breaker", `Error getting circuit state: ${error}`);
     return CircuitState.CLOSED; // Fail open
   }
 }
@@ -72,13 +72,16 @@ export async function recordSuccess(webhookId: string): Promise<void> {
     // If in HALF_OPEN state and success, close the circuit
     if (circuit.state === CircuitState.HALF_OPEN) {
       await redisClient.del(key);
-      logger.info(`Circuit breaker closed for webhook ${webhookId}`);
+      logger.info(
+        "circuit-breaker",
+        `Circuit breaker closed for webhook ${webhookId}`
+      );
     } else if (circuit.state === CircuitState.CLOSED) {
       // Reset failure count on success
       await updateCircuitState(webhookId, CircuitState.CLOSED, 0);
     }
   } catch (error) {
-    logger.error(`Error recording success: ${error}`);
+    logger.error("circuit-breaker", `Error recording success: ${error}`);
   }
 }
 
@@ -117,13 +120,14 @@ export async function recordFailure(webhookId: string): Promise<void> {
       circuit.state = CircuitState.OPEN;
       circuit.openedAt = now;
       logger.warn(
+        "circuit-breaker",
         `Circuit breaker opened for webhook ${webhookId} after ${circuit.failureCount} failures`
       );
     }
 
     await redisClient.setex(key, RECOVERY_TIMEOUT * 2, JSON.stringify(circuit));
   } catch (error) {
-    logger.error(`Error recording failure: ${error}`);
+    logger.error("circuit-breaker", `Error recording failure: ${error}`);
   }
 }
 

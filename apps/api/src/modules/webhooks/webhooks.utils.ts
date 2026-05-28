@@ -1,6 +1,6 @@
 import type { Prisma, Webhook } from "@webhook/database";
+import { logger } from "@webhook/logger";
 import { redisClient } from "@/configs/redis";
-import { logger } from "@/lib/logger";
 
 const CACHE_PREFIX = "webhook_cache:";
 const CACHE_TTL = 300; // 5 minutes
@@ -53,14 +53,14 @@ export async function getCachedWebhooks(
     const cached = await redisClient.get(cacheKey);
 
     if (cached) {
-      logger.debug(`Cache hit for webhooks: ${cacheKey}`);
+      logger.debug("webhooks", `Cache hit for webhooks: ${cacheKey}`);
       return JSON.parse(cached) as Webhook[];
     }
 
-    logger.debug(`Cache miss for webhooks: ${cacheKey}`);
+    logger.debug("webhooks", `Cache miss for webhooks: ${cacheKey}`);
     return null;
   } catch (error) {
-    logger.error(`Error getting cached webhooks: ${error}`);
+    logger.error("webhooks", `Error getting cached webhooks: ${error}`);
     return null;
   }
 }
@@ -76,9 +76,9 @@ export async function setCachedWebhooks(
   try {
     const cacheKey = `${CACHE_PREFIX}${subscriberId}:${eventTypeId}`;
     await redisClient.setex(cacheKey, CACHE_TTL, JSON.stringify(webhooks));
-    logger.debug(`Cached webhooks: ${cacheKey}`);
+    logger.debug("webhooks", `Cached webhooks: ${cacheKey}`);
   } catch (error) {
-    logger.error(`Error setting cached webhooks: ${error}`);
+    logger.error("webhooks", `Error setting cached webhooks: ${error}`);
   }
 }
 
@@ -94,9 +94,12 @@ export async function invalidateWebhookCache(
 
     if (keys.length > 0) {
       await redisClient.del(...keys);
-      logger.debug(`Invalidated ${keys.length} webhook cache entries`);
+      logger.debug(
+        "webhooks",
+        `Invalidated ${keys.length} webhook cache entries`
+      );
     }
   } catch (error) {
-    logger.error(`Error invalidating webhook cache: ${error}`);
+    logger.error("webhooks", `Error invalidating webhook cache: ${error}`);
   }
 }

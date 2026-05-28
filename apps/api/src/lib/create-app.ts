@@ -1,8 +1,8 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
+import { evlog } from "@webhook/logger";
 import { cors } from "hono/cors";
 import { requestId } from "hono/request-id";
 import { notFound, onError, serveEmojiFavicon } from "stoker/middlewares";
-// import { logger } from "@/middlewares/pino-logger"
 import { defaultHook } from "stoker/openapi";
 import type { AppBindings, AppOpenAPI } from "@/lib/types";
 import { auth } from "@/middlewares/auth";
@@ -23,7 +23,7 @@ export function createApp() {
   );
   app.use(serveEmojiFavicon("🔥"));
   app.use(requestId());
-  // app.use(logger())
+  app.use(evlog());
 
   app.use("/users/*", auth());
   app.use("/applications/*", auth());
