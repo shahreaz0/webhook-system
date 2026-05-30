@@ -4,9 +4,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "package.json": ["./package.json"]
-    },
-    "strictNullChecks": true,
-    "ignoreDeprecations": "6.0"
+    }
   },
   "include": ["src/**/*", "play.ts", "package.json"]
 }

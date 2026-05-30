@@ -1,0 +1,19 @@
+{
+  "name": "@webhook/api-client",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "rm -rf ./dist && tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.12.18"
+  },
+  "devDependencies": {
+    "@webhook/api": "workspace:*",
+    "typescript": "^6.0.3"
+  }
+}

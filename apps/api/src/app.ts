@@ -20,7 +20,7 @@ const routes = [
   eventTypes,
   webhooks,
   messages,
-];
+] as const;
 
 export const app = createApp();
 
@@ -29,3 +29,5 @@ configureOpenAPI(app);
 for (const route of routes) {
   app.route("/", route);
 }
+
+export type AppType = (typeof routes)[number];
