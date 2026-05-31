@@ -23,5 +23,8 @@
     "apps/*",
     "packages/*"
   ],
-  "private": true
+  "private": true,
+  "dependencies": {
+    "stan-js": "^1.9.1"
+  }
 }

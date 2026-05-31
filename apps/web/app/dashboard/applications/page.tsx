@@ -1,23 +1,30 @@
 "use client";
 
 import { FolderKanban, Plus } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@/web/components/ui/button";
 import { useActiveApp } from "@/web/lib/active-app-context";
 import { ApplicationCard } from "./components/application-card";
-import { CreateApplicationForm } from "./components/create-application-form";
+import { UpsertApplicationDialog } from "./components/upsert-application-dialog";
 import { useGetApplicationList } from "./hooks/use-get-application-list";
+import { useApplicationsStore } from "./store";
 
 export default function ApplicationsPage() {
   const { activeApp } = useActiveApp();
-  const [creating, setCreating] = useState(false);
 
   // Fetch applications list using the custom query hook
   const { data: applications = [], isLoading } = useGetApplicationList();
 
-  function handleToggleCreating() {
-    setCreating((prev) => !prev);
-  }
+  const {
+    setIsUpsertApplicationDialogOpen,
+    setApplicationMutationType,
+    setSelectedApplication,
+  } = useApplicationsStore();
+
+  const handleOpenCreateDialog = () => {
+    setIsUpsertApplicationDialogOpen(true);
+    setApplicationMutationType("add");
+    setSelectedApplication(null);
+  };
 
   function renderApplicationsContent() {
     if (isLoading) {
@@ -66,14 +73,14 @@ export default function ApplicationsPage() {
             separate sandbox containers.
           </p>
         </div>
-        <Button onClick={handleToggleCreating}>
-          {creating ? "Cancel" : "New Application"}
+        <Button onClick={handleOpenCreateDialog}>
+          New Application
           <Plus className="size-4" />
         </Button>
       </div>
 
       {/* Creation Modal Form Panel */}
-      {creating && <CreateApplicationForm />}
+      <UpsertApplicationDialog />
 
       {/* Applications Grid */}
       {renderApplicationsContent()}

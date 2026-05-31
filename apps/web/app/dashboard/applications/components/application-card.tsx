@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ExternalLink, Trash2 } from "lucide-react";
+import { Check, ExternalLink, Pencil, Trash2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +25,7 @@ import { useActiveApp } from "@/web/lib/active-app-context";
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { useDeleteApplication } from "../hooks/use-delete-application";
+import { useApplicationsStore } from "../store";
 
 interface ApplicationCardProps {
   app: Application;
@@ -34,6 +35,17 @@ interface ApplicationCardProps {
 export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
   const { setActiveApp } = useActiveApp();
   const deleteMutation = useDeleteApplication();
+  const {
+    setIsUpsertApplicationDialogOpen,
+    setApplicationMutationType,
+    setSelectedApplication,
+  } = useApplicationsStore();
+
+  const handleEdit = () => {
+    setIsUpsertApplicationDialogOpen(true);
+    setApplicationMutationType("edit");
+    setSelectedApplication(app);
+  };
 
   return (
     <Card
@@ -89,39 +101,50 @@ export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
           <ExternalLink className="size-3" />
           Open Console
         </Button>
-        <AlertDialog>
-          <AlertDialogTrigger
-            render={
-              <Button
-                className="h-7 w-7 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
-                size="icon"
-                title="Delete Application"
-                variant="ghost"
-              >
-                <Trash2 className="size-3.5" />
-              </Button>
-            }
-          />
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Delete Application</AlertDialogTitle>
-              <AlertDialogDescription>
-                Are you sure you want to delete this application? All
-                subscribers and webhooks will be deleted!
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
-                disabled={deleteMutation.isPending}
-                onClick={() => deleteMutation.mutate(app.id)}
-                variant="destructive"
-              >
-                {deleteMutation.isPending ? "Deleting..." : "Delete"}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <div className="flex items-center gap-1">
+          <Button
+            className="h-7 w-7 text-muted-foreground hover:bg-muted"
+            onClick={handleEdit}
+            size="icon"
+            title="Edit Application"
+            variant="ghost"
+          >
+            <Pencil className="size-3.5" />
+          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger
+              render={
+                <Button
+                  className="h-7 w-7 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                  size="icon"
+                  title="Delete Application"
+                  variant="ghost"
+                >
+                  <Trash2 className="size-3.5" />
+                </Button>
+              }
+            />
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete Application</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure you want to delete this application? All
+                  subscribers and webhooks will be deleted!
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  disabled={deleteMutation.isPending}
+                  onClick={() => deleteMutation.mutate(app.id)}
+                  variant="destructive"
+                >
+                  {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </CardFooter>
     </Card>
   );

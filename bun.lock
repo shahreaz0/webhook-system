@@ -4,6 +4,9 @@
   "workspaces": {
     "": {
       "name": "hrms",
+      "dependencies": {
+        "stan-js": "^1.9.1",
+      },
       "devDependencies": {
         "@biomejs/biome": "2.4.15",
         "husky": "^9.1.7",
@@ -53,7 +56,7 @@
         "@hookform/resolvers": "^5.4.0",
         "@radix-ui/react-slot": "^1.2.4",
         "@tanstack/react-query": "^5.100.14",
-        "@webhook/api": "workspace:*",
+        "@webhook/api-client": "workspace:*",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "cmdk": "^1.1.1",
@@ -1284,6 +1287,8 @@
     "split2": ["split2@4.2.0", "", {}, "sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg=="],
 
     "sqlstring": ["sqlstring@2.3.3", "", {}, "sha512-qC9iz2FlN7DQl3+wjwn3802RTyjCx7sDvfQEXchwa6CWOx07/WVfh91gBmQ9fahw8snwGEWU3xGzOt4tFyHLxg=="],
+
+    "stan-js": ["stan-js@1.9.1", "", { "peerDependencies": { "react": ">=18.2.0", "react-native-mmkv": ">=2.0.0" }, "optionalPeers": ["react", "react-native-mmkv"] }, "sha512-DQEWIWL0JwxqoqSBCEq3GbxOuT3Grh9p05Zs78llQSPFmgzZzOB2Im1WABqwXza+Sb1gmrO65OWhi3d23dp7Wg=="],
 
     "standard-as-callback": ["standard-as-callback@2.1.0", "", {}, "sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A=="],
 
