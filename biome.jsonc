@@ -1,10 +1,23 @@
 {
+  "extends": ["ultracite/biome/core", "ultracite/biome/next"],
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["ultracite/biome/core"],
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["!**/components/ui", "!**/generated"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80
+  },
   "linter": {
     "rules": {
       "performance": {
         "noNamespaceImport": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off"
       }
     }
   },

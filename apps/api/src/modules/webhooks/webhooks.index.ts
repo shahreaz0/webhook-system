@@ -1,0 +1,11 @@
+import { createRouter } from "@/api/lib/create-app";
+
+import * as handlers from "./webhooks.handlers";
+import * as routes from "./webhooks.routes";
+
+export const webhooks = createRouter()
+  .openapi(routes.list, handlers.list)
+  .openapi(routes.create, handlers.create)
+  .openapi(routes.getOne, handlers.getOne)
+  .openapi(routes.patch, handlers.patch)
+  .openapi(routes.remove, handlers.remove);

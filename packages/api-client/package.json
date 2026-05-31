@@ -1,0 +1,19 @@
+{
+  "name": "@webhook/api-client",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf ./dist && tsgo",
+    "typecheck": "tsgo --noEmit"
+  },
+  "dependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20260527.2",
+    "hono": "^4.12.18"
+  },
+  "devDependencies": {
+    "@webhook/api": "workspace:*",
+    "typescript": "^6.0.3"
+  }
+}

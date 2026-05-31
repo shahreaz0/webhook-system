@@ -1,0 +1,6 @@
+import { env } from "@webhook/env";
+import { jwt } from "hono/jwt";
+
+export function auth() {
+  return jwt({ secret: env.JWT_SECRET, alg: "HS512" });
+}

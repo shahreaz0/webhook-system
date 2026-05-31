@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rewriteRelativeImportExtensions": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "paths": {
+      "@/api/*": ["../../apps/api/src/*"]
+    }
+  },
+  "watchOptions": {
+    "excludeDirectories": ["**/node_modules", "**/packages/web"]
+  },
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/api/*": ["./src/*"],
+      "package.json": ["./package.json"]
+    }
+  },
+  "include": ["src/**/*", "play.ts", "package.json"]
+}

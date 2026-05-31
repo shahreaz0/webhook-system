@@ -1,0 +1,21 @@
+{
+  "name": "@webhook/database",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./prisma/index.ts",
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev",
+    "studio": "prisma studio",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.8.0",
+    "@webhook/env": "workspace:*",
+    "@webhook/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "prisma": "^7.8.0",
+    "dotenv": "^17.4.2"
+  }
+}
