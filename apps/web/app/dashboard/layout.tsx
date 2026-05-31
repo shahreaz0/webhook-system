@@ -21,10 +21,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Button } from "@/web/components/ui/button";
-import { ActiveAppProvider, useActiveApp } from "@/web/lib/active-app-context";
 import { apiClient } from "@/web/lib/fetch-client";
 import type { User } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
+import { useGetApplicationList } from "./applications/hooks/use-get-application-list";
+import { useApplicationsStore } from "./applications/store";
 
 function DashboardLayoutContent({
   children,
@@ -36,7 +37,34 @@ function DashboardLayoutContent({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [appDropdownOpen, setAppDropdownOpen] = useState(false);
 
-  const { activeApp, setActiveApp, applications } = useActiveApp();
+  const { activeApp, setActiveApp } = useApplicationsStore();
+  const { data: applications = [], isSuccess } = useGetApplicationList();
+
+  useEffect(() => {
+    if (!isSuccess) {
+      return;
+    }
+
+    if (applications.length > 0) {
+      if (activeApp) {
+        const found = applications.find((a) => a.id === activeApp.id);
+        if (found) {
+          if (
+            found.name !== activeApp.name ||
+            found.description !== activeApp.description
+          ) {
+            setActiveApp(found);
+          }
+        } else {
+          setActiveApp(applications[0]);
+        }
+      } else {
+        setActiveApp(applications[0]);
+      }
+    } else if (activeApp) {
+      setActiveApp(null);
+    }
+  }, [applications, activeApp, isSuccess, setActiveApp]);
 
   useEffect(() => {
     const currentUser = apiClient.getCurrentUser();
@@ -382,9 +410,5 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <ActiveAppProvider>
-      <DashboardLayoutContent>{children}</DashboardLayoutContent>
-    </ActiveAppProvider>
-  );
+  return <DashboardLayoutContent>{children}</DashboardLayoutContent>;
 }

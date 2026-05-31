@@ -35,14 +35,14 @@ import {
   CardTitle,
 } from "@/web/components/ui/card";
 import { Input } from "@/web/components/ui/input";
-import { useActiveApp } from "@/web/lib/active-app-context";
 import { apiClient } from "@/web/lib/fetch-client";
 import type { Subscriber, Webhook } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
+import { useApplicationsStore } from "../applications/store";
 
 export default function SubscribersPage() {
   const queryClient = useQueryClient();
-  const { activeApp } = useActiveApp();
+  const { activeApp } = useApplicationsStore();
 
   const [selectedSub, setSelectedSub] = useState<Subscriber | null>(null);
   const [subToDelete, setSubToDelete] = useState<Subscriber | null>(null);
