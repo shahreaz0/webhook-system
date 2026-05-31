@@ -20,14 +20,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
-import { useActiveApp } from "@/web/lib/active-app-context";
 import { apiClient } from "@/web/lib/fetch-client";
 import type { Message } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
+import { useApplicationsStore } from "../applications/store";
 
 export default function MessagesPage() {
   const queryClient = useQueryClient();
-  const { activeApp } = useActiveApp();
+  const { activeApp } = useApplicationsStore();
 
   const [selectedMsg, setSelectedMsg] = useState<Message | null>(null);
 
@@ -36,7 +36,7 @@ export default function MessagesPage() {
   const [selectedSubId, setSelectedSubId] = useState("");
   const [selectedEtId, setSelectedEtId] = useState("");
   const [payloadStr, setPayloadStr] = useState(
-    `{\n  "event": "user.signup",\n  "user": {\n    "id": "usr_909",\n    "name": "Jane Doe",\n    "email": "jane@example.com"\n  },\n  "timestamp": "${new Date().toISOString()}"\n}`
+    `{\n  "event": "iam.user.signup",\n  "user": {\n    "id": "usr_909",\n    "name": "Jane Doe",\n    "email": "jane@example.com"\n  },\n  "timestamp": "${new Date().toISOString()}"\n}`
   );
   const [triggerError, setTriggerError] = useState<string | null>(null);
 

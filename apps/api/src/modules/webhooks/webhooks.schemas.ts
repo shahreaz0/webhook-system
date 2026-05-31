@@ -51,10 +51,21 @@ export const WebhookListQuerySchema = PaginationQuerySchema.extend({
   sortBy: createSortBySchema(["createdAt", "url", "updatedAt"], "createdAt"),
   order: SortOrderSchema,
   // Filtering
-  disabled: z.coerce.boolean().optional().openapi({
-    example: false,
-    description: "Filter by disabled status",
-  }),
+  disabled: z
+    .preprocess((val) => {
+      if (val === "true" || val === true) {
+        return true;
+      }
+      if (val === "false" || val === false) {
+        return false;
+      }
+      return;
+    }, z.boolean())
+    .optional()
+    .openapi({
+      example: false,
+      description: "Filter by disabled status",
+    }),
   eventTypeId: z.cuid2().optional().openapi({
     example: "cm3...",
     description: "Filter webhooks subscribed to this event type",

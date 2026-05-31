@@ -95,7 +95,7 @@ Interactive API documentation is available at:
 ### Event Types
 
 - Define the schema/structure of events that can be sent.
-- Example: `order.created`, `user.signup`.
+- Example: `billing.order.created`, `iam.user.signup`.
 
 ### Webhooks
 

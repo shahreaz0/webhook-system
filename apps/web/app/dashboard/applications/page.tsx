@@ -2,19 +2,16 @@
 
 import { FolderKanban, Plus } from "lucide-react";
 import { Button } from "@/web/components/ui/button";
-import { useActiveApp } from "@/web/lib/active-app-context";
 import { ApplicationCard } from "./components/application-card";
 import { UpsertApplicationDialog } from "./components/upsert-application-dialog";
 import { useGetApplicationList } from "./hooks/use-get-application-list";
 import { useApplicationsStore } from "./store";
 
 export default function ApplicationsPage() {
-  const { activeApp } = useActiveApp();
-
-  // Fetch applications list using the custom query hook
   const { data: applications = [], isLoading } = useGetApplicationList();
 
   const {
+    activeApp,
     setIsUpsertApplicationDialogOpen,
     setApplicationMutationType,
     setSelectedApplication,

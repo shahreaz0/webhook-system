@@ -9,10 +9,10 @@ export const EventTypeSchema = z.object({
   id: z.cuid2().openapi({ example: "ckz1234560000abcdef12345" }),
   name: z
     .string()
-    .regex(/^[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/, {
-      message: "Name must follow the format resource.action",
+    .regex(/^[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/, {
+      message: "Name must follow the format service.resource.verb",
     })
-    .openapi({ example: "user.created" }),
+    .openapi({ example: "iam.user.created" }),
   description: z
     .string()
     .nullish()
@@ -56,16 +56,32 @@ export const EventTypeListQuerySchema = PaginationQuerySchema.extend({
   sortBy: createSortBySchema(["name", "createdAt", "updatedAt"], "createdAt"),
   order: SortOrderSchema,
   // Filtering
-  archived: z.coerce
-    .boolean()
+  archived: z
+    .preprocess((val) => {
+      if (val === "true" || val === true) {
+        return true;
+      }
+      if (val === "false" || val === false) {
+        return false;
+      }
+      return;
+    }, z.boolean())
     .optional()
     .openapi({
       param: { name: "archived", in: "query" },
       example: false,
       description: "Filter by archived status",
     }),
-  deprecated: z.coerce
-    .boolean()
+  deprecated: z
+    .preprocess((val) => {
+      if (val === "true" || val === true) {
+        return true;
+      }
+      if (val === "false" || val === false) {
+        return false;
+      }
+      return;
+    }, z.boolean())
     .optional()
     .openapi({
       param: { name: "deprecated", in: "query" },
@@ -85,7 +101,7 @@ export const EventTypeListQuerySchema = PaginationQuerySchema.extend({
     .optional()
     .openapi({
       param: { name: "search", in: "query" },
-      example: "user.created",
+      example: "iam.user.created",
       description: "Search by event type name (case-insensitive)",
     }),
 });

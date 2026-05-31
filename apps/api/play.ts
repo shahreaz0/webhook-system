@@ -6,7 +6,7 @@ async function deliverMessage() {
       method: "post",
       url: "http://localhost:8099/webhook",
       data: {
-        event: "user.created",
+        event: "iam.user.created",
         data: {
           foo: "bar",
         },

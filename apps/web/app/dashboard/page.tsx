@@ -19,9 +19,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
-import { useActiveApp } from "@/web/lib/active-app-context";
 import { apiClient } from "@/web/lib/fetch-client";
 import { cn } from "@/web/lib/utils";
+import { useApplicationsStore } from "./applications/store";
 
 const STATUS_STYLES: Record<string, { badge: string; dot: string }> = {
   DELIVERED: {
@@ -40,7 +40,7 @@ const DEFAULT_STATUS_STYLE = {
 };
 
 export default function DashboardOverviewPage() {
-  const { activeApp } = useActiveApp();
+  const { activeApp } = useApplicationsStore();
 
   // Fetch messages (which includes nested deliveries) using TanStack Query
   const {

@@ -25,7 +25,7 @@ app.post("/webhook", async (c) => {
 
   console.log("body", body);
 
-  if (body.event === "user.created") {
+  if (body.event === "iam.user.created") {
     console.log({ message: `email sent to ${body.data.name}` });
   }
 

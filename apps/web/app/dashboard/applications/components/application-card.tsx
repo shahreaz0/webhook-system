@@ -21,7 +21,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
-import { useActiveApp } from "@/web/lib/active-app-context";
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { useDeleteApplication } from "../hooks/use-delete-application";
@@ -33,9 +32,9 @@ interface ApplicationCardProps {
 }
 
 export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
-  const { setActiveApp } = useActiveApp();
   const deleteMutation = useDeleteApplication();
   const {
+    setActiveApp,
     setIsUpsertApplicationDialogOpen,
     setApplicationMutationType,
     setSelectedApplication,
