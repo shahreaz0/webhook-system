@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import type {
   Application,
   EventType,
@@ -13,9 +14,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8088";
 // Authenticated fetch wrapper
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token =
-    typeof window === "undefined"
-      ? null
-      : localStorage.getItem("webhook_jwt_token");
+    typeof window === "undefined" ? null : Cookies.get("webhook_jwt_token");
 
   const headers = new Headers(options.headers);
   if (token && !headers.has("Authorization")) {
@@ -70,9 +69,9 @@ export const apiClient = {
     const tokenData = await tokenRes.json();
 
     if (typeof window !== "undefined") {
-      localStorage.setItem("webhook_session_token", data.session.token);
-      localStorage.setItem("webhook_jwt_token", tokenData.data.token);
-      localStorage.setItem("webhook_user", JSON.stringify(data.user));
+      Cookies.set("webhook_session_token", data.session.token, { expires: 30 });
+      Cookies.set("webhook_jwt_token", tokenData.data.token, { expires: 30 });
+      Cookies.set("webhook_user", JSON.stringify(data.user), { expires: 30 });
     }
 
     return {
@@ -104,12 +103,14 @@ export const apiClient = {
     const sessionToken =
       typeof window === "undefined"
         ? null
-        : localStorage.getItem("webhook_session_token");
+        : Cookies.get("webhook_session_token") || Cookies.get("session_token");
 
     if (typeof window !== "undefined") {
-      localStorage.removeItem("webhook_session_token");
-      localStorage.removeItem("webhook_jwt_token");
-      localStorage.removeItem("webhook_user");
+      Cookies.remove("webhook_session_token");
+      Cookies.remove("webhook_jwt_token");
+      Cookies.remove("webhook_user");
+      Cookies.remove("session_token");
+      Cookies.remove("token");
     }
 
     if (sessionToken) {
@@ -129,7 +130,7 @@ export const apiClient = {
     if (typeof window === "undefined") {
       return null;
     }
-    const stored = localStorage.getItem("webhook_user");
+    const stored = Cookies.get("webhook_user");
     if (!stored) {
       return null;
     }

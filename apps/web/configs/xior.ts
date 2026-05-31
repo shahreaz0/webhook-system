@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import xior from "xior";
 
 const http = xior.create({
@@ -7,8 +8,7 @@ const http = xior.create({
 http.interceptors.request.use((config) => {
   config.headers = config.headers || {};
 
-  const token =
-    typeof window === "undefined" ? null : localStorage.getItem("token");
+  const token = typeof window === "undefined" ? null : Cookies.get("token");
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

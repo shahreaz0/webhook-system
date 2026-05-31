@@ -1,5 +1,6 @@
 "use client";
 
+import Cookies from "js-cookie";
 import type React from "react";
 import {
   createContext,
@@ -34,7 +35,7 @@ export function ActiveAppProvider({ children }: { children: React.ReactNode }) {
       setApplications(list);
 
       // Sync active app state
-      const savedActiveAppId = localStorage.getItem("webhook_active_app_id");
+      const savedActiveAppId = Cookies.get("webhook_active_app_id");
       if (list.length > 0) {
         const found = list.find((a) => a.id === savedActiveAppId);
         setActiveAppState(found || list[0]);
@@ -55,9 +56,9 @@ export function ActiveAppProvider({ children }: { children: React.ReactNode }) {
   const setActiveApp = useCallback((app: Application | null) => {
     setActiveAppState(app);
     if (app) {
-      localStorage.setItem("webhook_active_app_id", app.id);
+      Cookies.set("webhook_active_app_id", app.id, { expires: 30 });
     } else {
-      localStorage.removeItem("webhook_active_app_id");
+      Cookies.remove("webhook_active_app_id");
     }
   }, []);
 

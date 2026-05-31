@@ -1,5 +1,6 @@
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 import type { InferRequestType, InferResponseType } from "hono/client";
+import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { hc } from "@/web/lib/api-client";
 
@@ -34,8 +35,13 @@ export function signInMutationOptions() {
       const tokenData = await tokenRes.json();
 
       if (typeof window !== "undefined") {
-        localStorage.setItem("session_token", data.session.token);
-        localStorage.setItem("token", tokenData.data.token);
+        Cookies.set("session_token", data.session.token, { expires: 30 });
+        Cookies.set("token", tokenData.data.token, { expires: 30 });
+        Cookies.set("webhook_session_token", data.session.token, {
+          expires: 30,
+        });
+        Cookies.set("webhook_jwt_token", tokenData.data.token, { expires: 30 });
+        Cookies.set("webhook_user", JSON.stringify(data.user), { expires: 30 });
       }
 
       toast.success("Login successful");
