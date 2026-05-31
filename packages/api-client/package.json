@@ -5,11 +5,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "rm -rf ./dist && tsc",
-    "typecheck": "tsc --noEmit"
+    "build": "rm -rf ./dist && tsgo",
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20260527.2",
     "hono": "^4.12.18"
   },
   "devDependencies": {
