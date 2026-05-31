@@ -22,6 +22,7 @@ import {
 import type { EventType } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { useDeleteEventType } from "../hooks/use-delete-event-type";
+import { useUpdateEventType } from "../hooks/use-update-event-type";
 import { useEventTypesStore } from "../store";
 
 interface EventTypeCardProps {
@@ -34,6 +35,7 @@ export function EventTypeCard({
   applicationId,
 }: EventTypeCardProps) {
   const deleteMutation = useDeleteEventType(applicationId);
+  const updateMutation = useUpdateEventType(applicationId);
   const {
     setIsUpsertEventTypeDialogOpen,
     setEventTypeMutationType,
@@ -44,6 +46,20 @@ export function EventTypeCard({
     setIsUpsertEventTypeDialogOpen(true);
     setEventTypeMutationType("edit");
     setSelectedEventType(eventType);
+  };
+
+  const handleToggleArchive = () => {
+    updateMutation.mutate({
+      id: eventType.id,
+      archived: !eventType.archived,
+    });
+  };
+
+  const handleToggleDeprecate = () => {
+    updateMutation.mutate({
+      id: eventType.id,
+      deprecated: !eventType.deprecated,
+    });
   };
 
   return (
@@ -89,6 +105,32 @@ export function EventTypeCard({
         <span>{new Date(eventType.createdAt).toLocaleDateString()}</span>
       </CardContent>
       <CardFooter className="flex justify-end gap-1.5 border-border/50 border-t p-3 dark:border-input/50">
+        <Button
+          className={cn(
+            "h-7 w-7 text-muted-foreground hover:bg-muted",
+            eventType.deprecated && "text-amber-500 hover:bg-amber-500/10"
+          )}
+          disabled={updateMutation.isPending}
+          onClick={handleToggleDeprecate}
+          size="icon"
+          title={eventType.deprecated ? "Undeprecate" : "Deprecate"}
+          variant="ghost"
+        >
+          <ShieldAlert className="size-3.5" />
+        </Button>
+        <Button
+          className={cn(
+            "h-7 w-7 text-muted-foreground hover:bg-muted",
+            eventType.archived && "text-primary hover:bg-primary/10"
+          )}
+          disabled={updateMutation.isPending}
+          onClick={handleToggleArchive}
+          size="icon"
+          title={eventType.archived ? "Unarchive" : "Archive"}
+          variant="ghost"
+        >
+          <Archive className="size-3.5" />
+        </Button>
         <Button
           className="h-7 w-7 text-muted-foreground hover:bg-muted"
           onClick={handleEdit}

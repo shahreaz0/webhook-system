@@ -1,7 +1,9 @@
 "use client";
 
 import { Layers, Plus, Zap } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/web/components/ui/button";
+import { Checkbox } from "@/web/components/ui/checkbox";
 import { useApplicationsStore } from "../applications/store";
 import { EventTypeCard } from "./components/event-type-card";
 import { UpsertEventTypeDialog } from "./components/upsert-event-type-dialog";
@@ -12,7 +14,13 @@ export default function EventTypesPage() {
   const { activeApp } = useApplicationsStore();
   const appId = activeApp?.id || "";
 
-  const { data: eventTypes = [], isLoading } = useGetEventTypesList(appId);
+  const [includeArchived, setIncludeArchived] = useState(false);
+  const [includeDeprecated, setIncludeDeprecated] = useState(true);
+
+  const { data: eventTypes = [], isLoading } = useGetEventTypesList(appId, {
+    archived: includeArchived ? undefined : false,
+    deprecated: includeDeprecated ? undefined : false,
+  });
 
   const {
     setIsUpsertEventTypeDialogOpen,
@@ -112,6 +120,36 @@ export default function EventTypesPage() {
           Define Event
           <Plus className="size-4" />
         </Button>
+      </div>
+
+      {/* Filters Bar */}
+      <div className="flex flex-wrap items-center gap-6 border border-border/60 bg-muted/20 px-4 py-3 dark:border-input/60">
+        <div className="flex items-center gap-2">
+          <Checkbox
+            checked={includeArchived}
+            id="includeArchived"
+            onCheckedChange={(checked) => setIncludeArchived(!!checked)}
+          />
+          <label
+            className="cursor-pointer select-none font-medium text-xs leading-none"
+            htmlFor="includeArchived"
+          >
+            Include Archived
+          </label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Checkbox
+            checked={includeDeprecated}
+            id="includeDeprecated"
+            onCheckedChange={(checked) => setIncludeDeprecated(!!checked)}
+          />
+          <label
+            className="cursor-pointer select-none font-medium text-xs leading-none"
+            htmlFor="includeDeprecated"
+          >
+            Include Deprecated
+          </label>
+        </div>
       </div>
 
       {/* Creation Modal Form Panel */}

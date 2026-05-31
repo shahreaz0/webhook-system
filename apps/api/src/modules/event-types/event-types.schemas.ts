@@ -56,16 +56,32 @@ export const EventTypeListQuerySchema = PaginationQuerySchema.extend({
   sortBy: createSortBySchema(["name", "createdAt", "updatedAt"], "createdAt"),
   order: SortOrderSchema,
   // Filtering
-  archived: z.coerce
-    .boolean()
+  archived: z
+    .preprocess((val) => {
+      if (val === "true" || val === true) {
+        return true;
+      }
+      if (val === "false" || val === false) {
+        return false;
+      }
+      return;
+    }, z.boolean())
     .optional()
     .openapi({
       param: { name: "archived", in: "query" },
       example: false,
       description: "Filter by archived status",
     }),
-  deprecated: z.coerce
-    .boolean()
+  deprecated: z
+    .preprocess((val) => {
+      if (val === "true" || val === true) {
+        return true;
+      }
+      if (val === "false" || val === false) {
+        return false;
+      }
+      return;
+    }, z.boolean())
     .optional()
     .openapi({
       param: { name: "deprecated", in: "query" },

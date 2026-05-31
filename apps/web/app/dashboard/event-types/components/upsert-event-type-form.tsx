@@ -5,10 +5,8 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
 import { Button } from "@/web/components/ui/button";
-import { Checkbox } from "@/web/components/ui/checkbox";
 import {
   Field,
-  FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
@@ -29,8 +27,6 @@ const eventTypeSchema = z.object({
     }),
   description: z.string().optional(),
   groupName: z.string().optional(),
-  archived: z.boolean().optional(),
-  deprecated: z.boolean().optional(),
 });
 
 type EventTypeValues = z.infer<typeof eventTypeSchema>;
@@ -56,8 +52,6 @@ export function UpsertEventTypeForm() {
       name: "",
       description: "",
       groupName: "",
-      archived: false,
-      deprecated: false,
     },
   });
 
@@ -68,16 +62,12 @@ export function UpsertEventTypeForm() {
         name: selectedEventType.name,
         description: selectedEventType.description || "",
         groupName: selectedEventType.groupName || "",
-        archived: selectedEventType.archived,
-        deprecated: selectedEventType.deprecated,
       });
     } else {
       form.reset({
         name: "",
         description: "",
         groupName: "",
-        archived: false,
-        deprecated: false,
       });
     }
   }, [isEdit, selectedEventType, form]);
@@ -93,8 +83,6 @@ export function UpsertEventTypeForm() {
           name: values.name,
           description: values.description || "",
           groupName: values.groupName || "",
-          archived: values.archived,
-          deprecated: values.deprecated,
         },
         {
           onSuccess: () => {
@@ -109,8 +97,6 @@ export function UpsertEventTypeForm() {
           name: values.name,
           description: values.description || "",
           groupName: values.groupName || "",
-          archived: values.archived,
-          deprecated: values.deprecated,
         },
         {
           onSuccess: () => {
@@ -201,58 +187,6 @@ export function UpsertEventTypeForm() {
             </Field>
           )}
         />
-
-        {isEdit && (
-          <div className="grid grid-cols-2 gap-4 border-border/50 border-t pt-4 dark:border-input/50">
-            <Controller
-              control={form.control}
-              name="deprecated"
-              render={({ field, fieldState }) => (
-                <Field
-                  data-invalid={fieldState.invalid}
-                  orientation="horizontal"
-                >
-                  <Checkbox
-                    checked={field.value}
-                    disabled={isPending}
-                    id={field.name}
-                    onCheckedChange={field.onChange}
-                  />
-                  <FieldContent>
-                    <FieldLabel htmlFor={field.name}>Deprecated</FieldLabel>
-                    <FieldDescription>
-                      Mark this event type as deprecated.
-                    </FieldDescription>
-                  </FieldContent>
-                </Field>
-              )}
-            />
-
-            <Controller
-              control={form.control}
-              name="archived"
-              render={({ field, fieldState }) => (
-                <Field
-                  data-invalid={fieldState.invalid}
-                  orientation="horizontal"
-                >
-                  <Checkbox
-                    checked={field.value}
-                    disabled={isPending}
-                    id={field.name}
-                    onCheckedChange={field.onChange}
-                  />
-                  <FieldContent>
-                    <FieldLabel htmlFor={field.name}>Archived</FieldLabel>
-                    <FieldDescription>
-                      Archive this event type.
-                    </FieldDescription>
-                  </FieldContent>
-                </Field>
-              )}
-            />
-          </div>
-        )}
       </div>
       <div className="flex justify-end gap-2 pt-4">
         <Button
