@@ -1,3 +1,6 @@
 import hcWithType from "@webhook/api-client";
+import { xiorFetchAdapter } from "../configs/xior";
 
-export const hc = hcWithType("http://localhost:8088");
+export const hc = hcWithType("/", {
+  fetch: xiorFetchAdapter,
+});

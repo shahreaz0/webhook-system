@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/web/components/ui/card";
 import { Input } from "@/web/components/ui/input";
+import { hc } from "@/web/lib/api-client";
 import { apiClient } from "@/web/lib/fetch-client";
 
 export default function LoginPage() {
@@ -30,6 +31,18 @@ export default function LoginPage() {
       router.push("/dashboard");
     }
   }, [router]);
+
+  useEffect(() => {
+    hc.ready
+      .$get()
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
