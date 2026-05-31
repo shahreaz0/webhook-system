@@ -40,7 +40,7 @@ export function RegisterForm() {
     },
   });
 
-  const onSubmit = (values: RegisterValues) => {
+  function onSubmit(values: RegisterValues) {
     mutate(values, {
       onSuccess: () => {
         setTimeout(() => {
@@ -48,7 +48,7 @@ export function RegisterForm() {
         }, 2000);
       },
     });
-  };
+  }
 
   return (
     <Card className="w-full max-w-md border-border bg-card/60 backdrop-blur-md">

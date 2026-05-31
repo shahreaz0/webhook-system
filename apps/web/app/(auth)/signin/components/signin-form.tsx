@@ -38,13 +38,13 @@ export function SignInForm() {
     },
   });
 
-  const onSubmit = (values: SignInValues) => {
+  function onSubmit(values: SignInValues) {
     mutate(values, {
       onSuccess: () => {
         router.push("/dashboard");
       },
     });
-  };
+  }
 
   return (
     <Card className="w-full max-w-md border-border bg-card/60 backdrop-blur-md">
