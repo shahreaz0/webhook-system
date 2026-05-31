@@ -4,8 +4,8 @@ import { cors } from "hono/cors";
 import { requestId } from "hono/request-id";
 import { notFound, onError, serveEmojiFavicon } from "stoker/middlewares";
 import { defaultHook } from "stoker/openapi";
-import type { AppBindings, AppOpenAPI } from "@/lib/types";
-import { auth } from "@/middlewares/auth";
+import type { AppBindings, AppOpenAPI } from "@/api/lib/types";
+import { auth } from "@/api/middlewares/auth";
 
 export function createRouter() {
   return new OpenAPIHono<AppBindings>({ strict: false, defaultHook });

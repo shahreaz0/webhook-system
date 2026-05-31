@@ -4,7 +4,7 @@ import {
   createSortBySchema,
   PaginationQuerySchema,
   SortOrderSchema,
-} from "@/lib/common-schemas";
+} from "@/api/lib/common-schemas";
 
 export const MessageStatusSchema = z.enum(MessageStatus);
 

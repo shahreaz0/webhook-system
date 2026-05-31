@@ -3,7 +3,7 @@ import {
   createSortBySchema,
   PaginationQuerySchema,
   SortOrderSchema,
-} from "@/lib/common-schemas";
+} from "@/api/lib/common-schemas";
 
 export const WebhookSchema = z.object({
   id: z.cuid2().openapi({ example: "ckwxyz123456abcdef12345" }),

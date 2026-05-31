@@ -1,5 +1,5 @@
 import { logger } from "@webhook/logger";
-import { redisClient } from "@/configs/redis";
+import { redisClient } from "@/api/configs/redis";
 
 const CIRCUIT_BREAKER_PREFIX = "circuit_breaker:";
 const FAILURE_THRESHOLD = 10; // Number of consecutive failures before opening circuit

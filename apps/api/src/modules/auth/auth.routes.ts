@@ -1,7 +1,7 @@
 import { createRoute } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
 import { z } from "zod";
-import { createHttpErrorSchema } from "@/lib/common-schemas";
+import { createHttpErrorSchema } from "@/api/lib/common-schemas";
 import {
   AuthUserSchema,
   LoginResponseSchema,

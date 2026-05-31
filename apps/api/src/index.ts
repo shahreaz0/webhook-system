@@ -1,8 +1,8 @@
 import { checkDbConnection } from "@webhook/database";
 import { env } from "@webhook/env";
-import { app } from "@/app";
+import { app } from "@/api/app";
 
-import "@/modules/messages/messages.workers";
+import "@/api/modules/messages/messages.workers";
 
 checkDbConnection();
 

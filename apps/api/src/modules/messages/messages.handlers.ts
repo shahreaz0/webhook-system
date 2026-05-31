@@ -3,9 +3,9 @@ import type { Prisma } from "@webhook/database";
 import { prisma } from "@webhook/database";
 import { HTTPException } from "hono/http-exception";
 import { z } from "zod";
-import { messagesQueue } from "@/configs/bullmq";
-import { buildOrderBy, buildPagination } from "@/lib/common-schemas";
-import type { AppBindings, AppRouteHandler } from "@/lib/types";
+import { messagesQueue } from "@/api/configs/bullmq";
+import { buildOrderBy, buildPagination } from "@/api/lib/common-schemas";
+import type { AppBindings, AppRouteHandler } from "@/api/lib/types";
 import type {
   CreateRoute,
   GetOneRoute,

@@ -1,5 +1,5 @@
 import { logger } from "@webhook/logger";
-import { redisClient } from "@/configs/redis";
+import { redisClient } from "@/api/configs/redis";
 
 const RATE_LIMIT_PREFIX = "rate_limit:";
 const DEFAULT_WINDOW = 60; // 60 seconds sliding window

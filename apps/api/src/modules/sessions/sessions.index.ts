@@ -1,5 +1,5 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import type { AppBindings } from "@/lib/types";
+import type { AppBindings } from "@/api/lib/types";
 import * as handlers from "./sessions.handlers";
 import * as routes from "./sessions.routes";
 

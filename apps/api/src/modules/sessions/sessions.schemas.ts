@@ -3,7 +3,7 @@ import {
   createSortBySchema,
   PaginationQuerySchema,
   SortOrderSchema,
-} from "@/lib/common-schemas";
+} from "@/api/lib/common-schemas";
 
 export const SessionSchema = z.object({
   id: z.cuid2().openapi({ example: "ckz1234560000abcdef12345" }),

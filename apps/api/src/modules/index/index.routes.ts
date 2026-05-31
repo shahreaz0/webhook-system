@@ -1,7 +1,7 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { checkDbConnection } from "@webhook/database";
-import { checkRedisConnection } from "@/configs/redis";
-import { createRouter } from "@/lib/create-app";
+import { checkRedisConnection } from "@/api/configs/redis";
+import { createRouter } from "@/api/lib/create-app";
 import packageJSON from "../../../package.json" with { type: "json" };
 
 export const index = createRouter()

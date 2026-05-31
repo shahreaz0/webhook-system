@@ -1,6 +1,6 @@
 import { logger } from "@webhook/logger";
 import { Queue } from "bullmq";
-import { redisClient } from "@/configs/redis";
+import { redisClient } from "@/api/configs/redis";
 
 export const MESSAGE_QUEUE = "messages";
 

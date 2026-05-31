@@ -3,7 +3,7 @@ import {
   createSortBySchema,
   PaginationQuerySchema,
   SortOrderSchema,
-} from "@/lib/common-schemas";
+} from "@/api/lib/common-schemas";
 import { ApplicationSchema } from "../applications/applications.schemas";
 
 export const SubscriberSchema = z.object({

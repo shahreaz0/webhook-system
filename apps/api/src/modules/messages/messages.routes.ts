@@ -1,6 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
-import { NotFoundSchema } from "@/lib/common-schemas";
+import { NotFoundSchema } from "@/api/lib/common-schemas";
 import {
   MessageCreateSchema,
   MessageListQuerySchema,

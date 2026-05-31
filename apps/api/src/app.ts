@@ -1,5 +1,5 @@
-import { configureOpenAPI } from "@/lib/configure-openapi";
-import { createApp } from "@/lib/create-app";
+import { configureOpenAPI } from "@/api/lib/configure-openapi";
+import { createApp } from "@/api/lib/create-app";
 import { applications } from "./modules/applications/applications.index";
 import { auth } from "./modules/auth/auth.index";
 import { eventTypes } from "./modules/event-types/event-types.index";

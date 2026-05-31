@@ -2,7 +2,7 @@ import { prisma } from "@webhook/database";
 import { env } from "@webhook/env";
 import { getConnInfo } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
-import type { AppRouteHandler } from "@/lib/types";
+import type { AppRouteHandler } from "@/api/lib/types";
 import { createSession } from "../sessions/sessions.services";
 import type {
   GetTokenRoute,

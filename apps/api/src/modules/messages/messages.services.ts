@@ -1,8 +1,8 @@
 import type { MessageStatus } from "@webhook/database";
 import { prisma } from "@webhook/database";
 import { logger } from "@webhook/logger";
-import { checkRateLimit } from "@/lib/rate-limiter";
-import { http } from "@/lib/xior";
+import { checkRateLimit } from "@/api/lib/rate-limiter";
+import { http } from "@/api/lib/xior";
 import type { CachedWebhook } from "../webhooks/webhooks.utils";
 import type { MessageJobData } from "./messages.types";
 

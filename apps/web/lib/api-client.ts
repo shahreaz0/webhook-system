@@ -1,3 +1,4 @@
-import hcWithType from "@webhook/api-client";
+// import hcWithType from "@webhook/api-client";
 
-export const apiClient = hcWithType("http://localhost:8088");
+// export const apiClient = hcWithType("http://localhost:8088");
+console.log("hello");

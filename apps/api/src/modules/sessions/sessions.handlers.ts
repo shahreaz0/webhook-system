@@ -1,7 +1,7 @@
 import type { RouteHandler } from "@hono/zod-openapi";
 import { prisma } from "@webhook/database";
 import { HTTPException } from "hono/http-exception";
-import type { AppBindings } from "@/lib/types";
+import type { AppBindings } from "@/api/lib/types";
 import type {
   GetOneRoute,
   ListRoute,
