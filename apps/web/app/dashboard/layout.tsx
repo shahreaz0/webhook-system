@@ -43,13 +43,13 @@ function DashboardLayoutContent({
     if (currentUser) {
       setUser(currentUser);
     } else {
-      router.push("/login");
+      router.push("/signin");
     }
   }, [router]);
 
   const handleLogout = async () => {
     await apiClient.logout();
-    router.push("/login");
+    router.push("/signin");
   };
 
   if (!user) {

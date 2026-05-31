@@ -1,8 +1,10 @@
+"use client";
+
 import { BrandHeader } from "./components/brand-header";
 import { DemoHelper } from "./components/demo-helper";
-import { LoginForm } from "./components/login-form";
+import { SignInForm } from "./components/signin-form";
 
-export default function LoginPage() {
+export default function SignInPage() {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4">
       {/* Background Gradients */}
@@ -11,7 +13,7 @@ export default function LoginPage() {
 
       <BrandHeader />
 
-      <LoginForm />
+      <SignInForm />
 
       <DemoHelper />
     </div>

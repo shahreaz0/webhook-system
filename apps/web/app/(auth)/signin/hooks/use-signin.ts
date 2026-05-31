@@ -3,14 +3,14 @@ import type { InferRequestType, InferResponseType } from "hono/client";
 import { toast } from "sonner";
 import { hc } from "@/web/lib/api-client";
 
-export function loginMutatationOptions() {
+export function signInMutationOptions() {
   return mutationOptions({
-    mutationKey: ["login"],
+    mutationKey: ["signin"],
     mutationFn: async (
-      loginPayload: InferRequestType<typeof hc.auth.login.$post>["json"]
+      signInPayload: InferRequestType<typeof hc.auth.login.$post>["json"]
     ) => {
       const res = await hc.auth.login.$post({
-        json: { email: loginPayload.email, password: loginPayload.password },
+        json: { email: signInPayload.email, password: signInPayload.password },
       });
 
       const json = await res.json();
@@ -46,6 +46,6 @@ export function loginMutatationOptions() {
   });
 }
 
-export function useLogin() {
-  return useMutation(loginMutatationOptions());
+export function useSignIn() {
+  return useMutation(signInMutationOptions());
 }

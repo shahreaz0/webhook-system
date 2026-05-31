@@ -17,28 +17,28 @@ import {
 } from "@/web/components/ui/card";
 import { Field, FieldError, FieldLabel } from "@/web/components/ui/field";
 import { Input } from "@/web/components/ui/input";
-import { useLogin } from "../hooks/use-login";
+import { useSignIn } from "../hooks/use-signin";
 
-const loginSchema = z.object({
-  email: z.email("Invalid email address").min(1, "Email is required"),
+const signInSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-type LoginValues = z.infer<typeof loginSchema>;
+type SignInValues = z.infer<typeof signInSchema>;
 
-export function LoginForm() {
+export function SignInForm() {
   const router = useRouter();
-  const { mutate, isPending, error } = useLogin();
+  const { mutate, isPending, error } = useSignIn();
 
-  const form = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<SignInValues>({
+    resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (values: LoginValues) => {
+  const onSubmit = (values: SignInValues) => {
     mutate(values, {
       onSuccess: () => {
         router.push("/dashboard");

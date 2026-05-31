@@ -44,7 +44,7 @@ export function RegisterForm() {
     mutate(values, {
       onSuccess: () => {
         setTimeout(() => {
-          router.push("/login");
+          router.push("/signin");
         }, 2000);
       },
     });
@@ -181,7 +181,7 @@ export function RegisterForm() {
             Already have an account?{" "}
             <Link
               className="font-semibold text-primary hover:underline"
-              href="/login"
+              href="/signin"
             >
               Sign In
             </Link>
