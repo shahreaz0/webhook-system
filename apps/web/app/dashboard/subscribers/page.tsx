@@ -24,8 +24,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+} from "@/web/components/ui/alert-dialog";
+import { Button } from "@/web/components/ui/button";
 import {
   Card,
   CardContent,
@@ -33,12 +33,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { useActiveApp } from "@/lib/active-app-context";
-import { apiClient } from "@/lib/fetch-client";
-import type { Subscriber, Webhook } from "@/lib/types";
-import { cn } from "@/lib/utils";
+} from "@/web/components/ui/card";
+import { Input } from "@/web/components/ui/input";
+import { useActiveApp } from "@/web/lib/active-app-context";
+import { apiClient } from "@/web/lib/fetch-client";
+import type { Subscriber, Webhook } from "@/web/lib/types";
+import { cn } from "@/web/lib/utils";
 
 export default function SubscribersPage() {
   const queryClient = useQueryClient();

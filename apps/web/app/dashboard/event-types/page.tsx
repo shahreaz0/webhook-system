@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Layers, Plus, Tag, Zap } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/web/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,10 +11,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { useActiveApp } from "@/lib/active-app-context";
-import { apiClient } from "@/lib/fetch-client";
+} from "@/web/components/ui/card";
+import { Input } from "@/web/components/ui/input";
+import { useActiveApp } from "@/web/lib/active-app-context";
+import { apiClient } from "@/web/lib/fetch-client";
 
 export default function EventTypesPage() {
   const queryClient = useQueryClient();

@@ -9,9 +9,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { InputGroup, InputGroupAddon } from "@/components/ui/input-group";
-import { cn } from "@/lib/utils";
+} from "@/web/components/ui/dialog";
+import { InputGroup, InputGroupAddon } from "@/web/components/ui/input-group";
+import { cn } from "@/web/lib/utils";
 
 function Command({
   className,

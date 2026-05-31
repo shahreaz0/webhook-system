@@ -4,7 +4,7 @@ import { KeyRound, Mail, Sparkles, Terminal } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/web/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,9 +12,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { apiClient } from "@/lib/fetch-client";
+} from "@/web/components/ui/card";
+import { Input } from "@/web/components/ui/input";
+import { apiClient } from "@/web/lib/fetch-client";
 
 export default function LoginPage() {
   const router = useRouter();

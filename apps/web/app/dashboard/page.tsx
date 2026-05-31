@@ -11,17 +11,17 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/web/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { useActiveApp } from "@/lib/active-app-context";
-import { apiClient } from "@/lib/fetch-client";
-import { cn } from "@/lib/utils";
+} from "@/web/components/ui/card";
+import { useActiveApp } from "@/web/lib/active-app-context";
+import { apiClient } from "@/web/lib/fetch-client";
+import { cn } from "@/web/lib/utils";
 
 const STATUS_STYLES: Record<string, { badge: string; dot: string }> = {
   DELIVERED: {

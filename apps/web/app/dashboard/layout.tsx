@@ -20,11 +20,11 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ActiveAppProvider, useActiveApp } from "@/lib/active-app-context";
-import { apiClient } from "@/lib/fetch-client";
-import type { User } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { Button } from "@/web/components/ui/button";
+import { ActiveAppProvider, useActiveApp } from "@/web/lib/active-app-context";
+import { apiClient } from "@/web/lib/fetch-client";
+import type { User } from "@/web/lib/types";
+import { cn } from "@/web/lib/utils";
 
 function DashboardLayoutContent({
   children,

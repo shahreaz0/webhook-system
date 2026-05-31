@@ -12,18 +12,18 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/web/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { useActiveApp } from "@/lib/active-app-context";
-import { apiClient } from "@/lib/fetch-client";
-import type { Message } from "@/lib/types";
-import { cn } from "@/lib/utils";
+} from "@/web/components/ui/card";
+import { useActiveApp } from "@/web/lib/active-app-context";
+import { apiClient } from "@/web/lib/fetch-client";
+import type { Message } from "@/web/lib/types";
+import { cn } from "@/web/lib/utils";
 
 export default function MessagesPage() {
   const queryClient = useQueryClient();
