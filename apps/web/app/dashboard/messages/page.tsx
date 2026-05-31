@@ -36,7 +36,7 @@ export default function MessagesPage() {
   const [selectedSubId, setSelectedSubId] = useState("");
   const [selectedEtId, setSelectedEtId] = useState("");
   const [payloadStr, setPayloadStr] = useState(
-    `{\n  "event": "user.signup",\n  "user": {\n    "id": "usr_909",\n    "name": "Jane Doe",\n    "email": "jane@example.com"\n  },\n  "timestamp": "${new Date().toISOString()}"\n}`
+    `{\n  "event": "iam.user.signup",\n  "user": {\n    "id": "usr_909",\n    "name": "Jane Doe",\n    "email": "jane@example.com"\n  },\n  "timestamp": "${new Date().toISOString()}"\n}`
   );
   const [triggerError, setTriggerError] = useState<string | null>(null);
 

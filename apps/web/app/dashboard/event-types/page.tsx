@@ -63,7 +63,7 @@ export default function EventTypesPage() {
       return;
     }
 
-    // Standardize event naming formats (e.g. user.created or payment.failed)
+    // Standardize event naming formats (e.g. billing.payment.succeeded or iam.user.created)
     const cleanName = name.trim().toLowerCase().replace(/\s+/g, ".");
     createMutation.mutate({
       name: cleanName,
@@ -111,8 +111,8 @@ export default function EventTypesPage() {
           <Zap className="mb-4 size-10 stroke-1 text-muted-foreground" />
           <h3 className="font-semibold text-sm">No events defined</h3>
           <p className="mt-1 max-w-sm text-muted-foreground text-xs">
-            Start defining event types like `payment.succeeded` or
-            `user.deleted` for subscribers to listen to.
+            Start defining event types like `billing.payment.succeeded` or
+            `iam.user.deleted` for subscribers to listen to.
           </p>
         </div>
       );
@@ -182,7 +182,7 @@ export default function EventTypesPage() {
               </CardTitle>
               <CardDescription>
                 Define the hook key name (use dot notation, e.g.
-                `order.fulfilled`) and categories.
+                `billing.order.fulfilled`) and categories.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -202,7 +202,7 @@ export default function EventTypesPage() {
                   <Input
                     id="etName"
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. user.signup"
+                    placeholder="e.g. iam.user.created"
                     required
                     value={name}
                   />

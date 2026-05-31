@@ -9,10 +9,10 @@ export const EventTypeSchema = z.object({
   id: z.cuid2().openapi({ example: "ckz1234560000abcdef12345" }),
   name: z
     .string()
-    .regex(/^[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/, {
-      message: "Name must follow the format resource.action",
+    .regex(/^[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/, {
+      message: "Name must follow the format service.resource.verb",
     })
-    .openapi({ example: "user.created" }),
+    .openapi({ example: "iam.user.created" }),
   description: z
     .string()
     .nullish()
@@ -85,7 +85,7 @@ export const EventTypeListQuerySchema = PaginationQuerySchema.extend({
     .optional()
     .openapi({
       param: { name: "search", in: "query" },
-      example: "user.created",
+      example: "iam.user.created",
       description: "Search by event type name (case-insensitive)",
     }),
 });
