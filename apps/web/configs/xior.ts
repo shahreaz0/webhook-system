@@ -6,7 +6,13 @@ const http = xior.create({
 
 http.interceptors.request.use((config) => {
   config.headers = config.headers || {};
-  config.headers.Authorization = "Bearer jwt_token";
+
+  const token =
+    typeof window === "undefined" ? null : localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
@@ -27,10 +33,12 @@ export async function xiorFetchAdapter(
   const url =
     input instanceof Request || input instanceof URL ? input.toString() : input;
 
+  const requestHeaders = getPlainHeaders(init?.headers);
+
   const xiorRes = await http.request({
     url,
     method: init?.method,
-    headers: init?.headers,
+    headers: requestHeaders,
     data: init?.body,
     signal: init?.signal,
   });
@@ -40,4 +48,28 @@ export async function xiorFetchAdapter(
     statusText: xiorRes.statusText,
     headers: xiorRes.headers,
   });
+}
+
+function getPlainHeaders(
+  headers: HeadersInit | undefined
+): Record<string, string> {
+  const plain: Record<string, string> = {};
+  if (!headers) {
+    return plain;
+  }
+
+  if (headers instanceof Headers) {
+    headers.forEach((value, key) => {
+      plain[key] = value;
+    });
+  } else if (Array.isArray(headers)) {
+    for (const [key, value] of headers) {
+      plain[key] = value;
+    }
+  } else {
+    for (const key of Object.keys(headers)) {
+      plain[key] = (headers as Record<string, string>)[key];
+    }
+  }
+  return plain;
 }
