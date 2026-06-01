@@ -29,5 +29,6 @@ export const AuthUserSchema = z.object({
   id: z.string(),
   email: z.email(),
   name: z.string().nullable(),
+  activeApplicationId: z.string().nullable().optional(),
   createdAt: z.string(),
 });

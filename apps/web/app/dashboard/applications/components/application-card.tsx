@@ -24,6 +24,7 @@ import {
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { useDeleteApplication } from "../hooks/use-delete-application";
+import { useUpdateActiveApp } from "../hooks/use-update-active-app";
 import { useApplicationsStore } from "../store";
 
 interface ApplicationCardProps {
@@ -33,8 +34,8 @@ interface ApplicationCardProps {
 
 export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
   const deleteMutation = useDeleteApplication();
+  const updateActiveApp = useUpdateActiveApp();
   const {
-    setActiveApp,
     setIsUpsertApplicationDialogOpen,
     setApplicationMutationType,
     setSelectedApplication,
@@ -71,7 +72,7 @@ export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
           ) : (
             <Button
               className="h-5 px-2 font-bold font-mono text-[9px] opacity-0 transition-all group-hover:opacity-100"
-              onClick={() => setActiveApp(app)}
+              onClick={() => updateActiveApp.mutate(app)}
               variant="outline"
             >
               ACTIVATE
@@ -94,7 +95,7 @@ export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
               : "text-muted-foreground hover:text-foreground"
           )}
           disabled={isActive}
-          onClick={() => setActiveApp(app)}
+          onClick={() => updateActiveApp.mutate(app)}
           variant="ghost"
         >
           <ExternalLink className="size-3" />

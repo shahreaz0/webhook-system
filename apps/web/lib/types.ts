@@ -1,4 +1,5 @@
 export interface User {
+  activeApplicationId: string | null;
   createdAt: string;
   email: string;
   id: string;

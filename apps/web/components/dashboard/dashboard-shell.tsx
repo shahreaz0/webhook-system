@@ -1,11 +1,14 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useGetApplicationList } from "@/web/app/dashboard/applications/hooks/use-get-application-list";
+import { useUpdateActiveApp } from "@/web/app/dashboard/applications/hooks/use-update-active-app";
 import { useApplicationsStore } from "@/web/app/dashboard/applications/store";
+import { hc } from "@/web/lib/api-client";
 import { apiClient } from "@/web/lib/fetch-client";
-import type { User } from "@/web/lib/types";
+import type { Application, User } from "@/web/lib/types";
 import { Header } from "./header";
 import { MobileDrawer } from "./mobile-drawer";
 import { Sidebar } from "./sidebar";
@@ -19,34 +22,43 @@ export function DashboardShell({ children }: DashboardShellProps) {
   const [user, setUser] = useState<User | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const { activeApp, setActiveApp } = useApplicationsStore();
+  const { activeApp } = useApplicationsStore();
   const { data: applications = [], isSuccess } = useGetApplicationList();
+  const updateActiveApp = useUpdateActiveApp();
+
+  const handleSetActiveApp = (app: Application | null) => {
+    updateActiveApp.mutate(app);
+  };
+
+  const { data: profile, isSuccess: isProfileSuccess } = useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      const res = await hc.users.me.$get();
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error((json as any).message || "Failed to fetch profile");
+      }
+      return (json as any).data as User;
+    },
+  });
 
   useEffect(() => {
-    if (!isSuccess) {
+    if (!(isSuccess && isProfileSuccess)) {
       return;
     }
 
+    const savedAppId = profile?.activeApplicationId;
     if (applications.length > 0) {
-      if (activeApp) {
-        const found = applications.find((a) => a.id === activeApp.id);
-        if (found) {
-          if (
-            found.name !== activeApp.name ||
-            found.description !== activeApp.description
-          ) {
-            setActiveApp(found);
-          }
-        } else {
-          setActiveApp(applications[0]);
-        }
-      } else {
-        setActiveApp(applications[0]);
+      const found = savedAppId
+        ? applications.find((a) => a.id === savedAppId)
+        : null;
+      if (!found) {
+        updateActiveApp.mutate(applications[0]);
       }
-    } else if (activeApp) {
-      setActiveApp(null);
+    } else if (savedAppId !== null && savedAppId !== undefined) {
+      updateActiveApp.mutate(null);
     }
-  }, [applications, activeApp, isSuccess, setActiveApp]);
+  }, [applications, isSuccess, isProfileSuccess, profile, updateActiveApp]);
 
   useEffect(() => {
     const currentUser = apiClient.getCurrentUser();
@@ -82,8 +94,8 @@ export function DashboardShell({ children }: DashboardShellProps) {
         activeApp={activeApp}
         applications={applications}
         handleLogout={handleLogout}
-        setActiveApp={setActiveApp}
-        user={user}
+        setActiveApp={handleSetActiveApp}
+        user={profile || user}
       />
 
       {/* Main Viewport Container */}
@@ -106,9 +118,9 @@ export function DashboardShell({ children }: DashboardShellProps) {
         applications={applications}
         handleLogout={handleLogout}
         mobileMenuOpen={mobileMenuOpen}
-        setActiveApp={setActiveApp}
+        setActiveApp={handleSetActiveApp}
         setMobileMenuOpen={setMobileMenuOpen}
-        user={user}
+        user={profile || user}
       />
     </div>
   );

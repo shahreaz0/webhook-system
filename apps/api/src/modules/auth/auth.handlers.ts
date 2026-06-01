@@ -43,6 +43,7 @@ export const register: AppRouteHandler<RegisterRoute> = async (c) => {
         id: user.id,
         email: user.email,
         name: user.name,
+        activeApplicationId: null,
         createdAt: user.createdAt,
       },
     },
@@ -61,6 +62,7 @@ export const login: AppRouteHandler<LoginRoute> = async (c) => {
       name: true,
       createdAt: true,
       password: true,
+      activeApplicationId: true,
     },
   });
 
@@ -91,6 +93,7 @@ export const login: AppRouteHandler<LoginRoute> = async (c) => {
         id: user.id,
         email: user.email,
         name: user.name,
+        activeApplicationId: user.activeApplicationId,
         createdAt: user.createdAt,
       },
     },
