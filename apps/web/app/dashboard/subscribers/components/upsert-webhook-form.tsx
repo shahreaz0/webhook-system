@@ -360,7 +360,7 @@ export function UpsertWebhookForm() {
         {/* BASICS SECTION */}
         <div className="space-y-3">
           <div className="flex items-center gap-1.5 font-bold font-mono text-[9px] text-primary uppercase tracking-wider">
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[8px] text-primary-foreground">
+            <span className="flex h-4 w-4 items-center justify-center bg-primary text-[8px] text-primary-foreground">
               1
             </span>
             Basics
@@ -478,7 +478,7 @@ export function UpsertWebhookForm() {
         {/* FILTERING SECTION */}
         <div className="space-y-3 border-border/40 border-t pt-3 dark:border-input/40">
           <div className="flex items-center gap-1.5 font-bold font-mono text-[9px] text-primary uppercase tracking-wider">
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[8px] text-primary-foreground">
+            <span className="flex h-4 w-4 items-center justify-center bg-primary text-[8px] text-primary-foreground">
               2
             </span>
             Filtering
@@ -552,7 +552,7 @@ export function UpsertWebhookForm() {
             onClick={() => setShowAdvanced(!showAdvanced)}
             type="button"
           >
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[8px] text-primary-foreground">
+            <span className="flex h-4 w-4 items-center justify-center bg-primary text-[8px] text-primary-foreground">
               3
             </span>
             Advanced {showAdvanced ? "▼" : "▶"}
