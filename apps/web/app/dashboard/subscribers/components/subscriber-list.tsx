@@ -1,7 +1,9 @@
 "use client";
 
-import { ChevronRight, Plus, Users } from "lucide-react";
+import { ChevronRight, Plus, Search, Users } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "@/web/components/ui/button";
+import { Input } from "@/web/components/ui/input";
 import { cn } from "@/web/lib/utils";
 import { useApplicationsStore } from "../../applications/store";
 import { useGetSubscribersList } from "../hooks/use-get-subscribers-list";
@@ -11,14 +13,28 @@ export function SubscriberList() {
   const { activeApp } = useApplicationsStore();
   const appId = activeApp?.id || "";
 
-  const { data: subscribers = [], isLoading } = useGetSubscribersList(appId);
-
   const {
     selectedSubscriber,
     setSelectedSubscriber,
     setIsUpsertSubscriberDialogOpen,
     setSubscriberMutationType,
+    searchQuery,
+    setSearchQuery,
   } = useSubscribersStore();
+
+  const [searchInput, setSearchInput] = useState(searchQuery);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchQuery(searchInput);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [searchInput, setSearchQuery]);
+
+  const { data: subscribers = [], isLoading } = useGetSubscribersList(
+    appId,
+    searchQuery
+  );
 
   const handleOpenCreateDialog = () => {
     setIsUpsertSubscriberDialogOpen(true);
@@ -100,6 +116,17 @@ export function SubscriberList() {
           Add Subscriber
           <Plus className="size-4" />
         </Button>
+      </div>
+
+      <div className="relative">
+        <Search className="absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
+        <Input
+          className="h-7 pl-8 text-xs"
+          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="Search by ID or email..."
+          type="search"
+          value={searchInput}
+        />
       </div>
 
       {renderListContent()}

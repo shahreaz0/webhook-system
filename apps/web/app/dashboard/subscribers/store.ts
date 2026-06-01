@@ -9,4 +9,5 @@ export const { useStore: useSubscribersStore, reset: resetSubscribersStore } =
     isUpsertSubscriberDialogOpen: false,
     subscriberMutationType: "" as "add" | "edit",
     isCreateWebhookOpen: false,
+    searchQuery: "",
   });

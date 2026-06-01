@@ -97,6 +97,7 @@ export function CreateWebhookCard() {
               Destination URL (HTTPS highly recommended)
             </label>
             <Input
+              className="h-7 text-xs"
               id="whUrl"
               onChange={(e) => setWhUrl(e.target.value)}
               placeholder="https://api.yourcustomer.com/webhooks"
@@ -114,6 +115,7 @@ export function CreateWebhookCard() {
                 Description
               </label>
               <Input
+                className="h-7 text-xs"
                 id="whDesc"
                 onChange={(e) => setWhDesc(e.target.value)}
                 placeholder="Primary alerts receiver"
@@ -128,6 +130,7 @@ export function CreateWebhookCard() {
                 Max Rate Limit (req/sec)
               </label>
               <Input
+                className="h-7 text-xs"
                 id="whRate"
                 onChange={(e) => setWhRateLimit(e.target.value)}
                 placeholder="No limit"
