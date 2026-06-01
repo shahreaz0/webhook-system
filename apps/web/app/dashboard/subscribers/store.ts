@@ -8,6 +8,9 @@ export const { useStore: useSubscribersStore, reset: resetSubscribersStore } =
     webhookToDelete: null as Webhook | null,
     isUpsertSubscriberDialogOpen: false,
     subscriberMutationType: "" as "add" | "edit",
+    isUpsertWebhookDialogOpen: false,
+    webhookMutationType: "" as "add" | "edit",
+    selectedWebhook: null as Webhook | null,
     isCreateWebhookOpen: false,
     searchQuery: "",
   });

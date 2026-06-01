@@ -3,18 +3,22 @@
 import { Layers, Plus, Users } from "lucide-react";
 import { Button } from "@/web/components/ui/button";
 import { useApplicationsStore } from "../applications/store";
-import { CreateWebhookCard } from "./components/create-webhook-card";
 import { DeleteDialogs } from "./components/delete-dialogs";
 import { SubscriberList } from "./components/subscriber-list";
 import { SubscriberProfileCard } from "./components/subscriber-profile-card";
 import { UpsertSubscriberDialog } from "./components/upsert-subscriber-dialog";
+import { UpsertWebhookDialog } from "./components/upsert-webhook-dialog";
 import { WebhookList } from "./components/webhook-list";
 import { useSubscribersStore } from "./store";
 
 export default function SubscribersPage() {
   const { activeApp } = useApplicationsStore();
-  const { selectedSubscriber, isCreateWebhookOpen, setIsCreateWebhookOpen } =
-    useSubscribersStore();
+  const {
+    selectedSubscriber,
+    setIsUpsertWebhookDialogOpen,
+    setWebhookMutationType,
+    setSelectedWebhook,
+  } = useSubscribersStore();
 
   if (!activeApp) {
     return (
@@ -52,15 +56,18 @@ export default function SubscribersPage() {
                   </p>
                 </div>
                 <Button
-                  onClick={() => setIsCreateWebhookOpen(!isCreateWebhookOpen)}
+                  onClick={() => {
+                    setSelectedWebhook(null);
+                    setWebhookMutationType("add");
+                    setIsUpsertWebhookDialogOpen(true);
+                  }}
                   size="xs"
                 >
-                  {isCreateWebhookOpen ? "Cancel" : "Add Endpoint"}
+                  Add Endpoint
                   <Plus className="size-3.5" />
                 </Button>
               </div>
 
-              <CreateWebhookCard />
               <WebhookList />
             </div>
           </div>
@@ -77,6 +84,7 @@ export default function SubscribersPage() {
       </div>
 
       <UpsertSubscriberDialog />
+      <UpsertWebhookDialog />
       <DeleteDialogs />
     </div>
   );

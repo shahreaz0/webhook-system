@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Eye, EyeOff, Trash } from "lucide-react";
+import { Copy, Edit3, Eye, EyeOff, Trash } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/web/components/ui/button";
@@ -149,7 +149,13 @@ function WebhookDetailsSection({
 }
 
 export function WebhookCard({ wh }: WebhookCardProps) {
-  const { selectedSubscriber, setWebhookToDelete } = useSubscribersStore();
+  const {
+    selectedSubscriber,
+    setWebhookToDelete,
+    setIsUpsertWebhookDialogOpen,
+    setWebhookMutationType,
+    setSelectedWebhook,
+  } = useSubscribersStore();
   const subId = selectedSubscriber?.id || "";
   const updateWhMutation = useUpdateWebhook(subId);
   const [revealSecret, setRevealSecret] = useState(false);
@@ -170,6 +176,12 @@ export function WebhookCard({ wh }: WebhookCardProps) {
         eventTypes: wh.eventTypes.map((et) => et.id),
       },
     });
+  };
+
+  const handleEdit = () => {
+    setSelectedWebhook(wh);
+    setWebhookMutationType("edit");
+    setIsUpsertWebhookDialogOpen(true);
   };
 
   const handleDelete = () => {
@@ -214,6 +226,14 @@ export function WebhookCard({ wh }: WebhookCardProps) {
               variant="ghost"
             >
               {wh.disabled ? "DISABLED" : "ACTIVE"}
+            </Button>
+            <Button
+              className="text-muted-foreground hover:text-foreground"
+              onClick={handleEdit}
+              size="icon-xs"
+              variant="ghost"
+            >
+              <Edit3 className="size-3.5" />
             </Button>
             <Button
               className="text-muted-foreground hover:text-destructive"
