@@ -13,6 +13,8 @@ import {
 } from "@/web/components/ui/card";
 import type { Webhook } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
+import { useApplicationsStore } from "../../applications/store";
+import { useGetEventTypesList } from "../../event-types/hooks/use-get-event-types-list";
 import { useUpdateWebhook } from "../hooks/use-update-webhook";
 import { useSubscribersStore } from "../store";
 
@@ -149,6 +151,10 @@ function WebhookDetailsSection({
 }
 
 export function WebhookCard({ wh }: WebhookCardProps) {
+  const { activeApp } = useApplicationsStore();
+  const appId = activeApp?.id || "";
+  const { data: eventTypes = [] } = useGetEventTypesList(appId);
+
   const {
     selectedSubscriber,
     setWebhookToDelete,
@@ -173,7 +179,7 @@ export function WebhookCard({ wh }: WebhookCardProps) {
         description: wh.description,
         rateLimit: wh.rateLimit,
         disabled: !wh.disabled,
-        eventTypes: wh.eventTypes.map((et) => et.id),
+        eventTypes: wh.eventTypes,
       },
     });
   };
@@ -273,14 +279,18 @@ export function WebhookCard({ wh }: WebhookCardProps) {
                 No events subscribed
               </span>
             ) : (
-              wh.eventTypes.map((et) => (
-                <span
-                  className="border border-primary/10 bg-primary/5 px-1 py-0.5 font-mono text-[9px] text-primary"
-                  key={et.id}
-                >
-                  {et.name}
-                </span>
-              ))
+              wh.eventTypes.map((eventTypeId) => {
+                const found = eventTypes.find((x) => x.id === eventTypeId);
+                const name = found ? found.name : eventTypeId;
+                return (
+                  <span
+                    className="border border-primary/10 bg-primary/5 px-1 py-0.5 font-mono text-[9px] text-primary"
+                    key={eventTypeId}
+                  >
+                    {name}
+                  </span>
+                );
+              })
             )}
           </div>
         </div>

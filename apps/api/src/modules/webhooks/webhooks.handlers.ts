@@ -205,6 +205,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
 
   if (updateEventTypes) {
     updateData.webhookEventTypes = {
+      deleteMany: {},
       create: updateEventTypes.map((id) => ({ eventTypeId: id })),
     };
   }

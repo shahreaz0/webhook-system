@@ -101,7 +101,7 @@ export function UpsertWebhookForm() {
         rateLimit: selectedWebhook.rateLimit
           ? String(selectedWebhook.rateLimit)
           : "",
-        eventTypes: selectedWebhook.eventTypes.map((et) => et.id),
+        eventTypes: selectedWebhook.eventTypes,
       });
 
       const labelsList = Object.entries(selectedWebhook.labels || {}).map(

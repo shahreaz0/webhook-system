@@ -44,7 +44,7 @@ export interface Webhook {
   createdAt: string;
   description: string | null;
   disabled: boolean;
-  eventTypes: EventType[];
+  eventTypes: string[];
   headers: Record<string, string>;
   id: string;
   labels: Record<string, string>;
