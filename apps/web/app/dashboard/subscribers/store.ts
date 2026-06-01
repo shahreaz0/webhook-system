@@ -6,6 +6,7 @@ export const { useStore: useSubscribersStore, reset: resetSubscribersStore } =
     selectedSubscriber: null as Subscriber | null,
     subscriberToDelete: null as Subscriber | null,
     webhookToDelete: null as Webhook | null,
-    isCreateSubscriberOpen: false,
+    isUpsertSubscriberDialogOpen: false,
+    subscriberMutationType: "" as "add" | "edit",
     isCreateWebhookOpen: false,
   });

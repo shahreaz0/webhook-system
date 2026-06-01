@@ -16,12 +16,13 @@ export function SubscriberList() {
   const {
     selectedSubscriber,
     setSelectedSubscriber,
-    isCreateSubscriberOpen,
-    setIsCreateSubscriberOpen,
+    setIsUpsertSubscriberDialogOpen,
+    setSubscriberMutationType,
   } = useSubscribersStore();
 
-  const toggleCreate = () => {
-    setIsCreateSubscriberOpen(!isCreateSubscriberOpen);
+  const handleOpenCreateDialog = () => {
+    setIsUpsertSubscriberDialogOpen(true);
+    setSubscriberMutationType("add");
   };
 
   function renderListContent() {
@@ -95,9 +96,9 @@ export function SubscriberList() {
             Accounts receiving webhooks.
           </p>
         </div>
-        <Button onClick={toggleCreate} size="xs" variant="outline">
-          {isCreateSubscriberOpen ? "Cancel" : "Add Subscriber"}
-          <Plus className="size-3.5" />
+        <Button onClick={handleOpenCreateDialog}>
+          Add Subscriber
+          <Plus className="size-4" />
         </Button>
       </div>
 

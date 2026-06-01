@@ -3,11 +3,11 @@
 import { Layers, Plus, Users } from "lucide-react";
 import { Button } from "@/web/components/ui/button";
 import { useApplicationsStore } from "../applications/store";
-import { CreateSubscriberCard } from "./components/create-subscriber-card";
 import { CreateWebhookCard } from "./components/create-webhook-card";
 import { DeleteDialogs } from "./components/delete-dialogs";
 import { SubscriberList } from "./components/subscriber-list";
 import { SubscriberProfileCard } from "./components/subscriber-profile-card";
+import { UpsertSubscriberDialog } from "./components/upsert-subscriber-dialog";
 import { WebhookList } from "./components/webhook-list";
 import { useSubscribersStore } from "./store";
 
@@ -34,7 +34,6 @@ export default function SubscribersPage() {
       {/* LEFT COLUMN: Subscribers List */}
       <div className="space-y-4 md:col-span-2">
         <SubscriberList />
-        <CreateSubscriberCard />
       </div>
 
       {/* RIGHT COLUMN: Selected Subscriber details and Webhooks */}
@@ -77,6 +76,7 @@ export default function SubscribersPage() {
         )}
       </div>
 
+      <UpsertSubscriberDialog />
       <DeleteDialogs />
     </div>
   );

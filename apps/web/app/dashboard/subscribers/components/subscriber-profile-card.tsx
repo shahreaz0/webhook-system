@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { Button } from "@/web/components/ui/button";
 import {
   Card,
@@ -12,11 +12,21 @@ import {
 import { useSubscribersStore } from "../store";
 
 export function SubscriberProfileCard() {
-  const { selectedSubscriber, setSubscriberToDelete } = useSubscribersStore();
+  const {
+    selectedSubscriber,
+    setSubscriberToDelete,
+    setIsUpsertSubscriberDialogOpen,
+    setSubscriberMutationType,
+  } = useSubscribersStore();
 
   if (!selectedSubscriber) {
     return null;
   }
+
+  const handleOpenEditDialog = () => {
+    setIsUpsertSubscriberDialogOpen(true);
+    setSubscriberMutationType("edit");
+  };
 
   return (
     <Card>
@@ -32,17 +42,28 @@ export function SubscriberProfileCard() {
             {selectedSubscriber.email}
           </CardDescription>
         </div>
-        <Button
-          className="text-muted-foreground hover:text-destructive"
-          onClick={() => {
-            setSubscriberToDelete(selectedSubscriber);
-          }}
-          size="icon-sm"
-          title="Delete Subscriber"
-          variant="ghost"
-        >
-          <Trash className="size-4" />
-        </Button>
+        <div className="flex items-center gap-1">
+          <Button
+            className="text-muted-foreground hover:text-foreground"
+            onClick={handleOpenEditDialog}
+            size="icon-sm"
+            title="Edit Subscriber"
+            variant="ghost"
+          >
+            <Pencil className="size-4" />
+          </Button>
+          <Button
+            className="text-muted-foreground hover:text-destructive"
+            onClick={() => {
+              setSubscriberToDelete(selectedSubscriber);
+            }}
+            size="icon-sm"
+            title="Delete Subscriber"
+            variant="ghost"
+          >
+            <Trash className="size-4" />
+          </Button>
+        </div>
       </CardHeader>
       <CardContent className="p-4 pt-0">
         <div className="max-h-32 overflow-y-auto border border-border/50 bg-muted/40 p-2.5 font-mono text-[10px] text-muted-foreground leading-normal dark:border-input/50">
