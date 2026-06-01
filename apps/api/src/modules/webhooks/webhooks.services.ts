@@ -29,6 +29,10 @@ export async function getWebhooksForMessage(
         secret: true,
         disabled: true,
         rateLimit: true,
+        name: true,
+        method: true,
+        headers: true,
+        labels: true,
       },
     });
 

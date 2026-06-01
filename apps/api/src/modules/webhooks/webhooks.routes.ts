@@ -187,8 +187,68 @@ export const remove = createRoute({
   },
 });
 
+export const test = createRoute({
+  tags,
+  method: "post",
+  path: "/subscribers/{subscriberId}/webhooks/test",
+  summary: "Test a webhook endpoint",
+  description:
+    "Send a mock event payload to the specified URL to test connectivity.",
+  request: {
+    params: SubscriberParamsSchema,
+    body: {
+      description: "The webhook configuration to test",
+      content: {
+        "application/json": {
+          schema: z.object({
+            url: z
+              .string()
+              .url()
+              .openapi({ example: "https://example.com/webhook" }),
+            method: z.string().default("POST").openapi({ example: "POST" }),
+            headers: z
+              .record(z.string(), z.string())
+              .optional()
+              .openapi({ example: {} }),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: "OK — test response received.",
+      content: {
+        "application/json": {
+          schema: z.object({
+            success: z.boolean().openapi({ example: true }),
+            status: z.number().openapi({ example: 200 }),
+            statusText: z.string().openapi({ example: "OK" }),
+            data: z.any().optional(),
+          }),
+        },
+      },
+    },
+    422: {
+      description: "Unprocessable Entity — validation failed.",
+      content: {
+        "application/json": {
+          schema: createErrorSchema(
+            z.object({
+              url: z.string().url(),
+              method: z.string(),
+              headers: z.record(z.string(), z.string()).optional(),
+            })
+          ),
+        },
+      },
+    },
+  },
+});
+
 export type ListRoute = typeof list;
 export type CreateRoute = typeof create;
 export type GetOneRoute = typeof getOne;
 export type PatchRoute = typeof patch;
 export type RemoveRoute = typeof remove;
+export type TestRoute = typeof test;

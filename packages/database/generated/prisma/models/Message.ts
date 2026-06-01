@@ -49,6 +49,7 @@ export type MessageCountAggregateOutputType = {
   subscriberId: number
   eventTypeId: number
   payload: number
+  labels: number
   status: number
   deliverAt: number
   createdAt: number
@@ -82,6 +83,7 @@ export type MessageCountAggregateInputType = {
   subscriberId?: true
   eventTypeId?: true
   payload?: true
+  labels?: true
   status?: true
   deliverAt?: true
   createdAt?: true
@@ -166,6 +168,7 @@ export type MessageGroupByOutputType = {
   subscriberId: string
   eventTypeId: string
   payload: runtime.JsonValue
+  labels: runtime.JsonValue
   status: $Enums.MessageStatus
   deliverAt: Date | null
   createdAt: Date
@@ -198,6 +201,7 @@ export type MessageWhereInput = {
   subscriberId?: Prisma.StringFilter<"Message"> | string
   eventTypeId?: Prisma.StringFilter<"Message"> | string
   payload?: Prisma.JsonFilter<"Message">
+  labels?: Prisma.JsonFilter<"Message">
   status?: Prisma.EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
   deliverAt?: Prisma.DateTimeNullableFilter<"Message"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
@@ -212,6 +216,7 @@ export type MessageOrderByWithRelationInput = {
   subscriberId?: Prisma.SortOrder
   eventTypeId?: Prisma.SortOrder
   payload?: Prisma.SortOrder
+  labels?: Prisma.SortOrder
   status?: Prisma.SortOrder
   deliverAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -229,6 +234,7 @@ export type MessageWhereUniqueInput = Prisma.AtLeast<{
   subscriberId?: Prisma.StringFilter<"Message"> | string
   eventTypeId?: Prisma.StringFilter<"Message"> | string
   payload?: Prisma.JsonFilter<"Message">
+  labels?: Prisma.JsonFilter<"Message">
   status?: Prisma.EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
   deliverAt?: Prisma.DateTimeNullableFilter<"Message"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
@@ -243,6 +249,7 @@ export type MessageOrderByWithAggregationInput = {
   subscriberId?: Prisma.SortOrder
   eventTypeId?: Prisma.SortOrder
   payload?: Prisma.SortOrder
+  labels?: Prisma.SortOrder
   status?: Prisma.SortOrder
   deliverAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -260,6 +267,7 @@ export type MessageScalarWhereWithAggregatesInput = {
   subscriberId?: Prisma.StringWithAggregatesFilter<"Message"> | string
   eventTypeId?: Prisma.StringWithAggregatesFilter<"Message"> | string
   payload?: Prisma.JsonWithAggregatesFilter<"Message">
+  labels?: Prisma.JsonWithAggregatesFilter<"Message">
   status?: Prisma.EnumMessageStatusWithAggregatesFilter<"Message"> | $Enums.MessageStatus
   deliverAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Message"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Message"> | Date | string
@@ -269,6 +277,7 @@ export type MessageScalarWhereWithAggregatesInput = {
 export type MessageCreateInput = {
   id?: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -283,6 +292,7 @@ export type MessageUncheckedCreateInput = {
   subscriberId: string
   eventTypeId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -293,6 +303,7 @@ export type MessageUncheckedCreateInput = {
 export type MessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -307,6 +318,7 @@ export type MessageUncheckedUpdateInput = {
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   eventTypeId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -319,6 +331,7 @@ export type MessageCreateManyInput = {
   subscriberId: string
   eventTypeId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -328,6 +341,7 @@ export type MessageCreateManyInput = {
 export type MessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -339,6 +353,7 @@ export type MessageUncheckedUpdateManyInput = {
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   eventTypeId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,6 +375,7 @@ export type MessageCountOrderByAggregateInput = {
   subscriberId?: Prisma.SortOrder
   eventTypeId?: Prisma.SortOrder
   payload?: Prisma.SortOrder
+  labels?: Prisma.SortOrder
   status?: Prisma.SortOrder
   deliverAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -496,6 +512,7 @@ export type MessageUpdateOneRequiredWithoutMessageDeliveriesNestedInput = {
 export type MessageCreateWithoutSubscriberInput = {
   id?: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -508,6 +525,7 @@ export type MessageUncheckedCreateWithoutSubscriberInput = {
   id?: string
   eventTypeId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -549,6 +567,7 @@ export type MessageScalarWhereInput = {
   subscriberId?: Prisma.StringFilter<"Message"> | string
   eventTypeId?: Prisma.StringFilter<"Message"> | string
   payload?: Prisma.JsonFilter<"Message">
+  labels?: Prisma.JsonFilter<"Message">
   status?: Prisma.EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
   deliverAt?: Prisma.DateTimeNullableFilter<"Message"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
@@ -558,6 +577,7 @@ export type MessageScalarWhereInput = {
 export type MessageCreateWithoutEventTypeInput = {
   id?: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -570,6 +590,7 @@ export type MessageUncheckedCreateWithoutEventTypeInput = {
   id?: string
   subscriberId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -606,6 +627,7 @@ export type MessageUpdateManyWithWhereWithoutEventTypeInput = {
 export type MessageCreateWithoutMessageDeliveriesInput = {
   id?: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -619,6 +641,7 @@ export type MessageUncheckedCreateWithoutMessageDeliveriesInput = {
   subscriberId: string
   eventTypeId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -644,6 +667,7 @@ export type MessageUpdateToOneWithWhereWithoutMessageDeliveriesInput = {
 export type MessageUpdateWithoutMessageDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -657,6 +681,7 @@ export type MessageUncheckedUpdateWithoutMessageDeliveriesInput = {
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   eventTypeId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -667,6 +692,7 @@ export type MessageCreateManySubscriberInput = {
   id?: string
   eventTypeId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -676,6 +702,7 @@ export type MessageCreateManySubscriberInput = {
 export type MessageUpdateWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -688,6 +715,7 @@ export type MessageUncheckedUpdateWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   eventTypeId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -699,6 +727,7 @@ export type MessageUncheckedUpdateManyWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   eventTypeId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -709,6 +738,7 @@ export type MessageCreateManyEventTypeInput = {
   id?: string
   subscriberId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.MessageStatus
   deliverAt?: Date | string | null
   createdAt?: Date | string
@@ -718,6 +748,7 @@ export type MessageCreateManyEventTypeInput = {
 export type MessageUpdateWithoutEventTypeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -730,6 +761,7 @@ export type MessageUncheckedUpdateWithoutEventTypeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -741,6 +773,7 @@ export type MessageUncheckedUpdateManyWithoutEventTypeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  labels?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
   deliverAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -783,6 +816,7 @@ export type MessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   subscriberId?: boolean
   eventTypeId?: boolean
   payload?: boolean
+  labels?: boolean
   status?: boolean
   deliverAt?: boolean
   createdAt?: boolean
@@ -798,6 +832,7 @@ export type MessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   subscriberId?: boolean
   eventTypeId?: boolean
   payload?: boolean
+  labels?: boolean
   status?: boolean
   deliverAt?: boolean
   createdAt?: boolean
@@ -811,6 +846,7 @@ export type MessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   subscriberId?: boolean
   eventTypeId?: boolean
   payload?: boolean
+  labels?: boolean
   status?: boolean
   deliverAt?: boolean
   createdAt?: boolean
@@ -824,13 +860,14 @@ export type MessageSelectScalar = {
   subscriberId?: boolean
   eventTypeId?: boolean
   payload?: boolean
+  labels?: boolean
   status?: boolean
   deliverAt?: boolean
   createdAt?: boolean
   deletedAt?: boolean
 }
 
-export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subscriberId" | "eventTypeId" | "payload" | "status" | "deliverAt" | "createdAt" | "deletedAt", ExtArgs["result"]["message"]>
+export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subscriberId" | "eventTypeId" | "payload" | "labels" | "status" | "deliverAt" | "createdAt" | "deletedAt", ExtArgs["result"]["message"]>
 export type MessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
   eventType?: boolean | Prisma.EventTypeDefaultArgs<ExtArgs>
@@ -858,6 +895,7 @@ export type $MessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     subscriberId: string
     eventTypeId: string
     payload: runtime.JsonValue
+    labels: runtime.JsonValue
     status: $Enums.MessageStatus
     deliverAt: Date | null
     createdAt: Date
@@ -1292,6 +1330,7 @@ export interface MessageFieldRefs {
   readonly subscriberId: Prisma.FieldRef<"Message", 'String'>
   readonly eventTypeId: Prisma.FieldRef<"Message", 'String'>
   readonly payload: Prisma.FieldRef<"Message", 'Json'>
+  readonly labels: Prisma.FieldRef<"Message", 'Json'>
   readonly status: Prisma.FieldRef<"Message", 'MessageStatus'>
   readonly deliverAt: Prisma.FieldRef<"Message", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Message", 'DateTime'>

@@ -15,6 +15,7 @@ export const MessageSchema = z.object({
   payload: z
     .record(z.string(), z.unknown())
     .openapi({ example: { foo: "bar" } }),
+  labels: z.record(z.string(), z.string()).default({}).openapi({ example: {} }),
   status: MessageStatusSchema.openapi({ example: MessageStatus.PENDING }),
   deliverAt: z.string().nullable().openapi({ example: "2024-01-01T00:00:00Z" }),
   createdAt: z.string().openapi({ example: "2024-01-01T00:00:00Z" }),

@@ -106,11 +106,15 @@ model Subscriber {
 
 model Webhook {
   id           String     @id @default(cuid(2))
+  name         String     @default("Webhook")
+  method       String     @default("POST")
   url          String
   secret       String
   description  String?
   disabled     Boolean    @default(false)
   archived     Boolean    @default(false)
+  headers      Json       @default("{}")
+  labels       Json       @default("{}")
   metadata     Json?
   rateLimit    Int?
   subscriber   Subscriber @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
@@ -173,6 +177,7 @@ model Message {
   eventType         EventType         @relation(fields: [eventTypeId], references: [id], onDelete: Cascade)
   eventTypeId       String
   payload           Json
+  labels            Json              @default("{}")
   status            MessageStatus     @default(PENDING)
   deliverAt         DateTime?
   createdAt         DateTime          @default(now())

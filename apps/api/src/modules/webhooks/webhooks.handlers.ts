@@ -4,12 +4,14 @@ import { HTTPException } from "hono/http-exception";
 import { z } from "zod";
 import { buildOrderBy, buildPagination } from "@/api/lib/common-schemas";
 import type { AppBindings, AppRouteHandler } from "@/api/lib/types";
+import { http } from "@/api/lib/xior";
 import type {
   CreateRoute,
   GetOneRoute,
   ListRoute,
   PatchRoute,
   RemoveRoute,
+  TestRoute,
 } from "./webhooks.routes";
 import { WebhookSchema } from "./webhooks.schemas";
 import { buildWebhookFilters } from "./webhooks.utils";
@@ -52,6 +54,8 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
     ...w,
     eventTypes: w.webhookEventTypes.map((et) => et.eventTypeId) ?? [],
     subscriberId: w.subscriberId,
+    headers: (w.headers as Record<string, string>) || {},
+    labels: (w.labels as Record<string, string>) || {},
   }));
   const parsed = z.array(WebhookSchema).parse(data);
   return c.json({ success: true, data: parsed });
@@ -107,6 +111,8 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
     eventTypes: created.webhookEventTypes.map((et) => et.eventTypeId),
     subscriberId:
       created.subscriberId === null ? undefined : created.subscriberId,
+    headers: (created.headers as Record<string, string>) || {},
+    labels: (created.labels as Record<string, string>) || {},
   };
 
   const parsed = WebhookSchema.parse(result);
@@ -150,6 +156,8 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
       webhook.subscriberId === null ? undefined : webhook.subscriberId,
     createdAt: webhook.createdAt.toISOString(),
     updatedAt: webhook.updatedAt.toISOString(),
+    headers: (webhook.headers as Record<string, string>) || {},
+    labels: (webhook.labels as Record<string, string>) || {},
   };
   const parsed = WebhookSchema.parse(result);
   return c.json({ success: true, data: parsed }, 200);
@@ -213,6 +221,8 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
       : [],
     subscriberId:
       edited.subscriberId === null ? undefined : edited.subscriberId,
+    headers: (edited.headers as Record<string, string>) || {},
+    labels: (edited.labels as Record<string, string>) || {},
   };
 
   const parsed = WebhookSchema.parse(result);
@@ -253,4 +263,71 @@ export const remove: RouteHandler<RemoveRoute, AppBindings> = async (c) => {
   await prisma.webhook.delete({ where: { id: params.webhookId } });
 
   return c.json({ success: true, data: { id: params.webhookId } }, 200);
+};
+
+// ----------------------------
+// Test Webhook Endpoint
+// ----------------------------
+export const test: RouteHandler<TestRoute, AppBindings> = async (c) => {
+  const jwt = c.get("jwtPayload");
+  const params = c.req.valid("param");
+  const body = c.req.valid("json");
+
+  // Ensure the app user exists and its application belongs to the authenticated user
+  const subscriber = await prisma.subscriber.findUnique({
+    where: { id: params.subscriberId },
+    include: { application: true },
+  });
+
+  if (!subscriber || subscriber.application.userId !== jwt.id) {
+    throw new HTTPException(404, {
+      message: "Subscriber not found",
+      cause: { success: false },
+    });
+  }
+
+  const { url, method, headers } = body;
+
+  try {
+    const response = await http.request({
+      method: (method ? method.toLowerCase() : "post") as any,
+      url,
+      data: {
+        event: "test.ping",
+        data: {
+          ping: true,
+          message: "This is a test event from your webhook dashboard",
+        },
+      },
+      headers: {
+        ...(headers || {}),
+        "x-webhook-secret": "test_secret_key_123456",
+      },
+      timeout: 5000, // 5 second timeout for testing
+    });
+
+    return c.json(
+      {
+        success: true,
+        status: response.status,
+        statusText: response.statusText || "OK",
+        data: response.data,
+      },
+      200
+    );
+  } catch (error: any) {
+    const status = error.response?.status || 500;
+    const statusText = error.response?.statusText || error.message || "Failed";
+    const data = error.response?.data || null;
+
+    return c.json(
+      {
+        success: false,
+        status,
+        statusText,
+        data,
+      },
+      200
+    );
+  }
 };

@@ -7,6 +7,15 @@ import {
 
 export const WebhookSchema = z.object({
   id: z.cuid2().openapi({ example: "ckwxyz123456abcdef12345" }),
+  name: z
+    .string()
+    .min(1)
+    .default("Webhook")
+    .openapi({ example: "Order notifications" }),
+  method: z
+    .enum(["GET", "POST", "PUT", "PATCH", "DELETE"])
+    .default("POST")
+    .openapi({ example: "POST" }),
   eventTypes: z.array(z.cuid2()).openapi({
     example: ["ckwxyz123456abcdef12345", "ckwxyz123456abcdef12345"],
   }),
@@ -18,6 +27,11 @@ export const WebhookSchema = z.object({
     .openapi({ example: "Webhook for notifications" }),
   disabled: z.boolean().default(false).openapi({ example: false }),
   archived: z.boolean().default(false).openapi({ example: false }),
+  headers: z
+    .record(z.string(), z.string())
+    .default({})
+    .openapi({ example: {} }),
+  labels: z.record(z.string(), z.string()).default({}).openapi({ example: {} }),
   metadata: z.any().nullish().openapi({ example: {} }),
   rateLimit: z.number().nullish().openapi({ example: 10 }),
   subscriberId: z.cuid2().openapi({ example: "ckwxyz123456abcdef12345" }),

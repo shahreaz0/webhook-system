@@ -7,10 +7,14 @@ export function createWebhookMutationOptions(subscriberId: string) {
   return mutationOptions({
     mutationKey: ["create-webhook", subscriberId],
     mutationFn: async (payload: {
+      name: string;
+      method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
       url: string;
       description?: string | null;
       rateLimit?: number | null;
       eventTypes: string[];
+      headers?: Record<string, string>;
+      labels?: Record<string, string>;
     }) => {
       const secret = `whsec_${Array.from(
         crypto.getRandomValues(new Uint8Array(16))

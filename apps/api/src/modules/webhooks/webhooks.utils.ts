@@ -7,7 +7,15 @@ const CACHE_TTL = 300; // 5 minutes
 
 export type CachedWebhook = Pick<
   Webhook,
-  "id" | "url" | "secret" | "disabled" | "rateLimit"
+  | "id"
+  | "url"
+  | "secret"
+  | "disabled"
+  | "rateLimit"
+  | "name"
+  | "method"
+  | "headers"
+  | "labels"
 >;
 
 export function buildWebhookFilters(

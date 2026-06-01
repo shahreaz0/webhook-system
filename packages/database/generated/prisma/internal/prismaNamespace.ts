@@ -1174,11 +1174,15 @@ export type SubscriberScalarFieldEnum = (typeof SubscriberScalarFieldEnum)[keyof
 
 export const WebhookScalarFieldEnum = {
   id: 'id',
+  name: 'name',
+  method: 'method',
   url: 'url',
   secret: 'secret',
   description: 'description',
   disabled: 'disabled',
   archived: 'archived',
+  headers: 'headers',
+  labels: 'labels',
   metadata: 'metadata',
   rateLimit: 'rateLimit',
   subscriberId: 'subscriberId',
@@ -1220,6 +1224,7 @@ export const MessageScalarFieldEnum = {
   subscriberId: 'subscriberId',
   eventTypeId: 'eventTypeId',
   payload: 'payload',
+  labels: 'labels',
   status: 'status',
   deliverAt: 'deliverAt',
   createdAt: 'createdAt',

@@ -12,11 +12,15 @@ export function updateWebhookMutationOptions(subscriberId: string) {
     }: {
       id: string;
       payload: {
+        name?: string;
+        method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
         url?: string;
         description?: string | null;
         rateLimit?: number | null;
         disabled?: boolean;
         eventTypes?: string[];
+        headers?: Record<string, string>;
+        labels?: Record<string, string>;
       };
     }) => {
       const res = await hc.subscribers[":subscriberId"].webhooks[

@@ -57,13 +57,14 @@ export async function deliverMessage(
 
     // Deliver the message
     const response = await http.request({
-      method: "post",
+      method: (wh.method ? wh.method.toLowerCase() : "post") as any,
       url: wh.url,
       data: {
         event: message.eventName,
         data: message.payload,
       },
       headers: {
+        ...((wh.headers as Record<string, string>) || {}),
         "x-webhook-secret": wh.secret,
       },
     });

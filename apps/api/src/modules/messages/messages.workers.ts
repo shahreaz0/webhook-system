@@ -24,15 +24,28 @@ const worker = new Worker<MessageJobData>(
     }
 
     // Fetch webhooks for this message (with caching)
-    const webhooks = await getWebhooksForMessage(
+    const allWebhooks = await getWebhooksForMessage(
       job.data.message.subscriberId,
       job.data.message.eventTypeId
     );
 
+    // Filter webhooks by label matching
+    const eventLabels =
+      (job.data.message.labels as Record<string, string>) || {};
+    const webhooks = allWebhooks.filter((wh) => {
+      const subLabels = (wh.labels as Record<string, string>) || {};
+      if (Object.keys(subLabels).length === 0) {
+        return true; // No label filters on the subscription matches all events
+      }
+      return Object.entries(subLabels).every(
+        ([k, v]) => String(eventLabels[k]) === String(v)
+      );
+    });
+
     if (webhooks.length === 0) {
       logger.info(
         "workers",
-        `No webhooks found for message ${job.data.message.id}, marking as delivered`
+        `No matching webhooks found for message ${job.data.message.id} after label filtering, marking as delivered`
       );
       await updateMessageStatus(job.data.message.id, "DELIVERED");
       return;

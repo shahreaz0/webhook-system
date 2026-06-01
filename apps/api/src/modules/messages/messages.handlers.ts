@@ -55,6 +55,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
     deliverAt: m.deliverAt ? m.deliverAt.toISOString() : null,
     createdAt: m.createdAt.toISOString(),
     payload: m.payload as Record<string, unknown>,
+    labels: (m.labels as Record<string, string>) || {},
   }));
   const parsed = z.array(MessageSchema).parse(data);
   return c.json({ success: true, data: parsed });
@@ -97,6 +98,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
       eventTypeId: body.eventTypeId,
       payload: body.payload as Prisma.InputJsonValue,
       subscriberId: params.subscriberId,
+      labels: body.labels as Prisma.InputJsonValue,
     },
   });
 
@@ -111,6 +113,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
     deliverAt: created.deliverAt ? created.deliverAt.toISOString() : null,
     createdAt: created.createdAt.toISOString(),
     payload: created.payload as Record<string, unknown>,
+    labels: (created.labels as Record<string, string>) || {},
   };
 
   const parsed = MessageSchema.parse(result);
@@ -150,6 +153,7 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
     deliverAt: message.deliverAt ? message.deliverAt.toISOString() : null,
     createdAt: message.createdAt.toISOString(),
     payload: message.payload as Record<string, unknown>,
+    labels: (message.labels as Record<string, string>) || {},
   };
   const parsed = MessageSchema.parse(result);
   return c.json({ success: true, data: parsed }, 200);
@@ -200,6 +204,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
     deliverAt: edited.deliverAt ? edited.deliverAt.toISOString() : null,
     createdAt: edited.createdAt.toISOString(),
     payload: edited.payload as Record<string, unknown>,
+    labels: (edited.labels as Record<string, string>) || {},
   };
 
   const parsed = MessageSchema.parse(result);

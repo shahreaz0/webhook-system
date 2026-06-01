@@ -45,7 +45,12 @@ export interface Webhook {
   description: string | null;
   disabled: boolean;
   eventTypes: EventType[];
+  headers: Record<string, string>;
   id: string;
+  labels: Record<string, string>;
+  metadata: any | null;
+  method: string;
+  name: string;
   rateLimit: number | null;
   secret: string;
   subscriberId: string;
@@ -58,6 +63,7 @@ export interface Message {
   eventType?: EventType;
   eventTypeId: string;
   id: string;
+  labels: Record<string, string>;
   payload: any;
   status: "PENDING" | "PROCESSING" | "DELIVERED" | "FAILED" | "PARTIAL";
   subscriber?: Subscriber;
