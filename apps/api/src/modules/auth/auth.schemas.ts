@@ -14,7 +14,7 @@ export const LoginSchema = z.object({
 });
 
 export const LoginResponseSchema = z.object({
-  success: z.boolean().openapi({ example: true }),
+  status: z.literal("success"),
   message: z.string().openapi({ example: "Login Successful" }),
   session: SessionSchema.omit({
     createdAt: true,

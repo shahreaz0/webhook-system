@@ -1,6 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
-import { NotFoundSchema } from "@/api/lib/common-schemas";
+import { createSuccessSchema, NotFoundSchema } from "@/api/lib/common-schemas";
 import {
   MessageCreateSchema,
   MessageListQuerySchema,
@@ -27,10 +27,7 @@ export const list = createRoute({
       description: "OK — list returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: z.array(MessageSchema),
-          }),
+          schema: createSuccessSchema(z.array(MessageSchema)),
         },
       },
     },
@@ -59,7 +56,7 @@ export const create = createRoute({
       description: "Created — message created successfully.",
       content: {
         "application/json": {
-          schema: z.object({ success: z.boolean(), data: MessageSchema }),
+          schema: createSuccessSchema(MessageSchema),
         },
       },
     },
@@ -87,10 +84,7 @@ export const getOne = createRoute({
       description: "OK — message returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: MessageSchema,
-          }),
+          schema: createSuccessSchema(MessageSchema),
         },
       },
     },
@@ -126,10 +120,7 @@ export const patch = createRoute({
       description: "OK — message updated successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: MessageSchema,
-          }),
+          schema: createSuccessSchema(MessageSchema),
         },
       },
     },

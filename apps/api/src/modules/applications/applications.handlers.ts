@@ -47,7 +47,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
   const parsedApps = z.array(ApplicationSchema).parse(applications);
 
   return c.json({
-    success: true,
+    status: "success" as const,
     data: parsedApps,
   });
 };
@@ -67,7 +67,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
     },
   });
 
-  return c.json({ success: true, data: createdApp }, 201);
+  return c.json({ status: "success" as const, data: createdApp }, 201);
 };
 
 // ----------------------------
@@ -87,11 +87,11 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   if (!application || application.userId !== jwtPayload.id) {
     throw new HTTPException(404, {
       message: "Application not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
-  return c.json({ success: true, data: application }, 200);
+  return c.json({ status: "success" as const, data: application }, 200);
 };
 
 // ----------------------------
@@ -109,7 +109,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
   if (!application || application.userId !== jwtPayload.id) {
     throw new HTTPException(404, {
       message: "Application not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -118,7 +118,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
     data: updates,
   });
 
-  return c.json({ success: true, data: editedApp }, 200);
+  return c.json({ status: "success" as const, data: editedApp }, 200);
 };
 
 // ----------------------------
@@ -135,11 +135,11 @@ export const remove: RouteHandler<RemoveRoute, AppBindings> = async (c) => {
   if (!application || application.userId !== jwtPayload.id) {
     throw new HTTPException(404, {
       message: "Application not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
   await prisma.application.delete({ where: { id: params.id } });
 
-  return c.json({ success: true, data: { id: params.id } }, 200);
+  return c.json({ status: "success" as const, data: { id: params.id } }, 200);
 };

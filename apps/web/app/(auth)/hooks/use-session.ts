@@ -9,11 +9,13 @@ export function useSession() {
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok && data.status === "error") {
         throw new Error((data as any).message);
       }
 
-      return data;
+      if (data.status === "success") {
+        return data.data;
+      }
     },
     staleTime: 5 * 60 * 1000,
   });

@@ -1,6 +1,10 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
-import { IdParamsSchema, NotFoundSchema } from "@/api/lib/common-schemas";
+import {
+  createSuccessSchema,
+  IdParamsSchema,
+  NotFoundSchema,
+} from "@/api/lib/common-schemas";
 import {
   ApplicationCreateSchema,
   ApplicationListQuerySchema,
@@ -29,10 +33,7 @@ export const list = createRoute({
         "OK — the request succeeded and the response contains the requested data.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: z.array(ApplicationSchema),
-          }),
+          schema: createSuccessSchema(z.array(ApplicationSchema)),
         },
       },
     },
@@ -64,10 +65,7 @@ export const create = createRoute({
         "Created — application successfully created and returned in the response.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean(),
-            data: ApplicationSchema,
-          }),
+          schema: createSuccessSchema(ApplicationSchema),
         },
       },
     },
@@ -99,10 +97,7 @@ export const getOne = createRoute({
       description: "OK — application details returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: ApplicationSchemaWithUser,
-          }),
+          schema: createSuccessSchema(ApplicationSchemaWithUser),
         },
       },
     },
@@ -151,10 +146,7 @@ export const patch = createRoute({
       description: "OK — application updated successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: ApplicationSchema,
-          }),
+          schema: createSuccessSchema(ApplicationSchema),
         },
       },
     },
@@ -200,10 +192,7 @@ export const remove = createRoute({
         "OK — application deleted successfully. Response includes the id of the removed application.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean(),
-            data: z.object({ id: z.string() }),
-          }),
+          schema: createSuccessSchema(z.object({ id: z.string() })),
         },
       },
     },

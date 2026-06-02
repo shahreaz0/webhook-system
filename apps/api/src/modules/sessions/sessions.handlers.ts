@@ -33,7 +33,7 @@ export const list: RouteHandler<ListRoute, AppBindings> = async (c) => {
     take: perPage,
   });
 
-  return c.json({ success: true, data: sessions }, 200);
+  return c.json({ status: "success" as const, data: sessions }, 200);
 };
 
 // ----------------------------
@@ -54,11 +54,11 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   if (!session) {
     throw new HTTPException(404, {
       message: "Session not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
-  return c.json({ success: true, data: session }, 200);
+  return c.json({ status: "success" as const, data: session }, 200);
 };
 
 // ----------------------------
@@ -79,7 +79,7 @@ export const remove: RouteHandler<RemoveRoute, AppBindings> = async (c) => {
   if (!session) {
     throw new HTTPException(404, {
       message: "Session not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -87,7 +87,7 @@ export const remove: RouteHandler<RemoveRoute, AppBindings> = async (c) => {
     where: { id },
   });
 
-  return c.json({ success: true, data: { id } }, 200);
+  return c.json({ status: "success" as const, data: { id } }, 200);
 };
 
 // ----------------------------
@@ -111,5 +111,8 @@ export const removeAll: RouteHandler<RemoveAllRoute, AppBindings> = async (
     },
   });
 
-  return c.json({ success: true, data: { count: result.count } }, 200);
+  return c.json(
+    { status: "success" as const, data: { count: result.count } },
+    200
+  );
 };

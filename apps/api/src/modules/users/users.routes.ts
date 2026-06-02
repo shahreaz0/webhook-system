@@ -1,6 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
-import { NotFoundSchema } from "@/api/lib/common-schemas";
+import { createSuccessSchema, NotFoundSchema } from "@/api/lib/common-schemas";
 import { UserSchema, UserUpdateSchema } from "./users.schemas";
 
 const tags = ["Users"];
@@ -19,10 +19,7 @@ export const getMe = createRoute({
       description: "OK — user details returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: UserSchema,
-          }),
+          schema: createSuccessSchema(UserSchema),
         },
       },
     },
@@ -61,10 +58,7 @@ export const updateMe = createRoute({
       description: "OK — user updated successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: UserSchema,
-          }),
+          schema: createSuccessSchema(UserSchema),
         },
       },
     },
@@ -101,10 +95,7 @@ export const removeMe = createRoute({
       description: "OK — user deleted successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: z.object({ id: z.string() }),
-          }),
+          schema: createSuccessSchema(z.object({ id: z.string() })),
         },
       },
     },

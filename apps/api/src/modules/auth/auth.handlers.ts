@@ -22,7 +22,7 @@ export const register: AppRouteHandler<RegisterRoute> = async (c) => {
   if (existing) {
     throw new HTTPException(409, {
       message: "Email already exists",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -38,7 +38,7 @@ export const register: AppRouteHandler<RegisterRoute> = async (c) => {
 
   return c.json(
     {
-      success: true,
+      status: "success" as const,
       data: {
         id: user.id,
         email: user.email,
@@ -86,7 +86,7 @@ export const login: AppRouteHandler<LoginRoute> = async (c) => {
 
   return c.json(
     {
-      success: true,
+      status: "success" as const,
       message: "Login Successful",
       session,
       user: {
@@ -137,7 +137,7 @@ export const getToken: AppRouteHandler<GetTokenRoute> = async (c) => {
     env.JWT_SECRET
   );
 
-  return c.json({ success: true, data: { token: jwtToken } }, 200);
+  return c.json({ status: "success" as const, data: { token: jwtToken } }, 200);
 };
 
 export const logout: AppRouteHandler<LogoutRoute> = async (c) => {
@@ -151,5 +151,5 @@ export const logout: AppRouteHandler<LogoutRoute> = async (c) => {
     where: { token },
   });
 
-  return c.json({ success: true }, 200);
+  return c.json({ status: "success" as const }, 200);
 };

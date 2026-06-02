@@ -1,7 +1,10 @@
 import { createRoute } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
 import { z } from "zod";
-import { createHttpErrorSchema } from "@/api/lib/common-schemas";
+import {
+  createHttpErrorSchema,
+  createSuccessSchema,
+} from "@/api/lib/common-schemas";
 import {
   AuthUserSchema,
   LoginResponseSchema,
@@ -35,10 +38,7 @@ export const register = createRoute({
       description: "Created — User registered successfully",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: AuthUserSchema,
-          }),
+          schema: createSuccessSchema(AuthUserSchema),
         },
       },
     },
@@ -135,12 +135,11 @@ export const getToken = createRoute({
       description: "OK — login successful",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: z.object({
+          schema: createSuccessSchema(
+            z.object({
               token: z.string().openapi({ example: "your_token_here" }),
-            }),
-          }),
+            })
+          ),
         },
       },
     },
@@ -179,7 +178,7 @@ export const logout = createRoute({
       content: {
         "application/json": {
           schema: z.object({
-            success: z.boolean().openapi({ example: true }),
+            status: z.literal("success"),
           }),
         },
       },

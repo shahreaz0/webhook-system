@@ -1,6 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
-import { NotFoundSchema } from "@/api/lib/common-schemas";
+import { createSuccessSchema, NotFoundSchema } from "@/api/lib/common-schemas";
 import {
   ApplicationParamsSchema,
   EventTypeCreateSchema,
@@ -31,10 +31,7 @@ export const list = createRoute({
         "OK — the request succeeded and the response contains the requested data.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: z.array(EventTypeSchema),
-          }),
+          schema: createSuccessSchema(z.array(EventTypeSchema)),
         },
       },
     },
@@ -67,10 +64,7 @@ export const create = createRoute({
         "Created — event type successfully created and returned in the response.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean(),
-            data: EventTypeSchema,
-          }),
+          schema: createSuccessSchema(EventTypeSchema),
         },
       },
     },
@@ -103,10 +97,7 @@ export const getOne = createRoute({
       description: "OK — event type details returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: EventTypeSchema,
-          }),
+          schema: createSuccessSchema(EventTypeSchema),
         },
       },
     },
@@ -157,10 +148,7 @@ export const patch = createRoute({
       description: "OK — event type updated successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: EventTypeSchema,
-          }),
+          schema: createSuccessSchema(EventTypeSchema),
         },
       },
     },
@@ -207,10 +195,7 @@ export const remove = createRoute({
         "OK — event type deleted successfully. Response includes the id of the removed event type.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean(),
-            data: z.object({ id: z.string() }),
-          }),
+          schema: createSuccessSchema(z.object({ id: z.string() })),
         },
       },
     },

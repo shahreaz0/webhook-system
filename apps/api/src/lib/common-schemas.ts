@@ -14,7 +14,7 @@ export const IdParamsSchema = z.object({
  * Not found error response schema
  */
 export const NotFoundSchema = z.object({
-  success: z.boolean().openapi({ example: false }),
+  status: z.literal("error"),
   message: z.string().openapi({ example: "Not found" }),
 });
 
@@ -34,8 +34,19 @@ export function createHttpErrorSchema(params: {
   const example = params.example ?? defaultStatusTexts[params.statusCode];
 
   return z.object({
-    success: z.boolean().openapi({ example: false }),
+    status: z.literal("error"),
     message: z.string().openapi({ example }),
+  });
+}
+
+/**
+ * Helper to create a typed success response schema
+ * Wraps data in { status: "success", data: T }
+ */
+export function createSuccessSchema<T extends z.ZodTypeAny>(dataSchema: T) {
+  return z.object({
+    status: z.literal("success"),
+    data: dataSchema,
   });
 }
 

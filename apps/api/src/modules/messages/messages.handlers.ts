@@ -31,7 +31,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
   if (subscriber?.application.userId !== jwt.id) {
     throw new HTTPException(404, {
       message: "Subscriber not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -58,7 +58,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
     labels: (m.labels as Record<string, string>) || {},
   }));
   const parsed = z.array(MessageSchema).parse(data);
-  return c.json({ success: true, data: parsed });
+  return c.json({ status: "success" as const, data: parsed });
 };
 
 // ----------------------------
@@ -77,7 +77,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
   if (subscriber?.application.userId !== jwt.id) {
     throw new HTTPException(404, {
       message: "Subscriber not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -89,7 +89,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
   if (!eventType) {
     throw new HTTPException(404, {
       message: "Event Type not found or archived",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -118,7 +118,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
 
   const parsed = MessageSchema.parse(result);
 
-  return c.json({ success: true, data: parsed }, 201);
+  return c.json({ status: "success" as const, data: parsed }, 201);
 };
 
 // ----------------------------
@@ -135,7 +135,7 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   if (subscriber?.application.userId !== jwt.id) {
     throw new HTTPException(404, {
       message: "Subscriber not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
   const message = await prisma.message.findFirst({
@@ -144,7 +144,7 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   if (!message) {
     throw new HTTPException(404, {
       message: "Message not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
   const result = {
@@ -156,7 +156,7 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
     labels: (message.labels as Record<string, string>) || {},
   };
   const parsed = MessageSchema.parse(result);
-  return c.json({ success: true, data: parsed }, 200);
+  return c.json({ status: "success" as const, data: parsed }, 200);
 };
 
 // ----------------------------
@@ -175,7 +175,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
   if (subscriber?.application.userId !== jwt.id) {
     throw new HTTPException(404, {
       message: "Subscriber not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -186,7 +186,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
   if (!message) {
     throw new HTTPException(404, {
       message: "Message not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -209,5 +209,5 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
 
   const parsed = MessageSchema.parse(result);
 
-  return c.json({ success: true, data: parsed }, 200);
+  return c.json({ status: "success" as const, data: parsed }, 200);
 };

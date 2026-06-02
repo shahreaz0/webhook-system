@@ -20,11 +20,11 @@ export const getMe: RouteHandler<GetMeRoute, AppBindings> = async (c) => {
   if (!user) {
     throw new HTTPException(404, {
       message: "User not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
-  return c.json({ success: true, data: user }, 200);
+  return c.json({ status: "success", data: user }, 200);
 };
 
 // ----------------------------
@@ -41,7 +41,7 @@ export const updateMe: RouteHandler<UpdateMeRoute, AppBindings> = async (c) => {
   if (!user) {
     throw new HTTPException(404, {
       message: "User not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -50,7 +50,7 @@ export const updateMe: RouteHandler<UpdateMeRoute, AppBindings> = async (c) => {
     data: updates,
   });
 
-  return c.json({ success: true, data: updatedUser }, 200);
+  return c.json({ status: "success" as const, data: updatedUser }, 200);
 };
 
 // ----------------------------
@@ -66,11 +66,14 @@ export const removeMe: RouteHandler<RemoveMeRoute, AppBindings> = async (c) => {
   if (!user) {
     throw new HTTPException(404, {
       message: "User not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
   await prisma.user.delete({ where: { id: jwtPayload.id } });
 
-  return c.json({ success: true, data: { id: jwtPayload.id } }, 200);
+  return c.json(
+    { status: "success" as const, data: { id: jwtPayload.id } },
+    200
+  );
 };

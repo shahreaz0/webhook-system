@@ -1,6 +1,7 @@
 import { createRoute } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
-import { NotFoundSchema } from "@/api/lib/common-schemas";
+import { z } from "zod";
+import { createSuccessSchema, NotFoundSchema } from "@/api/lib/common-schemas";
 import {
   ApplicationIdParamsSchema,
   SubscriberCreateSchema,
@@ -12,8 +13,6 @@ import {
 } from "./subscribers.schemas";
 
 const tags = ["Subscribers"];
-
-import { z } from "zod";
 
 export const list = createRoute({
   tags,
@@ -31,10 +30,7 @@ export const list = createRoute({
       description: "OK — list returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: z.array(SubscriberSchema),
-          }),
+          schema: createSuccessSchema(z.array(SubscriberSchema)),
         },
       },
     },
@@ -63,7 +59,7 @@ export const create = createRoute({
       description: "Created — app user created successfully.",
       content: {
         "application/json": {
-          schema: z.object({ success: z.boolean(), data: SubscriberSchema }),
+          schema: createSuccessSchema(SubscriberSchema),
         },
       },
     },
@@ -91,10 +87,7 @@ export const getOne = createRoute({
       description: "OK — app user returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: SubscriberSchemaDetails,
-          }),
+          schema: createSuccessSchema(SubscriberSchemaDetails),
         },
       },
     },
@@ -134,10 +127,7 @@ export const patch = createRoute({
       description: "OK — app user updated successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: SubscriberSchema,
-          }),
+          schema: createSuccessSchema(SubscriberSchema),
         },
       },
     },
@@ -173,10 +163,7 @@ export const remove = createRoute({
       description: "OK — app user deleted successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean(),
-            data: z.object({ id: z.string() }),
-          }),
+          schema: createSuccessSchema(z.object({ id: z.string() })),
         },
       },
     },

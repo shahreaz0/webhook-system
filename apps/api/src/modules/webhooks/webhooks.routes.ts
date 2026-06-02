@@ -1,6 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createErrorSchema } from "stoker/openapi/schemas";
-import { NotFoundSchema } from "@/api/lib/common-schemas";
+import { createSuccessSchema, NotFoundSchema } from "@/api/lib/common-schemas";
 import {
   SubscriberParamsSchema,
   WebhookCreateSchema,
@@ -27,10 +27,7 @@ export const list = createRoute({
       description: "OK — list returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: z.array(WebhookSchema),
-          }),
+          schema: createSuccessSchema(z.array(WebhookSchema)),
         },
       },
     },
@@ -59,7 +56,7 @@ export const create = createRoute({
       description: "Created — webhook created successfully.",
       content: {
         "application/json": {
-          schema: z.object({ success: z.boolean(), data: WebhookSchema }),
+          schema: createSuccessSchema(WebhookSchema),
         },
       },
     },
@@ -87,10 +84,7 @@ export const getOne = createRoute({
       description: "OK — webhook returned successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: WebhookSchema,
-          }),
+          schema: createSuccessSchema(WebhookSchema),
         },
       },
     },
@@ -126,10 +120,7 @@ export const patch = createRoute({
       description: "OK — webhook updated successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean().openapi({ example: true }),
-            data: WebhookSchema,
-          }),
+          schema: createSuccessSchema(WebhookSchema),
         },
       },
     },
@@ -165,10 +156,7 @@ export const remove = createRoute({
       description: "OK — webhook deleted successfully.",
       content: {
         "application/json": {
-          schema: z.object({
-            success: z.boolean(),
-            data: z.object({ id: z.string() }),
-          }),
+          schema: createSuccessSchema(z.object({ id: z.string() })),
         },
       },
     },

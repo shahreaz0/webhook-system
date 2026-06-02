@@ -30,7 +30,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
   if (!application || application.userId !== jwtPayload.id) {
     throw new HTTPException(404, {
       message: "Application not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -75,7 +75,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
   const parsedEventTypes = z.array(EventTypeSchema).parse(eventTypes);
 
   return c.json({
-    success: true,
+    status: "success" as const,
     data: parsedEventTypes,
   });
 };
@@ -96,7 +96,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
   if (!application || application.userId !== jwtPayload.id) {
     throw new HTTPException(404, {
       message: "Application not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -107,7 +107,7 @@ export const create: RouteHandler<CreateRoute, AppBindings> = async (c) => {
     },
   });
 
-  return c.json({ success: true, data: createdEventType }, 201);
+  return c.json({ status: "success" as const, data: createdEventType }, 201);
 };
 
 // ----------------------------
@@ -125,7 +125,7 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   if (!application || application.userId !== jwtPayload.id) {
     throw new HTTPException(404, {
       message: "Application not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -136,11 +136,11 @@ export const getOne: RouteHandler<GetOneRoute, AppBindings> = async (c) => {
   if (!eventType) {
     throw new HTTPException(404, {
       message: "Event type not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
-  return c.json({ success: true, data: eventType }, 200);
+  return c.json({ status: "success" as const, data: eventType }, 200);
 };
 
 // ----------------------------
@@ -159,7 +159,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
   if (!application || application.userId !== jwtPayload.id) {
     throw new HTTPException(404, {
       message: "Application not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -170,7 +170,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
   if (!eventType) {
     throw new HTTPException(404, {
       message: "Event type not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -179,7 +179,7 @@ export const patch: RouteHandler<PatchRoute, AppBindings> = async (c) => {
     data: updates,
   });
 
-  return c.json({ success: true, data: editedEventType }, 200);
+  return c.json({ status: "success" as const, data: editedEventType }, 200);
 };
 
 // ----------------------------
@@ -197,7 +197,7 @@ export const remove: RouteHandler<RemoveRoute, AppBindings> = async (c) => {
   if (!application || application.userId !== jwtPayload.id) {
     throw new HTTPException(404, {
       message: "Application not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
@@ -208,11 +208,14 @@ export const remove: RouteHandler<RemoveRoute, AppBindings> = async (c) => {
   if (!eventType) {
     throw new HTTPException(404, {
       message: "Event type not found",
-      cause: { success: false },
+      cause: { status: "error" },
     });
   }
 
   await prisma.eventType.delete({ where: { id: params.eventTypeId } });
 
-  return c.json({ success: true, data: { id: params.eventTypeId } }, 200);
+  return c.json(
+    { status: "success" as const, data: { id: params.eventTypeId } },
+    200
+  );
 };
