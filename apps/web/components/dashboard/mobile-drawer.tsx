@@ -3,8 +3,9 @@
 import { LogOut, Terminal, User as UserIcon, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "@/web/app/(auth)/hooks/use-session";
 import { Button } from "@/web/components/ui/button";
-import type { Application, User } from "@/web/lib/types";
+import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { navLinks } from "./nav-links";
 
@@ -15,18 +16,17 @@ interface MobileDrawerProps {
   mobileMenuOpen: boolean;
   setActiveApp: (app: Application | null) => void;
   setMobileMenuOpen: (open: boolean) => void;
-  user: User;
 }
 
 export function MobileDrawer({
   mobileMenuOpen,
   setMobileMenuOpen,
-  user,
   applications,
   activeApp,
   setActiveApp,
   handleLogout,
 }: MobileDrawerProps) {
+  const { data: user } = useSession();
   const pathname = usePathname();
 
   if (!mobileMenuOpen) {
@@ -113,10 +113,10 @@ export function MobileDrawer({
             </div>
             <div className="truncate">
               <div className="truncate font-semibold text-foreground text-xs">
-                {user.name}
+                {user?.name || "Developer"}
               </div>
               <div className="truncate text-[10px] text-muted-foreground">
-                {user.email}
+                {user?.email || ""}
               </div>
             </div>
           </div>

@@ -10,8 +10,9 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useSession } from "@/web/app/(auth)/hooks/use-session";
 import { Button } from "@/web/components/ui/button";
-import type { Application, User } from "@/web/lib/types";
+import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { navLinks } from "./nav-links";
 
@@ -20,16 +21,15 @@ interface SidebarProps {
   applications: Application[];
   handleLogout: () => void;
   setActiveApp: (app: Application | null) => void;
-  user: User;
 }
 
 export function Sidebar({
-  user,
   applications,
   activeApp,
   setActiveApp,
   handleLogout,
 }: SidebarProps) {
+  const { data: user } = useSession();
   const pathname = usePathname();
   const [appDropdownOpen, setAppDropdownOpen] = useState(false);
 
@@ -143,10 +143,10 @@ export function Sidebar({
           </div>
           <div className="truncate">
             <div className="truncate font-semibold text-foreground text-xs">
-              {user.name || "Developer"}
+              {user?.name || "Developer"}
             </div>
             <div className="truncate text-[10px] text-muted-foreground">
-              {user.email}
+              {user?.email || ""}
             </div>
           </div>
         </div>

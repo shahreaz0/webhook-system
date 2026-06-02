@@ -19,14 +19,14 @@ export function useUpdateActiveApp() {
     },
     onMutate: async (newApp) => {
       // Cancel outgoing refetches
-      await queryClient.cancelQueries({ queryKey: ["profile"] });
+      await queryClient.cancelQueries({ queryKey: ["session"] });
 
       // Snapshot the previous profile value
-      const previousProfile = queryClient.getQueryData<User>(["profile"]);
+      const previousProfile = queryClient.getQueryData<User>(["session"]);
 
       // Optimistically update to the new activeApplicationId
       if (previousProfile) {
-        queryClient.setQueryData<User>(["profile"], {
+        queryClient.setQueryData<User>(["session"], {
           ...previousProfile,
           activeApplicationId: newApp ? newApp.id : null,
         });
@@ -37,11 +37,11 @@ export function useUpdateActiveApp() {
     },
     onError: (_err, _newApp, context) => {
       if (context?.previousProfile) {
-        queryClient.setQueryData(["profile"], context.previousProfile);
+        queryClient.setQueryData(["session"], context.previousProfile);
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      queryClient.invalidateQueries({ queryKey: ["session"] });
     },
   });
 }
