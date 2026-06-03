@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { OverviewView } from "./components/overview-view";
+import { OverviewView } from "./_components/overview-view";
 
 export const metadata: Metadata = {
   title: "Dashboard Overview | Webhook System",

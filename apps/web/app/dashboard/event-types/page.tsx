@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EventTypesView } from "./components/event-types-view";
+import { EventTypesView } from "./_components/event-types-view";
 
 export const metadata: Metadata = {
   title: "Event Definitions | Webhook System",

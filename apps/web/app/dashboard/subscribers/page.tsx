@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SubscribersView } from "./components/subscribers-view";
+import { SubscribersView } from "./_components/subscribers-view";
 
 export const metadata: Metadata = {
   title: "Subscribers | Webhook System",

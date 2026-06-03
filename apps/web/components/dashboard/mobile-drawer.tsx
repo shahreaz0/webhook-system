@@ -3,7 +3,7 @@
 import { LogOut, Terminal, User as UserIcon, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession } from "@/web/app/(auth)/hooks/use-session";
+import { useSession } from "@/web/app/(auth)/_hooks/use-session";
 import { Button } from "@/web/components/ui/button";
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";

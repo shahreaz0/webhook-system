@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MessagesView } from "./components/messages-view";
+import { MessagesView } from "./_components/messages-view";
 
 export const metadata: Metadata = {
   title: "Delivery Logs | Webhook System",

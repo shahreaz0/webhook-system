@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ApplicationsView } from "./components/applications-view";
+import { ApplicationsView } from "./_components/applications-view";
 
 export const metadata: Metadata = {
   title: "Applications | Webhook System",

@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useSession } from "@/web/app/(auth)/hooks/use-session";
+import { useSession } from "@/web/app/(auth)/_hooks/use-session";
 import { Button } from "@/web/components/ui/button";
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";

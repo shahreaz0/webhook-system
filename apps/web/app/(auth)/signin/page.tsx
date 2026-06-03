@@ -1,6 +1,6 @@
-import { AuthHeader } from "../components/auth-header";
-import { DemoHelper } from "./components/demo-helper";
-import { SignInForm } from "./components/signin-form";
+import { AuthHeader } from "../_components/auth-header";
+import { DemoHelper } from "./_components/demo-helper";
+import { SignInForm } from "./_components/signin-form";
 
 export default function SignInPage() {
   return (
