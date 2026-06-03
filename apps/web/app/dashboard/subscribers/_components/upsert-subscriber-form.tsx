@@ -16,8 +16,8 @@ import {
   SelectValue,
 } from "@/web/components/ui/select";
 import { useApplicationsStore } from "../../applications/store";
-import { useCreateSubscriber } from "../hooks/use-create-subscriber";
-import { useUpdateSubscriber } from "../hooks/use-update-subscriber";
+import { useCreateSubscriber } from "../_hooks/use-create-subscriber";
+import { useUpdateSubscriber } from "../_hooks/use-update-subscriber";
 import { useSubscribersStore } from "../store";
 import {
   getDefaultValueForType,

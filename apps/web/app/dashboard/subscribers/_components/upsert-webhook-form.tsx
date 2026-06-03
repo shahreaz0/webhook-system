@@ -15,9 +15,9 @@ import {
 } from "@/web/components/ui/native-select";
 import { hc } from "@/web/lib/api-client";
 import { useApplicationsStore } from "../../applications/store";
-import { useGetEventTypesList } from "../../event-types/hooks/use-get-event-types-list";
-import { useCreateWebhook } from "../hooks/use-create-webhook";
-import { useUpdateWebhook } from "../hooks/use-update-webhook";
+import { useGetEventTypesList } from "../../event-types/_hooks/use-get-event-types-list";
+import { useCreateWebhook } from "../_hooks/use-create-webhook";
+import { useUpdateWebhook } from "../_hooks/use-update-webhook";
 import { useSubscribersStore } from "../store";
 
 const webhookSchema = z.object({

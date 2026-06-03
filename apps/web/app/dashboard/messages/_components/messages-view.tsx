@@ -12,9 +12,9 @@ import {
 } from "@/web/components/ui/select";
 import { cn } from "@/web/lib/utils";
 import { useApplicationsStore } from "../../applications/store";
-import { useGetEventTypesList } from "../../event-types/hooks/use-get-event-types-list";
-import { useGetSubscribersList } from "../../subscribers/hooks/use-get-subscribers-list";
-import { useGetMessagesList } from "../hooks/use-get-messages-list";
+import { useGetEventTypesList } from "../../event-types/_hooks/use-get-event-types-list";
+import { useGetSubscribersList } from "../../subscribers/_hooks/use-get-subscribers-list";
+import { useGetMessagesList } from "../_hooks/use-get-messages-list";
 import { useMessagesStore } from "../store";
 import { MessageDetails } from "./message-details";
 import { MessageItem } from "./message-item";

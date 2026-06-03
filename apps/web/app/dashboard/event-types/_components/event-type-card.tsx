@@ -21,8 +21,8 @@ import {
 } from "@/web/components/ui/card";
 import type { EventType } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
-import { useDeleteEventType } from "../hooks/use-delete-event-type";
-import { useUpdateEventType } from "../hooks/use-update-event-type";
+import { useDeleteEventType } from "../_hooks/use-delete-event-type";
+import { useUpdateEventType } from "../_hooks/use-update-event-type";
 import { useEventTypesStore } from "../store";
 
 interface EventTypeCardProps {

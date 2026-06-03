@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/web/components/ui/select";
 import type { EventType, Subscriber } from "@/web/lib/types";
-import { useTriggerMessage } from "../hooks/use-trigger-message";
+import { useTriggerMessage } from "../_hooks/use-trigger-message";
 import { getDefaultPayload, useMessagesStore } from "../store";
 
 interface TriggerEventFormProps {

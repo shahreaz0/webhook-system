@@ -17,7 +17,7 @@ import {
 } from "@/web/components/ui/card";
 import { Field, FieldError, FieldLabel } from "@/web/components/ui/field";
 import { Input } from "@/web/components/ui/input";
-import { useSignIn } from "../hooks/use-signin";
+import { useSignIn } from "../_hooks/use-signin";
 
 const signInSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),

@@ -14,8 +14,8 @@ import {
 import type { Webhook } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { useApplicationsStore } from "../../applications/store";
-import { useGetEventTypesList } from "../../event-types/hooks/use-get-event-types-list";
-import { useUpdateWebhook } from "../hooks/use-update-webhook";
+import { useGetEventTypesList } from "../../event-types/_hooks/use-get-event-types-list";
+import { useUpdateWebhook } from "../_hooks/use-update-webhook";
 import { useSubscribersStore } from "../store";
 
 interface WebhookCardProps {

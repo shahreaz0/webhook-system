@@ -2,7 +2,7 @@
 
 import { FolderKanban, Plus } from "lucide-react";
 import { Button } from "@/web/components/ui/button";
-import { useGetApplicationList } from "../hooks/use-get-application-list";
+import { useGetApplicationList } from "../_hooks/use-get-application-list";
 import { useApplicationsStore } from "../store";
 import { ApplicationCard } from "./application-card";
 import { UpsertApplicationDialog } from "./upsert-application-dialog";

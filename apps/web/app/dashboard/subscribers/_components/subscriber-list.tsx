@@ -6,7 +6,7 @@ import { Button } from "@/web/components/ui/button";
 import { Input } from "@/web/components/ui/input";
 import { cn } from "@/web/lib/utils";
 import { useApplicationsStore } from "../../applications/store";
-import { useGetSubscribersList } from "../hooks/use-get-subscribers-list";
+import { useGetSubscribersList } from "../_hooks/use-get-subscribers-list";
 import { useSubscribersStore } from "../store";
 
 export function SubscriberList() {

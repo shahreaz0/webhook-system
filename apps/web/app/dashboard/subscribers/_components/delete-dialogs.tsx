@@ -11,8 +11,8 @@ import {
   AlertDialogTitle,
 } from "@/web/components/ui/alert-dialog";
 import { useApplicationsStore } from "../../applications/store";
-import { useDeleteSubscriber } from "../hooks/use-delete-subscriber";
-import { useDeleteWebhook } from "../hooks/use-delete-webhook";
+import { useDeleteSubscriber } from "../_hooks/use-delete-subscriber";
+import { useDeleteWebhook } from "../_hooks/use-delete-webhook";
 import { useSubscribersStore } from "../store";
 
 export function DeleteDialogs() {

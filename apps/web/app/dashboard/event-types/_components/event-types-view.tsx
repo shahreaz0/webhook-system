@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/web/components/ui/button";
 import { Checkbox } from "@/web/components/ui/checkbox";
 import { useApplicationsStore } from "../../applications/store";
-import { useGetEventTypesList } from "../hooks/use-get-event-types-list";
+import { useGetEventTypesList } from "../_hooks/use-get-event-types-list";
 import { useEventTypesStore } from "../store";
 import { EventTypeCard } from "./event-type-card";
 import { UpsertEventTypeDialog } from "./upsert-event-type-dialog";

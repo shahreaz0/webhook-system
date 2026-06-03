@@ -1,7 +1,7 @@
 "use client";
 
 import { Globe } from "lucide-react";
-import { useGetWebhooksList } from "../hooks/use-get-webhooks-list";
+import { useGetWebhooksList } from "../_hooks/use-get-webhooks-list";
 import { useSubscribersStore } from "../store";
 import { WebhookCard } from "./webhook-card";
 

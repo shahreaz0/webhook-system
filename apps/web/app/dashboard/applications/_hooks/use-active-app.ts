@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useSession } from "@/web/app/(auth)/hooks/use-session";
+import { useSession } from "@/web/app/(auth)/_hooks/use-session";
 import type { Application } from "@/web/lib/types";
 import { useGetApplicationList } from "./use-get-application-list";
 

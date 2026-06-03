@@ -23,8 +23,8 @@ import {
 } from "@/web/components/ui/card";
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
-import { useDeleteApplication } from "../hooks/use-delete-application";
-import { useUpdateActiveApp } from "../hooks/use-update-active-app";
+import { useDeleteApplication } from "../_hooks/use-delete-application";
+import { useUpdateActiveApp } from "../_hooks/use-update-active-app";
 import { useApplicationsStore } from "../store";
 
 interface ApplicationCardProps {

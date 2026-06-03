@@ -5,88 +5,67 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
 import { Button } from "@/web/components/ui/button";
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/web/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/web/components/ui/field";
 import { Input } from "@/web/components/ui/input";
-import { useApplicationsStore } from "../../applications/store";
-import { useCreateEventType } from "../hooks/use-create-event-type";
-import { useUpdateEventType } from "../hooks/use-update-event-type";
-import { useEventTypesStore } from "../store";
+import { useCreateApplication } from "../_hooks/use-create-application";
+import { useUpdateApplication } from "../_hooks/use-update-application";
+import { useApplicationsStore } from "../store";
 
-const eventTypeSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Event type name is required")
-    .regex(/^[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/, {
-      message:
-        "Name must follow the format service.resource.verb (e.g. iam.user.created)",
-    }),
+const applicationSchema = z.object({
+  name: z.string().min(1, "Application name is required"),
   description: z.string().optional(),
-  groupName: z.string().optional(),
 });
 
-type EventTypeValues = z.infer<typeof eventTypeSchema>;
+type ApplicationValues = z.infer<typeof applicationSchema>;
 
-export function UpsertEventTypeForm() {
-  const { activeApp } = useApplicationsStore();
+export function UpsertApplicationForm() {
   const {
-    selectedEventType,
-    eventTypeMutationType,
-    setIsUpsertEventTypeDialogOpen,
-  } = useEventTypesStore();
+    selectedApplication,
+    applicationMutationType,
+    setIsUpsertApplicationDialogOpen,
+  } = useApplicationsStore();
+  const createMutation = useCreateApplication();
+  const updateMutation = useUpdateApplication();
 
-  const appId = activeApp?.id || "";
+  const isEdit = applicationMutationType === "edit";
 
-  const createMutation = useCreateEventType(appId);
-  const updateMutation = useUpdateEventType(appId);
-
-  const isEdit = eventTypeMutationType === "edit";
-
-  const form = useForm<EventTypeValues>({
-    resolver: zodResolver(eventTypeSchema),
+  const form = useForm<ApplicationValues>({
+    resolver: zodResolver(applicationSchema),
     defaultValues: {
       name: "",
       description: "",
-      groupName: "",
     },
   });
 
   // Pre-fill form if editing
   useEffect(() => {
-    if (isEdit && selectedEventType) {
+    if (isEdit && selectedApplication) {
       form.reset({
-        name: selectedEventType.name,
-        description: selectedEventType.description || "",
-        groupName: selectedEventType.groupName || "",
+        name: selectedApplication.name,
+        description: selectedApplication.description || "",
       });
     } else {
       form.reset({
         name: "",
         description: "",
-        groupName: "",
       });
     }
-  }, [isEdit, selectedEventType, form]);
+  }, [isEdit, selectedApplication, form]);
 
   const isPending = createMutation.isPending || updateMutation.isPending;
   const error = createMutation.error || updateMutation.error;
 
-  function onSubmit(values: EventTypeValues) {
-    if (isEdit && selectedEventType) {
+  function onSubmit(values: ApplicationValues) {
+    if (isEdit && selectedApplication) {
       updateMutation.mutate(
         {
-          id: selectedEventType.id,
+          id: selectedApplication.id,
           name: values.name,
           description: values.description || "",
-          groupName: values.groupName || "",
         },
         {
           onSuccess: () => {
-            setIsUpsertEventTypeDialogOpen(false);
+            setIsUpsertApplicationDialogOpen(false);
             form.reset();
           },
         }
@@ -96,11 +75,10 @@ export function UpsertEventTypeForm() {
         {
           name: values.name,
           description: values.description || "",
-          groupName: values.groupName || "",
         },
         {
           onSuccess: () => {
-            setIsUpsertEventTypeDialogOpen(false);
+            setIsUpsertApplicationDialogOpen(false);
             form.reset();
           },
         }
@@ -119,7 +97,7 @@ export function UpsertEventTypeForm() {
   } else if (isEdit) {
     buttonContent = "Save Changes";
   } else {
-    buttonContent = "Save Event Type";
+    buttonContent = "Save Application";
   }
 
   return (
@@ -127,7 +105,9 @@ export function UpsertEventTypeForm() {
       {error && (
         <div className="flex items-center gap-2 border border-destructive/20 bg-destructive/10 p-3 text-destructive text-xs">
           <span className="font-semibold">Error:</span>
-          <span>{(error as any)?.message || "Failed to save event type."}</span>
+          <span>
+            {(error as any)?.message || "Failed to save application."}
+          </span>
         </div>
       )}
       <div className="space-y-4">
@@ -136,34 +116,13 @@ export function UpsertEventTypeForm() {
           name="name"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Event Trigger Name</FieldLabel>
+              <FieldLabel htmlFor={field.name}>Application Name</FieldLabel>
               <Input
                 {...field}
                 aria-invalid={fieldState.invalid}
                 disabled={isPending}
                 id={field.name}
-                placeholder="e.g. iam.user.created"
-              />
-              <FieldDescription>
-                Follow service.resource.verb convention using dot notation.
-              </FieldDescription>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-
-        <Controller
-          control={form.control}
-          name="groupName"
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Category Group</FieldLabel>
-              <Input
-                {...field}
-                aria-invalid={fieldState.invalid}
-                disabled={isPending}
-                id={field.name}
-                placeholder="e.g. Users, Billing"
+                placeholder="e.g. Stripe Sync Platform"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -181,7 +140,7 @@ export function UpsertEventTypeForm() {
                 aria-invalid={fieldState.invalid}
                 disabled={isPending}
                 id={field.name}
-                placeholder="e.g. Triggered when a new user is created"
+                placeholder="e.g. Syncs transactions and card charges"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -191,7 +150,7 @@ export function UpsertEventTypeForm() {
       <div className="flex justify-end gap-2 pt-4">
         <Button
           disabled={isPending}
-          onClick={() => setIsUpsertEventTypeDialogOpen(false)}
+          onClick={() => setIsUpsertApplicationDialogOpen(false)}
           type="button"
           variant="outline"
         >

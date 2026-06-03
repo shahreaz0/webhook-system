@@ -17,7 +17,7 @@ import {
 } from "@/web/components/ui/card";
 import { Field, FieldError, FieldLabel } from "@/web/components/ui/field";
 import { Input } from "@/web/components/ui/input";
-import { useRegister } from "../hooks/use-register";
+import { useRegister } from "../_hooks/use-register";
 
 const registerSchema = z.object({
   name: z.string().optional(),
