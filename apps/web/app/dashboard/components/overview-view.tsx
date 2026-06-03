@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
-import { apiClient } from "@/web/lib/fetch-client";
+import { hc } from "@/web/lib/api-client";
 import { cn } from "@/web/lib/utils";
 import { useApplicationsStore } from "../applications/store";
 
@@ -50,7 +50,42 @@ export function OverviewView() {
     isRefetching,
   } = useQuery({
     queryKey: ["messages", activeApp?.id],
-    queryFn: () => apiClient.getMessages(),
+    queryFn: async () => {
+      if (!activeApp) {
+        return [];
+      }
+      const resSub = await hc.applications[":applicationId"].subscribers.$get({
+        param: { applicationId: activeApp.id },
+        query: {},
+      });
+      const jsonSub = await resSub.json();
+      if (!resSub.ok) {
+        throw new Error(
+          (jsonSub as any).message || "Failed to fetch subscribers"
+        );
+      }
+      const subs = (jsonSub as any).data;
+
+      const msgPromises = subs.map(async (s: any) => {
+        const resMsg = await hc.subscribers[":subscriberId"].messages.$get({
+          param: { subscriberId: s.id },
+          query: {},
+        });
+        const jsonMsg = await resMsg.json();
+        if (!resMsg.ok) {
+          return [];
+        }
+        return (jsonMsg as any).data;
+      });
+
+      const msgLists = await Promise.all(msgPromises);
+      return msgLists
+        .flat()
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+    },
     enabled: !!activeApp,
   });
 
@@ -77,8 +112,29 @@ export function OverviewView() {
       if (!activeApp) {
         return [];
       }
-      const subs = await apiClient.getSubscribers(activeApp.id);
-      const whsPromises = subs.map((s) => apiClient.getWebhooks(s.id));
+      const resSub = await hc.applications[":applicationId"].subscribers.$get({
+        param: { applicationId: activeApp.id },
+        query: {},
+      });
+      const jsonSub = await resSub.json();
+      if (!resSub.ok) {
+        throw new Error(
+          (jsonSub as any).message || "Failed to fetch subscribers"
+        );
+      }
+      const subs = (jsonSub as any).data;
+
+      const whsPromises = subs.map(async (s: any) => {
+        const resWh = await hc.subscribers[":subscriberId"].webhooks.$get({
+          param: { subscriberId: s.id },
+          query: {},
+        });
+        const jsonWh = await resWh.json();
+        if (!resWh.ok) {
+          return [];
+        }
+        return (jsonWh as any).data;
+      });
       const whsLists = await Promise.all(whsPromises);
       return whsLists.flat();
     },

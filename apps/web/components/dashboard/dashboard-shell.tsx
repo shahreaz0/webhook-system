@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useLogout } from "@/web/app/(auth)/hooks/use-logout";
 import { useSession } from "@/web/app/(auth)/hooks/use-session";
 import { useGetApplicationList } from "@/web/app/dashboard/applications/hooks/use-get-application-list";
 import { useUpdateActiveApp } from "@/web/app/dashboard/applications/hooks/use-update-active-app";
 import { useApplicationsStore } from "@/web/app/dashboard/applications/store";
-import { apiClient } from "@/web/lib/fetch-client";
 import type { Application } from "@/web/lib/types";
 import { Header } from "./header";
 import { MobileDrawer } from "./mobile-drawer";
@@ -49,8 +49,10 @@ export function DashboardShell({ children }: DashboardShellProps) {
     }
   }, [applications, isSuccess, isProfileSuccess, session, updateActiveApp]);
 
+  const logoutMutation = useLogout();
+
   const handleLogout = async () => {
-    await apiClient.logout();
+    await logoutMutation.mutateAsync();
     router.push("/signin");
   };
 
