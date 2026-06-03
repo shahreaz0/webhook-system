@@ -4,7 +4,16 @@ import { LogOut, Terminal, User as UserIcon, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/web/app/(auth)/_hooks/use-session";
+import { useGetApplicationList } from "@/web/app/dashboard/applications/_hooks/use-get-application-list";
 import { Button } from "@/web/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/web/components/ui/select";
+import { Skeleton } from "@/web/components/ui/skeleton";
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { navLinks } from "./nav-links";
@@ -27,6 +36,7 @@ export function MobileDrawer({
   handleLogout,
 }: MobileDrawerProps) {
   const { data: user } = useSession();
+  const { isLoading: isAppsLoading } = useGetApplicationList();
   const pathname = usePathname();
 
   if (!mobileMenuOpen) {
@@ -63,24 +73,41 @@ export function MobileDrawer({
           <div className="mb-1 font-mono text-[10px] text-muted-foreground uppercase tracking-wider">
             Active App
           </div>
-          <select
-            className="w-full border border-border bg-background px-2.5 py-1.5 text-foreground text-xs focus:outline-hidden dark:border-input"
-            onChange={(e) => {
-              const selected = applications.find(
-                (a) => a.id === e.target.value
-              );
-              if (selected) {
-                setActiveApp(selected);
-              }
-            }}
-            value={activeApp?.id || ""}
-          >
-            {applications.map((app) => (
-              <option key={app.id} value={app.id}>
-                {app.name}
-              </option>
-            ))}
-          </select>
+          {isAppsLoading ? (
+            <Skeleton className="h-8 w-full" />
+          ) : (
+            <Select
+              onValueChange={(val) => {
+                const selected = applications.find((a) => a.id === val);
+                if (selected) {
+                  setActiveApp(selected);
+                }
+              }}
+              value={activeApp?.id || ""}
+            >
+              <SelectTrigger
+                className="w-full text-left"
+                id="activeAppSelector"
+              >
+                <SelectValue placeholder="Select Application">
+                  {activeApp?.name || "Select Application"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {applications.length === 0 ? (
+                  <SelectItem disabled value="none">
+                    No applications found
+                  </SelectItem>
+                ) : (
+                  applications.map((app) => (
+                    <SelectItem key={app.id} value={app.id}>
+                      {app.name}
+                    </SelectItem>
+                  ))
+                )}
+              </SelectContent>
+            </Select>
+          )}
         </div>
 
         <nav className="flex-1 space-y-1">

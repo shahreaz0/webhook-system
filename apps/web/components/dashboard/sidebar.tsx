@@ -11,7 +11,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useSession } from "@/web/app/(auth)/_hooks/use-session";
+import { useGetApplicationList } from "@/web/app/dashboard/applications/_hooks/use-get-application-list";
 import { Button } from "@/web/components/ui/button";
+import { Skeleton } from "@/web/components/ui/skeleton";
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { navLinks } from "./nav-links";
@@ -30,6 +32,7 @@ export function Sidebar({
   handleLogout,
 }: SidebarProps) {
   const { data: user } = useSession();
+  const { isLoading: isAppsLoading } = useGetApplicationList();
   const pathname = usePathname();
   const [appDropdownOpen, setAppDropdownOpen] = useState(false);
 
@@ -48,60 +51,74 @@ export function Sidebar({
 
       {/* Application Selector */}
       <div className="relative border-border border-b p-3 dark:border-input">
-        <Button
-          className="flex h-auto w-full items-center justify-between px-3 py-2 text-left text-xs dark:bg-muted/10 dark:hover:bg-muted/20"
-          onClick={() => setAppDropdownOpen(!appDropdownOpen)}
-          variant="outline"
-        >
-          <div className="truncate">
-            <div className="font-mono font-semibold text-[10px] text-muted-foreground uppercase tracking-wider">
-              Active App
+        {isAppsLoading ? (
+          <div className="flex h-auto w-full items-center justify-between border border-border bg-muted/5 px-3 py-2 text-left text-xs dark:bg-muted/10">
+            <div className="space-y-1 truncate">
+              <div className="font-mono font-semibold text-[10px] text-muted-foreground uppercase tracking-wider">
+                Active App
+              </div>
+              <Skeleton className="h-4 w-28" />
             </div>
-            <div className="mt-0.5 truncate font-semibold text-foreground">
-              {activeApp ? activeApp.name : "Select Application"}
-            </div>
+            <ChevronsUpDown className="ml-2 size-4 shrink-0 animate-pulse text-muted-foreground/50" />
           </div>
-          <ChevronsUpDown className="ml-2 size-4 shrink-0 text-muted-foreground" />
-        </Button>
-
-        {appDropdownOpen && (
-          <div className="fade-in slide-in-from-top-1 absolute right-3 left-3 z-50 mt-1 animate-in border border-border bg-card p-1 shadow-lg duration-150 dark:border-input">
-            <div className="max-h-48 overflow-y-auto">
-              {applications.length === 0 ? (
-                <div className="p-3 text-center font-mono text-muted-foreground text-xs">
-                  No applications found
+        ) : (
+          <>
+            <Button
+              className="flex h-auto w-full items-center justify-between px-3 py-2 text-left text-xs dark:bg-muted/10 dark:hover:bg-muted/20"
+              onClick={() => setAppDropdownOpen(!appDropdownOpen)}
+              variant="outline"
+            >
+              <div className="truncate">
+                <div className="font-mono font-semibold text-[10px] text-muted-foreground uppercase tracking-wider">
+                  Active App
                 </div>
-              ) : (
-                applications.map((app) => (
-                  <Button
-                    className={cn(
-                      "flex h-auto w-full items-center justify-start px-3 py-2 text-left text-xs",
-                      activeApp?.id === app.id &&
-                        "bg-primary/10 font-semibold text-primary"
-                    )}
-                    key={app.id}
-                    onClick={() => {
-                      setActiveApp(app);
-                      setAppDropdownOpen(false);
-                    }}
-                    variant="ghost"
+                <div className="mt-0.5 truncate font-semibold text-foreground">
+                  {activeApp ? activeApp.name : "Select Application"}
+                </div>
+              </div>
+              <ChevronsUpDown className="ml-2 size-4 shrink-0 text-muted-foreground" />
+            </Button>
+
+            {appDropdownOpen && (
+              <div className="fade-in slide-in-from-top-1 absolute right-3 left-3 z-50 mt-1 animate-in border border-border bg-card p-1 shadow-lg duration-150 dark:border-input">
+                <div className="max-h-48 overflow-y-auto">
+                  {applications.length === 0 ? (
+                    <div className="p-3 text-center font-mono text-muted-foreground text-xs">
+                      No applications found
+                    </div>
+                  ) : (
+                    applications.map((app) => (
+                      <Button
+                        className={cn(
+                          "flex h-auto w-full items-center justify-start px-3 py-2 text-left text-xs",
+                          activeApp?.id === app.id &&
+                            "bg-primary/10 font-semibold text-primary"
+                        )}
+                        key={app.id}
+                        onClick={() => {
+                          setActiveApp(app);
+                          setAppDropdownOpen(false);
+                        }}
+                        variant="ghost"
+                      >
+                        <span className="truncate">{app.name}</span>
+                      </Button>
+                    ))
+                  )}
+                </div>
+                <div className="mt-1 border-border border-t pt-1 dark:border-input">
+                  <Link
+                    className="flex w-full items-center gap-1.5 px-3 py-2 text-left font-semibold text-primary text-xs transition-all hover:bg-primary/5"
+                    href="/dashboard/applications"
+                    onClick={() => setAppDropdownOpen(false)}
                   >
-                    <span className="truncate">{app.name}</span>
-                  </Button>
-                ))
-              )}
-            </div>
-            <div className="mt-1 border-border border-t pt-1 dark:border-input">
-              <Link
-                className="flex w-full items-center gap-1.5 px-3 py-2 text-left font-semibold text-primary text-xs transition-all hover:bg-primary/5"
-                href="/dashboard/applications"
-                onClick={() => setAppDropdownOpen(false)}
-              >
-                <Plus className="size-3.5" />
-                <span>Manage Applications</span>
-              </Link>
-            </div>
-          </div>
+                    <Plus className="size-3.5" />
+                    <span>Manage Applications</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
 
