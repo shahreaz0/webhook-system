@@ -2,6 +2,8 @@
 
 import { History, Layers, RefreshCw, Send } from "lucide-react";
 import { useEffect } from "react";
+import { useSession } from "@/web/app/(auth)/_hooks/use-session";
+import { useGetApplicationList } from "@/web/app/dashboard/applications/_hooks/use-get-application-list";
 import { Button } from "@/web/components/ui/button";
 import {
   Select,
@@ -10,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/web/components/ui/select";
-import { cn } from "@/web/lib/utils";
+import { Skeleton } from "@/web/components/ui/skeleton";
+import { cn, createSkeletonKeys } from "@/web/lib/utils";
 import { useApplicationsStore } from "../../applications/store";
 import { useGetEventTypesList } from "../../event-types/_hooks/use-get-event-types-list";
 import { useGetSubscribersList } from "../../subscribers/_hooks/use-get-subscribers-list";
@@ -20,7 +23,64 @@ import { MessageDetails } from "./message-details";
 import { MessageItem } from "./message-item";
 import { TriggerEventForm } from "./trigger-event-form";
 
+function MessagesSkeleton() {
+  return (
+    <div className="grid animate-pulse items-start gap-6 md:grid-cols-5">
+      {/* Left Column: Messages List */}
+      <div className="space-y-4 md:col-span-3">
+        <div className="flex items-center justify-between">
+          <div className="space-y-2">
+            <Skeleton className="h-6 w-32" />
+            <Skeleton className="h-3 w-48" />
+          </div>
+          <div className="flex gap-2">
+            <Skeleton className="h-8 w-8" />
+            <Skeleton className="h-8 w-24" />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-4 border border-border/60 bg-muted/20 px-4 py-3 dark:border-input/60">
+          <Skeleton className="h-4 w-28" />
+          <Skeleton className="h-8 w-[240px]" />
+        </div>
+
+        <div className="space-y-2">
+          {createSkeletonKeys(5, "message").map((key) => (
+            <div
+              className="space-y-2 border border-border p-3.5 dark:border-input"
+              key={key}
+            >
+              <div className="flex justify-between">
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-3.5 w-14" />
+              </div>
+              <div className="flex justify-between">
+                <Skeleton className="h-3.5 w-48" />
+                <Skeleton className="h-3 w-16" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Right Column: Message Details */}
+      <div className="space-y-6 border border-border bg-card p-4 md:col-span-2 dark:border-input">
+        <div className="space-y-2">
+          <Skeleton className="h-5 w-28" />
+          <Skeleton className="h-3.5 w-40" />
+        </div>
+        <div className="space-y-4 border-border border-t pt-4 dark:border-input">
+          <Skeleton className="h-[120px] w-full" />
+          <Skeleton className="h-[200px] w-full" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function MessagesView() {
+  const { isLoading: isSessionLoading } = useSession();
+  const { isLoading: isAppsLoading } = useGetApplicationList();
   const { activeApp } = useApplicationsStore();
   const appId = activeApp?.id || "";
 
@@ -67,6 +127,10 @@ export function MessagesView() {
     refetch,
     isRefetching,
   } = useGetMessagesList(selectedSubscriberFilterId);
+
+  if (isSessionLoading || isAppsLoading) {
+    return <MessagesSkeleton />;
+  }
 
   if (!activeApp) {
     return (

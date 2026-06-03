@@ -1,14 +1,56 @@
 "use client";
 
 import { FolderKanban, Plus } from "lucide-react";
+import { useSession } from "@/web/app/(auth)/_hooks/use-session";
 import { Button } from "@/web/components/ui/button";
+import { Skeleton } from "@/web/components/ui/skeleton";
+import { createSkeletonKeys } from "@/web/lib/utils";
 import { useGetApplicationList } from "../_hooks/use-get-application-list";
 import { useApplicationsStore } from "../store";
 import { ApplicationCard } from "./application-card";
 import { UpsertApplicationDialog } from "./upsert-application-dialog";
 
+function ApplicationsSkeleton() {
+  return (
+    <div className="animate-pulse space-y-6">
+      <div className="flex items-center justify-between">
+        <div className="space-y-2">
+          <Skeleton className="h-7 w-48" />
+          <Skeleton className="h-4 w-80" />
+        </div>
+        <Skeleton className="h-9 w-32" />
+      </div>
+
+      {/* Applications Grid */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {createSkeletonKeys(3, "app").map((key) => (
+          <div
+            className="space-y-4 border border-border bg-card p-4 dark:border-input"
+            key={key}
+          >
+            <div className="flex items-center justify-between">
+              <Skeleton className="h-5 w-32" />
+              <Skeleton className="h-4 w-12" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-3 w-48" />
+              <Skeleton className="h-3 w-36" />
+            </div>
+            <div className="flex items-center justify-between pt-2">
+              <Skeleton className="h-3 w-20" />
+              <Skeleton className="h-7 w-16" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function ApplicationsView() {
-  const { data: applications = [], isLoading } = useGetApplicationList();
+  const { data: applications = [], isLoading: isAppsLoading } =
+    useGetApplicationList();
+  const { isLoading: isSessionLoading } = useSession();
 
   const {
     activeApp,
@@ -23,15 +65,11 @@ export function ApplicationsView() {
     setSelectedApplication(null);
   };
 
-  function renderApplicationsContent() {
-    if (isLoading) {
-      return (
-        <div className="py-12 text-center font-mono text-muted-foreground text-xs">
-          Querying applications list...
-        </div>
-      );
-    }
+  if (isSessionLoading || isAppsLoading) {
+    return <ApplicationsSkeleton />;
+  }
 
+  function renderApplicationsContent() {
     if (applications.length === 0) {
       return (
         <div className="flex h-[40vh] flex-col items-center justify-center border border-border border-dashed p-8 text-center dark:border-input">

@@ -2,8 +2,11 @@
 
 import { Layers, RefreshCw } from "lucide-react";
 import Link from "next/link";
+import { useSession } from "@/web/app/(auth)/_hooks/use-session";
+import { useGetApplicationList } from "@/web/app/dashboard/applications/_hooks/use-get-application-list";
 import { Button } from "@/web/components/ui/button";
-import { cn } from "@/web/lib/utils";
+import { Skeleton } from "@/web/components/ui/skeleton";
+import { cn, createSkeletonKeys } from "@/web/lib/utils";
 import { useGetOverviewMessages } from "../_hooks/use-get-overview-messages";
 import { useGetOverviewWebhooks } from "../_hooks/use-get-overview-webhooks";
 import { useApplicationsStore } from "../applications/store";
@@ -12,7 +15,66 @@ import { DeliveryStream } from "./delivery-stream";
 import { MetricsGrid } from "./metrics-grid";
 import { OutcomesChart } from "./outcomes-chart";
 
+function OverviewSkeleton() {
+  return (
+    <div className="animate-pulse space-y-6">
+      {/* Top dashboard action bar */}
+      <div className="flex items-center justify-between">
+        <div className="space-y-2">
+          <Skeleton className="h-6 w-48" />
+          <Skeleton className="h-4 w-72" />
+        </div>
+        <Skeleton className="h-9 w-24" />
+      </div>
+
+      {/* Metrics Grid */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {createSkeletonKeys(4, "metric").map((key) => (
+          <div
+            className="space-y-3 border border-border bg-card p-4 dark:border-input"
+            key={key}
+          >
+            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-8 w-16" />
+            <Skeleton className="h-3.5 w-32" />
+          </div>
+        ))}
+      </div>
+
+      {/* Charts & Graphs */}
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="space-y-4 border border-border bg-card p-4 md:col-span-2 dark:border-input">
+          <Skeleton className="h-5 w-32" />
+          <Skeleton className="h-[240px] w-full" />
+        </div>
+        <div className="space-y-4 border border-border bg-card p-4 dark:border-input">
+          <Skeleton className="h-5 w-28" />
+          <Skeleton className="h-[240px] w-full" />
+        </div>
+      </div>
+
+      {/* Recent Webhook Deliveries List */}
+      <div className="space-y-4 border border-border bg-card p-4 dark:border-input">
+        <div className="flex items-center justify-between">
+          <div className="space-y-2">
+            <Skeleton className="h-5 w-44" />
+            <Skeleton className="h-3 w-64" />
+          </div>
+          <Skeleton className="h-4 w-20" />
+        </div>
+        <div className="space-y-3">
+          {createSkeletonKeys(5, "delivery").map((key) => (
+            <Skeleton className="h-10 w-full" key={key} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function OverviewView() {
+  const { isLoading: isSessionLoading } = useSession();
+  const { isLoading: isAppsLoading } = useGetApplicationList();
   const { activeApp } = useApplicationsStore();
 
   const {
@@ -35,6 +97,10 @@ export function OverviewView() {
 
   const isLoading = isLoadingMessages || isLoadingWebhooks;
   const isRefetching = isRefetchingMessages || isRefetchingWebhooks;
+
+  if (isSessionLoading || isAppsLoading) {
+    return <OverviewSkeleton />;
+  }
 
   if (!activeApp) {
     return (

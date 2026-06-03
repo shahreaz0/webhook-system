@@ -2,7 +2,11 @@
 
 import { Layers, Plus, Users } from "lucide-react";
 import { useEffect } from "react";
+import { useSession } from "@/web/app/(auth)/_hooks/use-session";
+import { useGetApplicationList } from "@/web/app/dashboard/applications/_hooks/use-get-application-list";
 import { Button } from "@/web/components/ui/button";
+import { Skeleton } from "@/web/components/ui/skeleton";
+import { createSkeletonKeys } from "@/web/lib/utils";
 import { useApplicationsStore } from "../../applications/store";
 import { resetSubscribersStore, useSubscribersStore } from "../store";
 import { DeleteDialogs } from "./delete-dialogs";
@@ -12,7 +16,76 @@ import { UpsertSubscriberDialog } from "./upsert-subscriber-dialog";
 import { UpsertWebhookDialog } from "./upsert-webhook-dialog";
 import { WebhookList } from "./webhook-list";
 
+function SubscribersSkeleton() {
+  return (
+    <div className="grid animate-pulse items-start gap-6 md:grid-cols-5">
+      {/* Left Column: Subscribers List */}
+      <div className="space-y-4 md:col-span-2">
+        <div className="flex items-center justify-between">
+          <div className="space-y-2">
+            <Skeleton className="h-6 w-28" />
+            <Skeleton className="h-3 w-36" />
+          </div>
+          <Skeleton className="h-8 w-24" />
+        </div>
+        <Skeleton className="h-8 w-full" />
+        <div className="space-y-2">
+          {createSkeletonKeys(4, "sub").map((key) => (
+            <div
+              className="space-y-2 border border-border p-3 dark:border-input"
+              key={key}
+            >
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-3 w-36" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Right Column: Subscriber Details */}
+      <div className="space-y-6 md:col-span-3">
+        <div className="space-y-4 border border-border bg-card p-4 dark:border-input">
+          <div className="flex items-center gap-3">
+            <Skeleton className="h-10 w-10" />
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-40" />
+              <Skeleton className="h-3.5 w-64" />
+            </div>
+          </div>
+          <div className="grid gap-2 border-border border-t pt-4 sm:grid-cols-2 dark:border-input">
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="h-4 w-40" />
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-28" />
+              <Skeleton className="h-3 w-48" />
+            </div>
+            <Skeleton className="h-7 w-20" />
+          </div>
+          <div className="space-y-2">
+            {createSkeletonKeys(2, "webhook").map((key) => (
+              <div
+                className="space-y-2 border border-border bg-card p-4 dark:border-input"
+                key={key}
+              >
+                <Skeleton className="h-4 w-48" />
+                <Skeleton className="h-3.5 w-full" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function SubscribersView() {
+  const { isLoading: isSessionLoading } = useSession();
+  const { isLoading: isAppsLoading } = useGetApplicationList();
   const { activeApp } = useApplicationsStore();
   const {
     selectedSubscriber,
@@ -25,6 +98,10 @@ export function SubscribersView() {
   useEffect(() => {
     resetSubscribersStore();
   }, [activeApp?.id]);
+
+  if (isSessionLoading || isAppsLoading) {
+    return <SubscribersSkeleton />;
+  }
 
   if (!activeApp) {
     return (

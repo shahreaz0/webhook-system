@@ -29,7 +29,17 @@ export function DashboardShell({ children }: DashboardShellProps) {
     updateActiveApp.mutate(app);
   };
 
-  const { data: session, isSuccess: isProfileSuccess } = useSession();
+  const {
+    data: session,
+    isSuccess: isProfileSuccess,
+    isError: isSessionError,
+  } = useSession();
+
+  useEffect(() => {
+    if (isSessionError) {
+      router.push("/signin");
+    }
+  }, [isSessionError, router]);
 
   useEffect(() => {
     if (!(isSuccess && isProfileSuccess)) {
@@ -55,19 +65,6 @@ export function DashboardShell({ children }: DashboardShellProps) {
     await logoutMutation.mutateAsync();
     router.push("/signin");
   };
-
-  if (!session) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-2">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-          <span className="font-mono text-muted-foreground text-xs">
-            LOADING SESSION...
-          </span>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative flex min-h-screen bg-background">
