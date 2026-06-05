@@ -19,6 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
+import { CopyButton } from "@/web/components/ui/copy-button";
 import type { EventType } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { useDeleteEventType } from "../_hooks/use-delete-event-type";
@@ -72,13 +73,42 @@ export function EventTypeCard({
       <CardHeader className="p-4 pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1 truncate pr-2">
-            <div className="truncate font-mono text-[9px] text-muted-foreground">
-              ID: {eventType.id}
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground">
+              <span className="truncate">ID: {eventType.id}</span>
+              <CopyButton
+                successMessage="Copied event type ID!"
+                title="Copy Event Type ID"
+                value={eventType.id}
+              />
             </div>
-            <CardTitle className="mt-1.5 flex items-center gap-1.5 truncate">
-              <span className="border border-primary/10 bg-primary/5 px-2 py-0.5 font-mono font-semibold text-primary text-xs leading-none">
-                {eventType.name}
-              </span>
+            <CardTitle className="mt-2 flex items-center gap-1.5 truncate">
+              {(() => {
+                const parts = eventType.name.split(".");
+                if (parts.length === 3) {
+                  return (
+                    <span className="inline-flex items-center gap-0.5 border border-primary/10 bg-primary/5 px-2 py-0.5 font-mono text-xs leading-none">
+                      <span className="font-medium text-muted-foreground/85">
+                        {parts[0]}
+                      </span>
+                      <span className="font-bold text-muted-foreground/45">
+                        .
+                      </span>
+                      <span className="font-semibold text-foreground">
+                        {parts[1]}
+                      </span>
+                      <span className="font-bold text-muted-foreground/45">
+                        .
+                      </span>
+                      <span className="font-bold text-primary">{parts[2]}</span>
+                    </span>
+                  );
+                }
+                return (
+                  <span className="border border-primary/10 bg-primary/5 px-2 py-0.5 font-mono font-semibold text-primary text-xs leading-none">
+                    {eventType.name}
+                  </span>
+                );
+              })()}
             </CardTitle>
           </div>
           <div className="flex shrink-0 items-center gap-1.5">

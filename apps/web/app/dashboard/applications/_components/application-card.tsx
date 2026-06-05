@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ExternalLink, Pencil, Trash2 } from "lucide-react";
+import { Check, Pencil, Trash2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,6 +21,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
+import { CopyButton } from "@/web/components/ui/copy-button";
 import type { Application } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { useDeleteApplication } from "../_hooks/use-delete-application";
@@ -57,8 +58,13 @@ export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="truncate">
-            <div className="truncate font-mono text-[10px] text-muted-foreground">
-              ID: {app.id}
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground">
+              <span className="truncate">ID: {app.id}</span>
+              <CopyButton
+                successMessage="Copied application ID!"
+                title="Copy Application ID"
+                value={app.id}
+              />
             </div>
             <CardTitle className="mt-1 truncate font-semibold text-sm">
               {app.name}
@@ -71,7 +77,7 @@ export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
             </span>
           ) : (
             <Button
-              className="h-5 px-2 font-bold font-mono text-[9px] opacity-0 transition-all group-hover:opacity-100"
+              className="h-5 px-2 font-bold font-mono text-[9px]"
               onClick={() => updateActiveApp.mutate(app)}
               variant="outline"
             >
@@ -86,21 +92,7 @@ export function ApplicationCard({ app, isActive }: ApplicationCardProps) {
       <CardContent className="pt-0 font-mono text-[10px] text-muted-foreground">
         Registered: {new Date(app.createdAt).toLocaleDateString()}
       </CardContent>
-      <CardFooter className="flex justify-between border-border/50 border-t pt-3 dark:border-input/50">
-        <Button
-          className={cn(
-            "h-7 px-2 font-bold font-mono text-[10px]",
-            isActive
-              ? "pointer-events-none text-primary hover:text-primary"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-          disabled={isActive}
-          onClick={() => updateActiveApp.mutate(app)}
-          variant="ghost"
-        >
-          <ExternalLink className="size-3" />
-          Open Console
-        </Button>
+      <CardFooter className="flex justify-end border-border/50 border-t pt-3 dark:border-input/50">
         <div className="flex items-center gap-1">
           <Button
             className="h-7 w-7 text-muted-foreground hover:bg-muted"

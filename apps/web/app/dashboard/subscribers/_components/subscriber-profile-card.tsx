@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
+import { CopyButton } from "@/web/components/ui/copy-button";
 import { useSubscribersStore } from "../store";
 
 export function SubscriberProfileCard() {
@@ -82,7 +83,15 @@ export function SubscriberProfileCard() {
           <div className="font-bold font-mono text-[9px] text-muted-foreground uppercase tracking-wider">
             Subscriber Profile
           </div>
-          <CardTitle className="mt-1 font-bold font-mono text-base">
+          <div className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground">
+            <span className="truncate">ID: {selectedSubscriber.id}</span>
+            <CopyButton
+              successMessage="Copied subscriber ID!"
+              title="Copy Subscriber ID"
+              value={selectedSubscriber.id}
+            />
+          </div>
+          <CardTitle className="mt-1.5 font-bold font-mono text-base">
             {selectedSubscriber.referenceId}
           </CardTitle>
           <CardDescription className="mt-0.5 text-xs">

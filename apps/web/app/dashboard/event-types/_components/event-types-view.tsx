@@ -1,11 +1,12 @@
 "use client";
 
-import { Layers, Plus, Zap } from "lucide-react";
-import { useState } from "react";
+import { Layers, Plus, Search, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useSession } from "@/web/app/(auth)/_hooks/use-session";
 import { useGetApplicationList } from "@/web/app/dashboard/applications/_hooks/use-get-application-list";
 import { Button } from "@/web/components/ui/button";
 import { Checkbox } from "@/web/components/ui/checkbox";
+import { Input } from "@/web/components/ui/input";
 import { Skeleton } from "@/web/components/ui/skeleton";
 import { createSkeletonKeys } from "@/web/lib/utils";
 import { useApplicationsStore } from "../../applications/store";
@@ -65,11 +66,21 @@ export function EventTypesView() {
 
   const [includeArchived, setIncludeArchived] = useState(false);
   const [includeDeprecated, setIncludeDeprecated] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchQuery(searchInput);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [searchInput]);
 
   const { data: eventTypes = [], isLoading: isEventTypesLoading } =
     useGetEventTypesList(appId, {
       archived: includeArchived ? undefined : false,
       deprecated: includeDeprecated ? undefined : false,
+      search: searchQuery || undefined,
     });
 
   const {
@@ -169,32 +180,44 @@ export function EventTypesView() {
       </div>
 
       {/* Filters Bar */}
-      <div className="flex flex-wrap items-center gap-6 border border-border/60 bg-muted/20 px-4 py-3 dark:border-input/60">
-        <div className="flex items-center gap-2">
-          <Checkbox
-            checked={includeArchived}
-            id="includeArchived"
-            onCheckedChange={(checked) => setIncludeArchived(!!checked)}
+      <div className="flex flex-col justify-between gap-4 py-1 sm:flex-row sm:items-center">
+        <div className="relative w-full max-w-xs">
+          <Search className="absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            className="h-7 pl-8 text-xs"
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="Search event types..."
+            type="search"
+            value={searchInput}
           />
-          <label
-            className="cursor-pointer select-none font-medium text-xs leading-none"
-            htmlFor="includeArchived"
-          >
-            Include Archived
-          </label>
         </div>
-        <div className="flex items-center gap-2">
-          <Checkbox
-            checked={includeDeprecated}
-            id="includeDeprecated"
-            onCheckedChange={(checked) => setIncludeDeprecated(!!checked)}
-          />
-          <label
-            className="cursor-pointer select-none font-medium text-xs leading-none"
-            htmlFor="includeDeprecated"
-          >
-            Include Deprecated
-          </label>
+        <div className="flex flex-wrap items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Checkbox
+              checked={includeArchived}
+              id="includeArchived"
+              onCheckedChange={(checked) => setIncludeArchived(!!checked)}
+            />
+            <label
+              className="cursor-pointer select-none font-medium text-xs leading-none"
+              htmlFor="includeArchived"
+            >
+              Include Archived
+            </label>
+          </div>
+          <div className="flex items-center gap-2">
+            <Checkbox
+              checked={includeDeprecated}
+              id="includeDeprecated"
+              onCheckedChange={(checked) => setIncludeDeprecated(!!checked)}
+            />
+            <label
+              className="cursor-pointer select-none font-medium text-xs leading-none"
+              htmlFor="includeDeprecated"
+            >
+              Include Deprecated
+            </label>
+          </div>
         </div>
       </div>
 

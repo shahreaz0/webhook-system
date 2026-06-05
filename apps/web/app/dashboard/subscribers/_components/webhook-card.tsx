@@ -1,8 +1,7 @@
 "use client";
 
-import { Copy, Edit3, Eye, EyeOff, Trash } from "lucide-react";
+import { Edit3, Eye, EyeOff, Trash } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 import { Button } from "@/web/components/ui/button";
 import {
   Card,
@@ -11,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
+import { CopyButton } from "@/web/components/ui/copy-button";
 import type { Webhook } from "@/web/lib/types";
 import { cn } from "@/web/lib/utils";
 import { useApplicationsStore } from "../../applications/store";
@@ -26,12 +26,10 @@ function WebhookSecretKeySection({
   secret,
   revealSecret,
   setRevealSecret,
-  copyToClipboard,
 }: {
   secret: string;
   revealSecret: boolean;
   setRevealSecret: (val: boolean) => void;
-  copyToClipboard: (text: string) => void;
 }) {
   return (
     <div className="flex items-center justify-between border border-border bg-muted/40 p-2 font-mono text-[10px] dark:border-input">
@@ -57,15 +55,11 @@ function WebhookSecretKeySection({
             <Eye className="size-3" />
           )}
         </Button>
-        <Button
-          className="text-muted-foreground hover:text-foreground"
-          onClick={() => copyToClipboard(secret)}
-          size="icon-xs"
+        <CopyButton
+          successMessage="Copied signing secret!"
           title="Copy Secret"
-          variant="ghost"
-        >
-          <Copy className="size-3" />
-        </Button>
+          value={secret}
+        />
       </div>
     </div>
   );
@@ -166,11 +160,6 @@ export function WebhookCard({ wh }: WebhookCardProps) {
   const updateWhMutation = useUpdateWebhook(subId);
   const [revealSecret, setRevealSecret] = useState(false);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    toast.success("Copied to clipboard!");
-  };
-
   const toggleStatus = () => {
     updateWhMutation.mutate({
       id: wh.id,
@@ -201,7 +190,15 @@ export function WebhookCard({ wh }: WebhookCardProps) {
       <CardHeader className="p-4 pb-2">
         <div className="flex items-start justify-between">
           <div className="truncate pr-2">
-            <CardTitle className="select-all truncate font-semibold text-foreground text-sm">
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground">
+              <span className="truncate">ID: {wh.id}</span>
+              <CopyButton
+                successMessage="Copied webhook ID!"
+                title="Copy Webhook ID"
+                value={wh.id}
+              />
+            </div>
+            <CardTitle className="mt-1 select-all truncate font-semibold text-foreground text-sm">
               {wh.name || "Unnamed Webhook"}
             </CardTitle>
             <div className="mt-1 flex items-center gap-1.5 font-mono text-[9px] text-muted-foreground">
@@ -254,7 +251,6 @@ export function WebhookCard({ wh }: WebhookCardProps) {
       </CardHeader>
       <CardContent className="space-y-2.5 p-4 pt-2 pb-3">
         <WebhookSecretKeySection
-          copyToClipboard={copyToClipboard}
           revealSecret={revealSecret}
           secret={wh.secret}
           setRevealSecret={setRevealSecret}

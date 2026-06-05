@@ -4,7 +4,7 @@ import type { EventType } from "@/web/lib/types";
 
 export function eventTypesListQueryOptions(
   applicationId: string,
-  query: { archived?: boolean; deprecated?: boolean } = {}
+  query: { archived?: boolean; deprecated?: boolean; search?: string } = {}
 ) {
   return queryOptions({
     queryKey: ["event-types", applicationId, query],
@@ -18,6 +18,9 @@ export function eventTypesListQueryOptions(
       }
       if (query.deprecated !== undefined) {
         apiQuery.deprecated = String(query.deprecated);
+      }
+      if (query.search !== undefined) {
+        apiQuery.search = query.search;
       }
 
       const res = await hc.applications[":applicationId"]["event-types"].$get({
@@ -36,7 +39,7 @@ export function eventTypesListQueryOptions(
 
 export function useGetEventTypesList(
   applicationId: string,
-  query?: { archived?: boolean; deprecated?: boolean }
+  query?: { archived?: boolean; deprecated?: boolean; search?: string }
 ) {
   return useQuery(eventTypesListQueryOptions(applicationId, query));
 }

@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/web/components/ui/card";
+import { CopyButton } from "@/web/components/ui/copy-button";
 import { cn } from "@/web/lib/utils";
 import { useMessagesStore } from "../store";
 
@@ -36,8 +37,13 @@ export function MessageDetails() {
       {/* Header profile */}
       <Card>
         <CardHeader className="p-4 pb-3">
-          <div className="font-bold font-mono text-[9px] text-muted-foreground uppercase tracking-wider">
-            Audit Event ID
+          <div className="flex items-center gap-1.5 font-bold font-mono text-[9px] text-muted-foreground uppercase tracking-wider">
+            <span>Audit Event ID</span>
+            <CopyButton
+              successMessage="Copied event ID!"
+              title="Copy Event ID"
+              value={selectedMessage.id}
+            />
           </div>
           <CardTitle className="mt-1 select-all font-bold font-mono text-xs">
             {selectedMessage.id}
