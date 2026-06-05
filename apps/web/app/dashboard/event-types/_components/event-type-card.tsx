@@ -70,7 +70,7 @@ export function EventTypeCard({
         eventType.archived && "bg-muted/20 opacity-60"
       )}
     >
-      <CardHeader className="p-4 pb-3">
+      <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1 truncate pr-2">
             <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground">
@@ -126,15 +126,15 @@ export function EventTypeCard({
             )}
           </div>
         </div>
-        <CardDescription className="mt-3 line-clamp-2 h-8 text-[11px] leading-relaxed">
+        <CardDescription className="mt-2 line-clamp-2 h-8 text-[11px] leading-relaxed">
           {eventType.description || "No description provided."}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex items-center justify-between p-4 pt-0 font-mono text-[9px] text-muted-foreground">
+      <CardContent className="flex items-center justify-between pt-0 font-mono text-[10px] text-muted-foreground">
         <span>Group: {eventType.groupName || "Default"}</span>
         <span>{new Date(eventType.createdAt).toLocaleDateString()}</span>
       </CardContent>
-      <CardFooter className="flex justify-end gap-1.5 border-border/50 border-t p-3 dark:border-input/50">
+      <CardFooter className="flex justify-end gap-1.5 border-border/50 border-t pt-3 dark:border-input/50">
         <Button
           className={cn(
             "h-7 w-7 text-muted-foreground hover:bg-muted",
