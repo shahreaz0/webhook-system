@@ -2,20 +2,22 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.15",
     "husky": "^9.1.7",
-    "typescript": "^6.0.3",
+    "turbo": "^2.10.5",
+    "typescript": "^7.0.0",
     "ultracite": "7.7.0"
   },
   "name": "xwebhook-system",
   "scripts": {
-    "dev": "bun run --filter '*' dev",
-    "dev:web": "bun run --filter @xwebhook/web dev",
-    "dev:api": "bun run --filter @xwebhook/api dev",
-    "dev:automator": "bun run --filter @xwebhook/automator dev",
+    "dev": "turbo dev",
+    "dev:web": "turbo dev --filter @xwebhook/web",
+    "dev:api": "turbo dev --filter @xwebhook/api",
+    "dev:automator": "turbo dev --filter @xwebhook/automator",
+    "build": "turbo build",
+    "typecheck": "turbo typecheck",
     "check": "ultracite check",
     "fix": "ultracite fix",
-    "generate": "bun run --filter @xwebhook/database generate",
+    "generate": "turbo generate --filter @xwebhook/database",
     "migrate": "bun run --cwd packages/database migrate",
-    "typecheck": "bun run --filter '*' typecheck",
     "prepare": "husky"
   },
   "version": "1.0.0",
@@ -23,5 +25,11 @@
     "apps/*",
     "packages/*"
   ],
-  "private": true
+  "private": true,
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "version": "1.3.14"
+    }
+  }
 }

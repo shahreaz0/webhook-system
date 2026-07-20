@@ -7,6 +7,7 @@
     "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
+    "isolatedDeclarations": false,
     "types": ["bun"],
     "paths": {
       "@/api/*": ["../../apps/api/src/*"]

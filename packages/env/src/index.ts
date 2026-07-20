@@ -10,6 +10,15 @@ dotenv.config({
   ),
 });
 
+export interface Env {
+  DATABASE_URL: string;
+  JWT_SECRET: string;
+  LOG_LEVEL: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "silent";
+  NODE_ENV: "development" | "production" | "test";
+  PORT: number;
+  REDIS_URL: string;
+}
+
 const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "production", "test"])
@@ -29,7 +38,7 @@ const envSchema = z.object({
   REDIS_URL: z.url(),
 });
 
-function getEnv() {
+function getEnv(): Env {
   try {
     return envSchema.parse(process.env);
   } catch (error) {
@@ -39,4 +48,4 @@ function getEnv() {
   }
 }
 
-export const env = getEnv();
+export const env: Env = getEnv();

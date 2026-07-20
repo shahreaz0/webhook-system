@@ -9,7 +9,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "declaration": true
+    "declaration": false,
+    "erasableSyntaxOnly": true,
+    "isolatedDeclarations": false
   },
   "exclude": ["node_modules", "dist"]
 }
