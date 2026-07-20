@@ -1,4 +1,4 @@
-import type { AppType } from "@webhook/api/src/app";
+import type { AppType } from "@xwebhook/api/src/app";
 import { hc } from "hono/client";
 
 const client = hc<AppType>("");

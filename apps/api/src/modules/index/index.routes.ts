@@ -1,5 +1,5 @@
 import { createRoute, z } from "@hono/zod-openapi";
-import { checkDbConnection } from "@webhook/database";
+import { checkDbConnection } from "@xwebhook/database";
 import { checkRedisConnection } from "@/api/configs/redis";
 import { createRouter } from "@/api/lib/create-app";
 import packageJSON from "../../../package.json" with { type: "json" };

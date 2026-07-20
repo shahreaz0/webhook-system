@@ -1,5 +1,5 @@
 {
-  "name": "@webhook/api",
+  "name": "@xwebhook/api",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -8,9 +8,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@webhook/database": "workspace:*",
-    "@webhook/env": "workspace:*",
-    "@webhook/logger": "workspace:*",
+    "@xwebhook/database": "workspace:*",
+    "@xwebhook/env": "workspace:*",
+    "@xwebhook/logger": "workspace:*",
     "@hono/zod-openapi": "^1.4.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",

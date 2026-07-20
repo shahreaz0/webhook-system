@@ -1,4 +1,4 @@
-import type { Message } from "@webhook/database";
+import type { Message } from "@xwebhook/database";
 
 export interface MessageJobData {
   message: Message & { eventName: string };

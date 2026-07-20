@@ -1,5 +1,5 @@
-import type { Prisma, Webhook } from "@webhook/database";
-import { logger } from "@webhook/logger";
+import type { Prisma, Webhook } from "@xwebhook/database";
+import { logger } from "@xwebhook/logger";
 import { redisClient } from "@/api/configs/redis";
 
 const CACHE_PREFIX = "webhook_cache:";

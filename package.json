@@ -5,15 +5,15 @@
     "typescript": "^6.0.3",
     "ultracite": "7.7.0"
   },
-  "name": "webhook-system",
+  "name": "xwebhook-system",
   "scripts": {
     "dev": "bun run --filter '*' dev",
-    "dev:web": "bun run --filter @webhook/web dev",
-    "dev:api": "bun run --filter @webhook/api dev",
-    "dev:automator": "bun run --filter @webhook/automator dev",
+    "dev:web": "bun run --filter @xwebhook/web dev",
+    "dev:api": "bun run --filter @xwebhook/api dev",
+    "dev:automator": "bun run --filter @xwebhook/automator dev",
     "check": "ultracite check",
     "fix": "ultracite fix",
-    "generate": "bun run --filter @webhook/database generate",
+    "generate": "bun run --filter @xwebhook/database generate",
     "migrate": "bun run --cwd packages/database migrate",
     "typecheck": "bun run --filter '*' typecheck",
     "prepare": "husky"
@@ -23,8 +23,5 @@
     "apps/*",
     "packages/*"
   ],
-  "private": true,
-  "dependencies": {
-    "stan-js": "^1.9.1"
-  }
+  "private": true
 }

@@ -8,13 +8,13 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.ts'
-export type * from './models/Session.ts'
-export type * from './models/Application.ts'
-export type * from './models/Subscriber.ts'
-export type * from './models/Webhook.ts'
-export type * from './models/EventType.ts'
-export type * from './models/WebhookEventType.ts'
-export type * from './models/Message.ts'
-export type * from './models/MessageDelivery.ts'
-export type * from './commonInputTypes.ts'
+export type * from './models/User.js'
+export type * from './models/Session.js'
+export type * from './models/Application.js'
+export type * from './models/Subscriber.js'
+export type * from './models/Webhook.js'
+export type * from './models/EventType.js'
+export type * from './models/WebhookEventType.js'
+export type * from './models/Message.js'
+export type * from './models/MessageDelivery.js'
+export type * from './commonInputTypes.js'

@@ -1,6 +1,6 @@
 import { PrismaPg } from "@prisma/adapter-pg";
-import { env } from "@webhook/env";
-import { logger } from "@webhook/logger";
+import { env } from "@xwebhook/env";
+import { logger } from "@xwebhook/logger";
 import { PrismaClient } from "../generated/prisma/client.ts";
 
 // biome-ignore lint/performance/noBarrelFile: <none>

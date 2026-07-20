@@ -1,5 +1,5 @@
 import { z } from "@hono/zod-openapi";
-import { MessageStatus } from "@webhook/database";
+import { MessageStatus } from "@xwebhook/database";
 import {
   createSortBySchema,
   PaginationQuerySchema,

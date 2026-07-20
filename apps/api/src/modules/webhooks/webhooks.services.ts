@@ -1,4 +1,4 @@
-import { prisma } from "@webhook/database";
+import { prisma } from "@xwebhook/database";
 import {
   type CachedWebhook,
   getCachedWebhooks,

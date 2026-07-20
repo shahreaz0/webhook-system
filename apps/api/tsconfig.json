@@ -1,10 +1,12 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "types": ["bun"],
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "paths": {
-      "@/api/*": ["./src/*"],
-      "package.json": ["./package.json"]
+      "@/api/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*", "play.ts", "package.json"]
+  "include": ["src/**/*", "play.ts"]
 }

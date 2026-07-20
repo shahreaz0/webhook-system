@@ -1,13 +1,21 @@
 {
-  "name": "@webhook/logger",
+  "name": "@xwebhook/logger",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
   },
   "dependencies": {
-    "@webhook/env": "workspace:*",
+    "@xwebhook/env": "workspace:*",
     "evlog": "latest"
   }
 }

@@ -1,5 +1,5 @@
-import { prisma } from "@webhook/database";
-import { env } from "@webhook/env";
+import { prisma } from "@xwebhook/database";
+import { env } from "@xwebhook/env";
 import { getConnInfo } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import type { AppRouteHandler } from "@/api/lib/types";

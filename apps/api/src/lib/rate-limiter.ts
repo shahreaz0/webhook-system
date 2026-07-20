@@ -1,4 +1,4 @@
-import { logger } from "@webhook/logger";
+import { logger } from "@xwebhook/logger";
 import { redisClient } from "@/api/configs/redis";
 
 const RATE_LIMIT_PREFIX = "rate_limit:";

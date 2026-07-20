@@ -1,4 +1,4 @@
-import { logger } from "@webhook/logger";
+import { logger } from "@xwebhook/logger";
 import xior from "xior";
 import errorRetryPlugin from "xior/plugins/error-retry";
 

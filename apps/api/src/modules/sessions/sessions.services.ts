@@ -1,4 +1,4 @@
-import { prisma } from "@webhook/database";
+import { prisma } from "@xwebhook/database";
 export function generateSessionToken(): string {
   // Generate 32 random bytes and encode as base64url
   const bytes = crypto.getRandomValues(new Uint8Array(32));

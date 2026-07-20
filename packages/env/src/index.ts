@@ -33,7 +33,7 @@ function getEnv() {
   try {
     return envSchema.parse(process.env);
   } catch (error) {
-    console.error("Invalid env in @webhook/env");
+    console.error("Invalid env in @xwebhook/env");
     console.error(error instanceof ZodError && z.prettifyError(error));
     process.exit(1);
   }

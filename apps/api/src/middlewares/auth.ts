@@ -1,4 +1,4 @@
-import { env } from "@webhook/env";
+import { env } from "@xwebhook/env";
 import { jwt } from "hono/jwt";
 
 export function auth() {

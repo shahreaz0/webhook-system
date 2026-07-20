@@ -1,4 +1,4 @@
-import { logger } from "@webhook/logger";
+import { logger } from "@xwebhook/logger";
 import { Queue } from "bullmq";
 import { redisClient } from "@/api/configs/redis";
 

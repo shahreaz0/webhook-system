@@ -4,9 +4,6 @@
   "workspaces": {
     "": {
       "name": "hrms",
-      "dependencies": {
-        "stan-js": "^1.9.1",
-      },
       "devDependencies": {
         "@biomejs/biome": "2.4.15",
         "husky": "^9.1.7",
@@ -15,16 +12,16 @@
       },
     },
     "apps/api": {
-      "name": "@webhook/api",
+      "name": "@xwebhook/api",
       "version": "1.0.0",
       "dependencies": {
         "@hono/zod-openapi": "^1.4.0",
         "@prisma/adapter-pg": "^7.8.0",
         "@prisma/client": "^7.8.0",
         "@scalar/hono-api-reference": "^0.9.48",
-        "@webhook/database": "workspace:*",
-        "@webhook/env": "workspace:*",
-        "@webhook/logger": "workspace:*",
+        "@xwebhook/database": "workspace:*",
+        "@xwebhook/env": "workspace:*",
+        "@xwebhook/logger": "workspace:*",
         "bullmq": "^5.76.8",
         "dotenv": "^17.4.2",
         "hono": "^4.12.18",
@@ -42,21 +39,21 @@
       },
     },
     "apps/automator": {
-      "name": "@webhook/automator",
+      "name": "@xwebhook/automator",
       "version": "1.0.0",
       "dependencies": {
         "hono": "^4.12.18",
       },
     },
     "apps/web": {
-      "name": "@webhook/web",
+      "name": "@xwebhook/web",
       "version": "0.0.1",
       "dependencies": {
         "@base-ui/react": "^1.5.0",
         "@hookform/resolvers": "^5.4.0",
         "@radix-ui/react-slot": "^1.2.4",
         "@tanstack/react-query": "^5.100.14",
-        "@webhook/api-client": "workspace:*",
+        "@xwebhook/api-client": "workspace:*",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "cmdk": "^1.1.1",
@@ -75,6 +72,7 @@
         "recharts": "3.8.0",
         "shadcn": "^4.7.0",
         "sonner": "^2.0.7",
+        "stan-js": "^1.9.1",
         "tailwind-merge": "^3.6.0",
         "tw-animate-css": "^1.4.0",
         "vaul": "^1.1.2",
@@ -92,24 +90,24 @@
       },
     },
     "packages/api-client": {
-      "name": "@webhook/api-client",
+      "name": "@xwebhook/api-client",
       "version": "1.0.0",
       "dependencies": {
         "@typescript/native-preview": "^7.0.0-dev.20260527.2",
         "hono": "^4.12.18",
       },
       "devDependencies": {
-        "@webhook/api": "workspace:*",
+        "@xwebhook/api": "workspace:*",
         "typescript": "^6.0.3",
       },
     },
     "packages/database": {
-      "name": "@webhook/database",
+      "name": "@xwebhook/database",
       "version": "1.0.0",
       "dependencies": {
         "@prisma/client": "^7.8.0",
-        "@webhook/env": "workspace:*",
-        "@webhook/logger": "workspace:*",
+        "@xwebhook/env": "workspace:*",
+        "@xwebhook/logger": "workspace:*",
       },
       "devDependencies": {
         "dotenv": "^17.4.2",
@@ -117,7 +115,7 @@
       },
     },
     "packages/env": {
-      "name": "@webhook/env",
+      "name": "@xwebhook/env",
       "version": "1.0.0",
       "dependencies": {
         "dotenv": "^17.4.2",
@@ -125,10 +123,10 @@
       },
     },
     "packages/logger": {
-      "name": "@webhook/logger",
+      "name": "@xwebhook/logger",
       "version": "1.0.0",
       "dependencies": {
-        "@webhook/env": "workspace:*",
+        "@xwebhook/env": "workspace:*",
         "evlog": "latest",
       },
     },
@@ -552,19 +550,19 @@
 
     "@typescript/native-preview-win32-x64": ["@typescript/native-preview-win32-x64@7.0.0-dev.20260527.2", "", { "os": "win32", "cpu": "x64" }, "sha512-1tBlErMvQgcMqqYwsx4tytupcjCJcOUXD3vBn1Wb/kAvus1FzWQAFE0fcKBvLfcqLQfTiiEwKKEtbLjGmakqqg=="],
 
-    "@webhook/api": ["@webhook/api@workspace:apps/api"],
+    "@xwebhook/api": ["@xwebhook/api@workspace:apps/api"],
 
-    "@webhook/api-client": ["@webhook/api-client@workspace:packages/api-client"],
+    "@xwebhook/api-client": ["@xwebhook/api-client@workspace:packages/api-client"],
 
-    "@webhook/automator": ["@webhook/automator@workspace:apps/automator"],
+    "@xwebhook/automator": ["@xwebhook/automator@workspace:apps/automator"],
 
-    "@webhook/database": ["@webhook/database@workspace:packages/database"],
+    "@xwebhook/database": ["@xwebhook/database@workspace:packages/database"],
 
-    "@webhook/env": ["@webhook/env@workspace:packages/env"],
+    "@xwebhook/env": ["@xwebhook/env@workspace:packages/env"],
 
-    "@webhook/logger": ["@webhook/logger@workspace:packages/logger"],
+    "@xwebhook/logger": ["@xwebhook/logger@workspace:packages/logger"],
 
-    "@webhook/web": ["@webhook/web@workspace:apps/web"],
+    "@xwebhook/web": ["@xwebhook/web@workspace:apps/web"],
 
     "accepts": ["accepts@2.0.0", "", { "dependencies": { "mime-types": "^3.0.0", "negotiator": "^1.0.0" } }, "sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng=="],
 
@@ -784,7 +782,7 @@
 
     "eventsource-parser": ["eventsource-parser@3.0.8", "", {}, "sha512-70QWGkr4snxr0OXLRWsFLeRBIRPuQOvt4s8QYjmUlmlkyTZkRqS7EDVRZtzU3TiyDbXSzaOeF0XUKy8PchzukQ=="],
 
-    "evlog": ["evlog@2.18.1", "", { "peerDependencies": { "@nestjs/common": ">=11.1.19", "@nuxt/kit": "^4.4.2", "@orpc/server": ">=1.14.0", "@tanstack/start-client-core": "^1.167.20", "ai": ">=6.0.168", "elysia": ">=1.4.28", "express": ">=5.2.1", "fastify": ">=5.8.5", "h3": "^1.15.11", "hono": ">=4.11.0", "next": ">=16.2.4", "nitro": "^3.0.260311-beta", "nitropack": "^2.13.3", "ofetch": "^1.5.1", "react": ">=19.2.5", "react-router": ">=7.14.2", "vite": "^7.0.0 || ^8.0.0" }, "optionalPeers": ["@nestjs/common", "@nuxt/kit", "@orpc/server", "@tanstack/start-client-core", "ai", "elysia", "express", "fastify", "h3", "hono", "next", "nitro", "nitropack", "ofetch", "react", "react-router", "vite"] }, "sha512-uP7NNcmgQST0VdJ5c+gm4uBOOQDc/lGDWwH6aRS2H4C6mu4Hm7N8bCi6cSKIz8+If6pD2uA5EgPuhvI7OH+SHA=="],
+    "evlog": ["evlog@2.22.0", "", { "peerDependencies": { "@nestjs/common": ">=11.1.28", "@nuxt/kit": "^4.4.2", "@orpc/server": ">=1.14.8", "@tanstack/start-client-core": "^1.170.14", "ai": ">=6.0.168 <8.0.0", "elysia": ">=1.4.29", "eve": ">=0.24.3", "express": ">=5.2.1", "fastify": ">=5.10.0", "h3": "^1.15.11", "hono": ">=4.12.30", "next": ">=16.2.10", "nitro": "^3.0.260311-beta", "nitropack": "^2.13.4", "ofetch": "^1.5.1", "react": ">=19.2.7", "react-router": ">=7.18.1", "vite": "^7.0.0 || ^8.0.0" }, "optionalPeers": ["@nestjs/common", "@nuxt/kit", "@orpc/server", "@tanstack/start-client-core", "ai", "elysia", "eve", "express", "fastify", "h3", "hono", "next", "nitro", "nitropack", "ofetch", "react", "react-router", "vite"] }, "sha512-xWLQIf93SPldkAuIKQPbeUlqfPrsurBOJIqbKu3KB+a5TQVqUp3qE3edvbKKmdZDmcB2v+w9pIt/RWknV9pQTw=="],
 
     "execa": ["execa@9.6.1", "", { "dependencies": { "@sindresorhus/merge-streams": "^4.0.0", "cross-spawn": "^7.0.6", "figures": "^6.1.0", "get-stream": "^9.0.0", "human-signals": "^8.0.1", "is-plain-obj": "^4.1.0", "is-stream": "^4.0.1", "npm-run-path": "^6.0.0", "pretty-ms": "^9.2.0", "signal-exit": "^4.1.0", "strip-final-newline": "^4.0.0", "yoctocolors": "^2.1.1" } }, "sha512-9Be3ZoN4LmYR90tUoVu2te2BsbzHfhJyfEiAVfz7N5/zv+jduIfLrV2xdQXOHbaD6KgpGdO9PRPM1Y4Q9QkPkA=="],
 
@@ -1466,7 +1464,7 @@
 
     "@types/pg/@types/node": ["@types/node@24.10.0", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-qzQZRBqkFsYyaSWXuEHc2WR9c0a0CXwiE5FWUvn7ZM+vdy1uZLfCunD38UzhuB7YN/J11ndbDBcTmOdxJo9Q7A=="],
 
-    "@webhook/web/typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
+    "@xwebhook/web/typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
 
     "bun-types/@types/node": ["@types/node@24.10.0", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-qzQZRBqkFsYyaSWXuEHc2WR9c0a0CXwiE5FWUvn7ZM+vdy1uZLfCunD38UzhuB7YN/J11ndbDBcTmOdxJo9Q7A=="],
 

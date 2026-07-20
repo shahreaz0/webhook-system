@@ -1,9 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "paths": {
-      "package.json": ["./package.json"]
-    }
+    "types": ["bun"]
   },
   "include": ["index.ts", "package.json"]
 }

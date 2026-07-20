@@ -1,6 +1,6 @@
-import type { Message } from "@webhook/database";
-import { prisma } from "@webhook/database";
-import { logger } from "@webhook/logger";
+import type { Message } from "@xwebhook/database";
+import { prisma } from "@xwebhook/database";
+import { logger } from "@xwebhook/logger";
 import { Worker } from "bullmq";
 import pLimit from "p-limit";
 import { MESSAGE_QUEUE } from "@/api/configs/bullmq";

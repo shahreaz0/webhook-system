@@ -1,4 +1,4 @@
-import type { MessageStatus, Prisma } from "@webhook/database";
+import type { MessageStatus, Prisma } from "@xwebhook/database";
 import type { z } from "zod";
 import type { MessageListQuerySchema } from "./messages.schemas";
 

@@ -1,9 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "paths": {
-      "package.json": ["./package.json"]
-    }
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": ["bun"]
   },
-  "include": ["prisma/**/*", "prisma.config.ts", "package.json"]
+  "include": ["prisma/**/*", "prisma.config.ts"]
 }

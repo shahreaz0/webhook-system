@@ -1,6 +1,6 @@
 import type { RouteHandler } from "@hono/zod-openapi";
-import type { Prisma } from "@webhook/database";
-import { prisma } from "@webhook/database";
+import type { Prisma } from "@xwebhook/database";
+import { prisma } from "@xwebhook/database";
 import { HTTPException } from "hono/http-exception";
 import { z } from "zod";
 import { messagesQueue } from "@/api/configs/bullmq";

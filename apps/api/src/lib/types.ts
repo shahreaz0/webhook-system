@@ -1,5 +1,5 @@
 import type { OpenAPIHono, RouteConfig, RouteHandler } from "@hono/zod-openapi";
-import type { EvlogVariables } from "@webhook/logger";
+import type { EvlogVariables } from "@xwebhook/logger";
 export interface AppBindings {
   Variables: {
     logger: EvlogVariables["Variables"]["log"];

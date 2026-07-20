@@ -1,5 +1,5 @@
-import { env } from "@webhook/env";
-import { logger } from "@webhook/logger";
+import { env } from "@xwebhook/env";
+import { logger } from "@xwebhook/logger";
 import IORedis from "ioredis";
 
 export const redisClient = new IORedis(env.REDIS_URL, {
